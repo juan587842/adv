@@ -33,3 +33,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI Agent Specific & Temp Folders
+.agent/
+.agents/
+_agent/
+_agents/
+.aios-core/
+.antigravity/
+.claude/
+.codex/
+.cursor/
+.gemini/
+src_temp/
+*.log
