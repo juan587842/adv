@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { 
   ArrowLeft, Eye, AlertTriangle, Clock, Mail, DollarSign, FileText, 
   CheckCircle2, XCircle, Play, RefreshCw, Shield, Zap, MessageCircle
@@ -24,7 +24,7 @@ const priorityConfig = {
   low:      { color: 'text-secondary/40', bg: 'bg-surface', border: 'border-primary/[0.03]', dot: 'bg-secondary/30', glow: '', label: 'BAIXO' },
 };
 
-const typeIcons: Record<string, JSX.Element> = {
+const typeIcons: Record<string, React.ReactNode> = {
   inbox_triage: <MessageCircle size={16} className="text-green-500" />,
   process_alert: <AlertTriangle size={16} className="text-red-500" />,
   deadline_warning: <Clock size={16} className="text-yellow-500" />,

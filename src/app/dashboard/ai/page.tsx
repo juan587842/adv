@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Zap, BookOpen, Plus, Play, Pause, Settings, Search,
   FileText, Eye, BarChart3, Clock, ChevronRight, Sparkles,
@@ -34,7 +34,7 @@ type Macro = {
 };
 
 // ============ CONFIG ============
-const skillTypeIcons: Record<string, JSX.Element> = {
+const skillTypeIcons: Record<string, React.ReactNode> = {
   prompt: <PenTool size={14} className="text-blue-400" />,
   analysis: <Eye size={14} className="text-green-400" />,
   generation: <Sparkles size={14} className="text-purple-400" />,

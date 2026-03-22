@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ArrowLeft, Brain, User, Heart, Scale, Clock, MessageCircle,
   Sparkles, Trash2, Plus, Search, ChevronDown, Star, Shield
@@ -18,7 +18,7 @@ type Memory = {
   source: 'manual' | 'auto';
 };
 
-const typeIcons: Record<string, JSX.Element> = {
+const typeIcons: Record<string, React.ReactNode> = {
   client_profile: <User size={14} className="text-blue-400" />,
   preference: <Heart size={14} className="text-pink-400" />,
   interaction_summary: <MessageCircle size={14} className="text-green-400" />,
