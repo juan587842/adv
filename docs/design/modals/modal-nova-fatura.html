@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#b6c6ef",
+              "secondary-fixed": "#d4e4fa",
+              "primary-fixed": "#ffdea4",
+              "on-error": "#690005",
+              "surface-container-low": "#131b2e",
+              "on-tertiary-fixed-variant": "#374669",
+              "secondary-fixed-dim": "#b9c8de",
+              "on-primary-fixed": "#261900",
+              "outline-variant": "#4d463a",
+              "on-secondary-container": "#a7b6cc",
+              "on-secondary": "#233143",
+              "primary-container": "#c9a96e",
+              "on-primary-fixed-variant": "#5a4312",
+              "primary": "#e6c487",
+              "secondary": "#b9c8de",
+              "error": "#ffb4ab",
+              "surface-container-lowest": "#060e20",
+              "outline": "#998f81",
+              "error-container": "#93000a",
+              "tertiary-fixed": "#d8e2ff",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "surface-tint": "#e4c285",
+              "surface-dim": "#0b1326",
+              "inverse-surface": "#dae2fd",
+              "on-background": "#dae2fd",
+              "on-tertiary-container": "#314163",
+              "on-secondary-fixed-variant": "#39485a",
+              "inverse-on-surface": "#283044",
+              "surface-variant": "#2d3449",
+              "surface-bright": "#31394d",
+              "background": "#0b1326",
+              "tertiary": "#b8c8f2",
+              "surface-container-high": "#222a3d",
+              "on-tertiary": "#203051",
+              "on-primary": "#412d00",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#171f33",
+              "surface": "#0b1326",
+              "on-surface": "#dae2fd",
+              "surface-container-highest": "#2d3449",
+              "tertiary-container": "#9dadd5",
+              "inverse-primary": "#745a27",
+              "on-secondary-fixed": "#0d1c2d",
+              "primary-fixed-dim": "#e4c285",
+              "secondary-container": "#39485a",
+              "on-tertiary-fixed": "#081b3b"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(45, 52, 73, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen">
+<!-- Header / TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0b1326]/60 backdrop-blur-xl shadow-2xl shadow-blue-900/20 flex items-center justify-between px-8 h-16 w-full font-['Inter'] tracking-tight">
+<div class="text-xl font-bold tracking-tighter text-[#e6c487] uppercase">Juris AI</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors" href="#">Dashboard</a>
+<a class="text-[#e6c487] border-b-2 border-[#e6c487] pb-1" href="#">Cases</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors" href="#">Intelligence</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors" href="#">Documents</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors" href="#">Calendar</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-[#2d3449]/50 transition-all duration-300 text-[#c9a96e]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+<img alt="Legal Counsel Profile" data-alt="Portrait of a professional legal counsel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0sK0o-4iAXbMCbOCLffJ7g_bj2vRS7YXr1mffRSJBrmasd_dBGMJuuEt-2eEZXEThltY2yPxO1yzJ9ql-R2K_y7yfkoxtZQOwyEd8fisOBpohq6uIQNzTu0-eLp-EcD8ligkWTnlKS_0jOaBS19o8uVvt8Q-Y-qssu-r8rpDvZ6Q0jcvoRdnxiL9RhtxHDEvIizOkWd2GFnuw18MiAyouQ0_SYrVwnBLx2PnAlY5HTAtZolp7jW7jd6tLCONW04wOY7FZUb-uKFSN"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-[#171f33] bg-[#0b1326] flex flex-col h-full py-6 z-40 hidden lg:flex">
+<div class="px-6 mb-10 mt-16">
+<h2 class="text-[#e6c487] font-black italic text-lg">Case Intelligence</h2>
+<p class="text-xs text-outline uppercase tracking-widest mt-1">Sovereign Dark Mode</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#998f81] hover:bg-[#131b2e] hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">folder_special</span>
+<span class="font-medium text-sm">Matter Files</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#171f33] text-[#e6c487] border-r-4 border-[#e6c487] hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-medium text-sm">Statutes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#998f81] hover:bg-[#131b2e] hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-medium text-sm">Client Vault</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#998f81] hover:bg-[#131b2e] hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-medium text-sm">Research</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl active:scale-95 transition-transform">
+                New Matter
+            </button>
+<div class="mt-6 space-y-4">
+<a class="flex items-center gap-3 text-xs text-[#998f81] hover:text-[#e6c487]" href="#">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+                    Support
+                </a>
+<a class="flex items-center gap-3 text-xs text-[#998f81] hover:text-[#e6c487]" href="#">
+<span class="material-symbols-outlined text-sm">logout</span>
+                    Sign Out
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas (Background behind modal) -->
+<main class="lg:ml-64 pt-24 px-8 min-h-screen">
+<div class="max-w-6xl mx-auto opacity-20 pointer-events-none">
+<h1 class="text-4xl font-headline font-extrabold text-on-surface mb-8 tracking-tighter">Financeiro</h1>
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-8 bg-surface-container rounded-3xl p-8 h-96"></div>
+<div class="col-span-4 bg-surface-container-low rounded-3xl p-8 h-96"></div>
+</div>
+</div>
+</main>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center bg-[#060e20]/80 backdrop-blur-sm p-4">
+<!-- Centered Glassmorphism Modal: Nova Fatura -->
+<div class="glass-panel w-full max-w-2xl rounded-[2rem] overflow-hidden shadow-2xl border border-outline-variant/20">
+<!-- Modal Header -->
+<div class="px-10 pt-10 pb-6">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-3xl font-headline font-bold text-primary tracking-tight">Nova Fatura</h2>
+<p class="text-secondary text-sm mt-1">Emissão de honorários e ordens de serviço</p>
+</div>
+<button class="p-2 hover:bg-surface-variant/50 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+</div>
+<!-- Modal Body (Form) -->
+<form class="px-10 pb-10 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Cliente (Searchable Search Input) -->
+<div class="col-span-2 space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Cliente</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-xl text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/50" placeholder="Buscar cliente por nome ou CPF/CNPJ..." type="text"/>
+</div>
+</div>
+<!-- Serviço/Honorário (Textarea) -->
+<div class="col-span-2 space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Serviço / Honorário</label>
+<textarea class="w-full px-4 py-4 bg-surface-container-low border-none rounded-xl text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/50 resize-none" placeholder="Descreva o serviço jurídico prestado..." rows="3"></textarea>
+</div>
+<!-- Valor (Currency) -->
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Valor</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">R$</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-xl text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-mono" placeholder="0,00" type="text"/>
+</div>
+</div>
+<!-- Data de Vencimento -->
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Data de Vencimento</label>
+<div class="relative">
+<input class="w-full px-4 py-4 bg-surface-container-low border-none rounded-xl text-on-surface focus:ring-2 focus:ring-primary/20 transition-all [color-scheme:dark]" type="date"/>
+</div>
+</div>
+<!-- Método de Pagamento -->
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Método de Pagamento</label>
+<select class="w-full px-4 py-4 bg-surface-container-low border-none rounded-xl text-on-surface focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
+<option value="pix">Pix</option>
+<option value="boleto">Boleto</option>
+<option value="cartao">Cartão</option>
+</select>
+</div>
+<!-- Toggle: Gerar automático -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<span class="text-sm font-medium text-on-surface">Gerar boleto/Pix automático</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-6">
+<button class="px-8 py-4 text-outline font-bold hover:text-on-surface transition-colors rounded-xl" type="button">
+                        Cancelar
+                    </button>
+<button class="px-10 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-[0.98] transition-all" type="submit">
+                        Gerar Fatura
+                    </button>
+</div>
+</form>
+</div>
+</div>
+</body></html>

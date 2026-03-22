@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI - Unified Inbox</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#2d3449",
+              "on-tertiary-container": "#314163",
+              "surface": "#0b1326",
+              "on-primary-fixed": "#261900",
+              "primary": "#e6c487",
+              "inverse-primary": "#745a27",
+              "surface-container": "#171f33",
+              "surface-variant": "#2d3449",
+              "on-surface": "#dae2fd",
+              "tertiary-fixed": "#d8e2ff",
+              "surface-container-lowest": "#060e20",
+              "surface-container-high": "#222a3d",
+              "background": "#0b1326",
+              "secondary-fixed-dim": "#b9c8de",
+              "outline": "#998f81",
+              "on-error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "on-primary-fixed-variant": "#5a4312",
+              "error-container": "#93000a",
+              "tertiary": "#b8c8f2",
+              "on-secondary-fixed-variant": "#39485a",
+              "surface-bright": "#31394d",
+              "on-secondary": "#233143",
+              "primary-fixed": "#ffdea4",
+              "on-secondary-fixed": "#0d1c2d",
+              "inverse-on-surface": "#283044",
+              "secondary-container": "#39485a",
+              "on-background": "#dae2fd",
+              "on-primary": "#412d00",
+              "primary-fixed-dim": "#e4c285",
+              "on-tertiary": "#203051",
+              "inverse-surface": "#dae2fd",
+              "secondary": "#b9c8de",
+              "outline-variant": "#4d463a",
+              "on-error": "#690005",
+              "on-tertiary-fixed-variant": "#374669",
+              "on-secondary-container": "#a7b6cc",
+              "primary-container": "#c9a96e",
+              "surface-tint": "#e4c285",
+              "on-tertiary-fixed": "#081b3b",
+              "secondary-fixed": "#d4e4fa",
+              "error": "#ffb4ab",
+              "surface-container-low": "#131b2e",
+              "surface-dim": "#0b1326",
+              "tertiary-container": "#9dadd5",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #2d3449; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden h-screen flex">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col py-6 px-4 border-r border-[#2d3449]/20 bg-[#131b2e] z-50">
+<div class="mb-8 px-2">
+<h1 class="text-[#e6c487] font-bold tracking-widest uppercase font-headline">Juris AI</h1>
+<p class="text-[0.65rem] text-outline tracking-wider uppercase mt-1">The Sovereign Counsel</p>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Painel</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">folder_special</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Casos</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">group</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Contatos</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#e6c487] bg-[#2d3449]/50 rounded-xl font-semibold translate-x-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Inbox</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Calendário</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Financeiro</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">IA &amp; Skills</span>
+</div>
+</nav>
+<div class="mt-auto pt-4 space-y-1">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 hover:brightness-110 transition-all shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-xl">add_circle</span>
+                New Case
+            </button>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] transition-all cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Settings</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#998f81] hover:text-[#e6c487] transition-all cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Help</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper (shifted for Sidebar) -->
+<main class="flex-1 ml-64 flex overflow-hidden">
+<!-- Left Panel: Conversation List -->
+<section class="w-80 flex flex-col border-r border-outline-variant/20 bg-surface-container-low">
+<div class="p-4 space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-headline font-bold text-primary">Inbox</h2>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">filter_list</span>
+</div>
+<!-- Search -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full bg-surface-container border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary text-on-surface placeholder-outline/50" placeholder="Search conversations..." type="text"/>
+</div>
+<!-- Tabs -->
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest text-primary text-[0.7rem] font-bold uppercase tracking-widest whitespace-nowrap">Todas</button>
+<button class="px-3 py-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors text-[0.7rem] font-bold uppercase tracking-widest whitespace-nowrap">WhatsApp</button>
+<button class="px-3 py-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors text-[0.7rem] font-bold uppercase tracking-widest whitespace-nowrap">Email</button>
+<button class="px-3 py-1.5 rounded-lg text-outline hover:bg-surface-container transition-colors text-[0.7rem] font-bold uppercase tracking-widest whitespace-nowrap">Chat</button>
+</div>
+</div>
+<!-- List Items -->
+<div class="flex-1 overflow-y-auto">
+<!-- Active Item -->
+<div class="p-4 border-l-4 border-primary bg-surface-container-highest/40 cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-on-surface font-semibold text-sm">Maria da Silva</span>
+<span class="text-[0.65rem] text-outline">10:45 AM</span>
+</div>
+<p class="text-xs text-outline line-clamp-2 mb-2 italic">"Obrigada, Juris. Aguardo o documento..."</p>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-primary/10 text-primary text-[0.6rem] font-bold border border-primary/20">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                            IA ATIVA
+                        </span>
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(230,196,135,0.6)] ml-auto"></div>
+</div>
+</div>
+<!-- Inactive Items -->
+<div class="p-4 hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-transparent">
+<div class="flex justify-between items-start mb-1">
+<span class="text-on-surface font-semibold text-sm">João Oliveira</span>
+<span class="text-[0.65rem] text-outline">09:12 AM</span>
+</div>
+<p class="text-xs text-outline line-clamp-2 mb-2">Pode revisar a cláusula 4 do contrato?</p>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-outline/10 text-outline text-[0.6rem] font-bold">
+                            HITL ATIVO
+                        </span>
+</div>
+</div>
+<div class="p-4 hover:bg-surface-container transition-colors cursor-pointer border-l-4 border-transparent opacity-60">
+<div class="flex justify-between items-start mb-1">
+<span class="text-on-surface font-semibold text-sm">Carlos Mendes</span>
+<span class="text-[0.65rem] text-outline">Yesterday</span>
+</div>
+<p class="text-xs text-outline line-clamp-2 mb-2">O pagamento foi realizado via PIX.</p>
+</div>
+</div>
+</section>
+<!-- Middle Panel: Chat Thread -->
+<section class="flex-1 flex flex-col relative bg-surface">
+<!-- Header -->
+<header class="h-16 flex items-center justify-between px-6 border-b border-outline-variant/10 glass-panel sticky top-0 z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant/20 overflow-hidden">
+<img alt="Client Avatar" class="w-full h-full object-cover" data-alt="Portrait of a professional Brazilian woman client" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv9Oc3aH9QCtSoYRdgAVVYHdxCd0C1LQWgMiaLew3AiLAKsSVRgG6MLCNU2TbWAsSBtj0xpb6xLD3u-ZPunNhYTYwNs3sMPoJg0lbXuAga_blFFUaDfqaH007ePs0J7PWZFAcIx_hf-kD0AH4NEvw6R9-vQDad392d8Nn5YT6ziIEEosClazgk4oq7-k-oBQoPMAnjghJ8w1vLM2Zv7dShKYDDwxp4gYRm3moLLQkDGQRe49tyHk2JQ27BNWqmEp7q8nETJDBq4G9R"/>
+</div>
+<div>
+<h3 class="text-on-surface font-bold text-sm leading-tight">Maria da Silva</h3>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="text-[0.65rem] text-primary uppercase font-bold tracking-tighter">Sovereign Agent IA Ativa</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface">videocam</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Chat Area -->
+<div class="flex-1 overflow-y-auto p-8 space-y-6">
+<!-- Date Separator -->
+<div class="flex items-center gap-4 py-4">
+<div class="flex-1 h-px bg-outline-variant/20"></div>
+<span class="text-[0.6rem] font-bold text-outline uppercase tracking-[0.2em]">Hoje, 24 de Maio</span>
+<div class="flex-1 h-px bg-outline-variant/20"></div>
+</div>
+<!-- Client Message -->
+<div class="flex gap-4 max-w-[80%]">
+<div class="flex-1">
+<div class="bg-surface-container p-4 rounded-xl rounded-tl-none border border-outline-variant/10">
+<p class="text-sm leading-relaxed text-on-surface-variant">Bom dia. Gostaria de saber como está o andamento do processo contra a Construtora XYZ. Já temos alguma novidade sobre a liminar?</p>
+</div>
+<span class="text-[0.6rem] text-outline mt-1 block px-1">10:30 AM • WhatsApp</span>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex gap-4 max-w-[80%] ml-auto flex-row-reverse">
+<div class="flex-1 text-right">
+<div class="bg-primary/5 p-4 rounded-xl rounded-tr-none border border-primary/20 inline-block text-left relative overflow-hidden">
+<!-- Subtle background logo for AI messages -->
+<div class="absolute -right-4 -bottom-4 opacity-[0.03]">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<p class="text-sm leading-relaxed text-on-surface relative z-10">Olá, Maria! Sou a IA da Juris e estou acompanhando seu caso. Verifiquei no sistema do tribunal e o juiz abriu conclusão para decisão ontem às 17h. Geralmente, liminares desse tipo são despachadas em até 48 horas úteis.</p>
+<div class="mt-3 flex items-center gap-2 relative z-10">
+<span class="text-[0.6rem] font-bold text-primary uppercase tracking-widest border border-primary/30 px-1.5 py-0.5 rounded">Juris IA Response</span>
+</div>
+</div>
+<span class="text-[0.6rem] text-outline mt-1 block px-1">10:31 AM • Enviado Automaticamente</span>
+</div>
+</div>
+<!-- Client Message -->
+<div class="flex gap-4 max-w-[80%]">
+<div class="flex-1">
+<div class="bg-surface-container p-4 rounded-xl rounded-tl-none border border-outline-variant/10">
+<p class="text-sm leading-relaxed text-on-surface-variant">Obrigada, Juris. Aguardo o documento então para revisar os próximos passos.</p>
+</div>
+<span class="text-[0.6rem] text-outline mt-1 block px-1">10:45 AM • WhatsApp</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<footer class="p-6 bg-surface-container-low border-t border-outline-variant/10">
+<div class="glass-panel rounded-2xl border border-outline-variant/20 p-2 shadow-2xl">
+<div class="flex items-center gap-2 px-3 py-1 border-b border-outline-variant/10 mb-2">
+<button class="text-[0.65rem] font-bold uppercase tracking-wider text-primary border-b-2 border-primary pb-1">Responder</button>
+<button class="text-[0.65rem] font-bold uppercase tracking-wider text-outline hover:text-on-surface px-4 pb-1">Nota Interna</button>
+<div class="ml-auto flex items-center gap-2">
+<span class="text-[0.6rem] text-outline font-medium">HITL Bypass</span>
+<div class="w-8 h-4 bg-outline-variant/30 rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-2 h-2 bg-outline rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="relative">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-sm text-on-surface resize-none p-3 h-24 placeholder-outline/40" placeholder="Digite sua resposta aqui..."></textarea>
+</div>
+<div class="flex items-center justify-between p-2">
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline transition-colors">
+<span class="material-symbols-outlined text-lg">attach_file</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline transition-colors">
+<span class="material-symbols-outlined text-lg">emoji_emotions</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-outline transition-colors">
+<span class="material-symbols-outlined text-lg">alternate_email</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary-container px-6 py-2 rounded-xl font-bold text-sm flex items-center gap-2 hover:scale-[1.02] transition-transform">
+                            Enviar Resposta
+                            <span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</footer>
+</section>
+<!-- Right Panel: Context Details -->
+<section class="w-96 flex flex-col bg-surface-container border-l border-outline-variant/10 overflow-y-auto">
+<!-- Client Info -->
+<div class="p-6 border-b border-outline-variant/10">
+<h4 class="text-[0.7rem] font-bold text-outline uppercase tracking-widest mb-4">Informação do Contato</h4>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest border border-outline-variant/20 overflow-hidden">
+<img alt="Client Avatar Large" class="w-full h-full object-cover" data-alt="Portrait of a female client" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy2rI1REfzeoaahW4NTnSSCCvbN-Va4rNBlKbUkjyMPgLug0bijGEQ9QYdBiq-KEj8WvbsNlic_JkWJ2sNmMHCNNDR70PvpMMkUM50YBVZeDGxY2uSQV2JUGFeKv7s_Kbv4OjGfDOnP1DuVl2W-TuOUopHflRByRBO0mIGz0I9UHcpO6vljpooLKiGiih_jTNyEasmrdJxxvFALpeph9sUSV-q9Hqf7A0NMFBdyv78tDcr3yw42bNrL3HE6vsoIRvkNh2n7b7Adfsq"/>
+</div>
+<div>
+<h3 class="text-on-surface font-bold text-lg">Maria da Silva</h3>
+<p class="text-xs text-outline">maria.silva@email.com</p>
+<p class="text-[0.65rem] text-primary/80 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Cliente VIP - Plano Gold
+                        </p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-2 bg-surface-container-low border border-outline-variant/20 rounded-xl text-xs font-semibold hover:bg-surface-container-highest transition-colors">Ver Perfil</button>
+<button class="py-2 bg-surface-container-low border border-outline-variant/20 rounded-xl text-xs font-semibold hover:bg-surface-container-highest transition-colors">Novo Documento</button>
+</div>
+</div>
+<!-- Case Summary -->
+<div class="p-6 border-b border-outline-variant/10">
+<h4 class="text-[0.7rem] font-bold text-outline uppercase tracking-widest mb-4">Resumo do Caso</h4>
+<div class="bg-surface-container-highest/30 rounded-xl p-4 border border-outline-variant/10">
+<div class="flex justify-between mb-2">
+<span class="text-xs font-bold text-primary">CASE-2024-0089</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[0.6rem] font-bold">EM ANDAMENTO</span>
+</div>
+<p class="text-sm font-semibold text-on-surface mb-2">Ação de Indenização - Construtora XYZ</p>
+<div class="space-y-2">
+<div class="flex justify-between text-[0.65rem]">
+<span class="text-outline">Tribunal:</span>
+<span class="text-on-surface">TJSP - 2ª Vara Cível</span>
+</div>
+<div class="flex justify-between text-[0.65rem]">
+<span class="text-outline">Última Movimentação:</span>
+<span class="text-on-surface">Concluso para Decisão</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tags -->
+<div class="p-6 border-b border-outline-variant/10">
+<h4 class="text-[0.7rem] font-bold text-outline uppercase tracking-widest mb-4">Tags do Canal</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/20 text-[0.65rem] font-bold text-on-surface">Cível</span>
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/20 text-[0.65rem] font-bold text-on-surface">Prioridade Alta</span>
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/20 text-[0.65rem] font-bold text-on-surface">Liminar Pendente</span>
+<button class="p-1.5 rounded-lg border border-dashed border-outline/30 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+<!-- Private Notes -->
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-[0.7rem] font-bold text-outline uppercase tracking-widest">Notas Privadas</h4>
+<button class="text-primary text-[0.65rem] font-bold hover:underline">Ver todas</button>
+</div>
+<div class="space-y-4">
+<div class="p-3 bg-primary/5 border-l-2 border-primary rounded-r-lg">
+<p class="text-[0.7rem] text-on-surface leading-snug">"O cliente parece ansioso com a liminar. Priorizar atualização assim que sair o despacho no Diário Oficial."</p>
+<span class="text-[0.6rem] text-outline mt-2 block italic">— Dr. Eduardo, 23 Mai</span>
+</div>
+<div class="p-3 bg-surface-container-highest/40 rounded-lg">
+<p class="text-[0.7rem] text-on-surface leading-snug">"Confirmar se a guia de custas foi anexada corretamente."</p>
+<span class="text-[0.6rem] text-outline mt-2 block italic">— Admin, 20 Mai</span>
+</div>
+</div>
+<div class="mt-4 relative">
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-xl py-2 px-3 text-xs focus:ring-1 focus:ring-primary text-on-surface placeholder-outline/50" placeholder="Adicionar nota..." type="text"/>
+</div>
+</div>
+</section>
+</main>
+</body></html>

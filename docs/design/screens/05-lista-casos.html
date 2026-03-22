@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI - Lista de Casos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-background": "#dae2fd",
+              "on-primary": "#412d00",
+              "primary-fixed": "#ffdea4",
+              "on-secondary-fixed": "#0d1c2d",
+              "inverse-on-surface": "#283044",
+              "secondary-container": "#39485a",
+              "on-secondary": "#233143",
+              "tertiary": "#b8c8f2",
+              "on-secondary-fixed-variant": "#39485a",
+              "surface-bright": "#31394d",
+              "surface-container-low": "#131b2e",
+              "surface-dim": "#0b1326",
+              "tertiary-container": "#9dadd5",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "surface-tint": "#e4c285",
+              "on-tertiary-fixed": "#081b3b",
+              "secondary-fixed": "#d4e4fa",
+              "error": "#ffb4ab",
+              "on-tertiary-fixed-variant": "#374669",
+              "on-secondary-container": "#a7b6cc",
+              "primary-container": "#c9a96e",
+              "primary-fixed-dim": "#e4c285",
+              "on-tertiary": "#203051",
+              "inverse-surface": "#dae2fd",
+              "secondary": "#b9c8de",
+              "outline-variant": "#4d463a",
+              "on-error": "#690005",
+              "surface-variant": "#2d3449",
+              "on-surface": "#dae2fd",
+              "tertiary-fixed": "#d8e2ff",
+              "primary": "#e6c487",
+              "inverse-primary": "#745a27",
+              "surface-container": "#171f33",
+              "surface": "#0b1326",
+              "on-primary-fixed": "#261900",
+              "surface-container-highest": "#2d3449",
+              "on-tertiary-container": "#314163",
+              "on-primary-fixed-variant": "#5a4312",
+              "error-container": "#93000a",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "secondary-fixed-dim": "#b9c8de",
+              "outline": "#998f81",
+              "on-error-container": "#ffdad6",
+              "surface-container-lowest": "#060e20",
+              "surface-container-high": "#222a3d",
+              "background": "#0b1326"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glass-hover:hover {
+            background: rgba(45, 52, 73, 0.6);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1326;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3449;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 antialiased overflow-hidden">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-[#0b1326] flex flex-col p-6 space-y-8 z-[60] font-['Inter'] antialiased tracking-tight">
+<div class="flex items-center space-x-3 px-2">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-widest uppercase text-[#e6c487]">Juris AI</h1>
+<p class="text-[10px] text-[#998f81] uppercase tracking-[0.2em]">The Sovereign Counsel</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Painel</span>
+</a>
+<!-- Active Tab: Casos -->
+<a class="flex items-center space-x-3 px-4 py-3 text-[#e6c487] font-semibold bg-[#2d3449]/60 backdrop-blur-xl rounded-xl scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="font-medium">Casos</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">contacts</span>
+<span class="font-medium">Contatos</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">inbox</span>
+<span class="font-medium">Inbox</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-medium">Calendário</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-medium">Financeiro</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-medium">IA &amp; Skills</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#998f81] hover:bg-[#171f33] transition-all duration-300 rounded-xl group scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-medium">Follow-up</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/20">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold py-4 rounded-xl flex items-center justify-center space-x-2 shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-xl">add_circle</span>
+<span>Novo Caso</span>
+</button>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<main class="ml-64 min-h-screen relative">
+<!-- TopAppBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-50 bg-[#0b1326]/60 backdrop-blur-md flex justify-between items-center h-20 px-10 font-['Inter'] text-sm font-medium">
+<div class="flex items-center space-x-2 text-[#998f81]">
+<span>Painel</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-[#e6c487] font-semibold">Casos</span>
+</div>
+<div class="flex items-center space-x-8">
+<!-- Search (on_right) -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-surface-container-low border-none rounded-xl pl-12 pr-6 py-2.5 w-80 text-on-surface focus:ring-1 focus:ring-primary transition-all placeholder:text-outline/50" placeholder="Pesquisar processos, clientes..." type="text"/>
+</div>
+<div class="flex items-center space-x-6 text-[#c9a96e]">
+<button class="relative hover:text-[#e6c487] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="hover:text-[#e6c487] transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container/30 cursor-pointer hover:border-primary transition-all">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a professional senior lawyer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjUzJY8lrSe8A2Ejdz3FySk0lKdBLPml01xaXcHV05z8_eEPnMpGkF5TXn-Nc_vOx-3R_nfxYLRIio7wFne123jtndogc6huj0nBh6zj94-XKgO_Kz4hdDd9X7LQ1kjm7kPbuoHLl1OA7fNgBbBUVU-DhenuLRHMpFl1T5SepOcj-2CtYaJGPwMpPe7KNeXkhux1fvNXfI_IBpswU6DOnSd9WW9fBk6g0gCY9--v_4oIeZs2rsSoFfb6aPYzylF-zsC6hy140JrzPh"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-28 px-10 pb-10 max-w-7xl mx-auto">
+<!-- Filters Bar -->
+<section class="mb-8 flex flex-wrap items-center justify-between gap-6">
+<div class="flex items-center space-x-3 overflow-x-auto pb-2 md:pb-0">
+<button class="px-5 py-2.5 rounded-full bg-primary text-on-primary text-xs font-bold uppercase tracking-wider transition-all">Todos</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-highest/40 text-on-surface text-xs font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all ring-1 ring-inset ring-outline-variant/30">Em andamento</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-highest/40 text-on-surface text-xs font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all ring-1 ring-inset ring-outline-variant/30">Aguardando</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-highest/40 text-on-surface text-xs font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all ring-1 ring-inset ring-outline-variant/30">Concluídos</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-highest/40 text-on-surface text-xs font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-all ring-1 ring-inset ring-outline-variant/30">Arquivados</button>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-outline-variant/30 rounded-xl pl-4 pr-10 py-2.5 text-xs font-medium text-on-surface focus:ring-primary/20 cursor-pointer">
+<option>Área do Direito</option>
+<option>Trabalhista</option>
+<option>Civil</option>
+<option>Criminal</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-lg">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-outline-variant/30 rounded-xl pl-4 pr-10 py-2.5 text-xs font-medium text-on-surface focus:ring-primary/20 cursor-pointer">
+<option>Advogado responsável</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-lg">expand_more</span>
+</div>
+<div class="flex items-center space-x-2 text-outline text-xs font-medium pl-2">
+<span>Ordenar por:</span>
+<button class="text-primary flex items-center">
+                            Prazo mais próximo
+                            <span class="material-symbols-outlined text-sm ml-1">arrow_downward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Case Cards Grid -->
+<div class="space-y-4">
+<!-- Card 1 -->
+<div class="glass glass-hover p-6 rounded-xl relative transition-all duration-300 group overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary shadow-[0_0_15px_rgba(230,196,135,0.4)]"></div>
+<div class="flex items-center justify-between">
+<div class="flex-1 min-w-0 pr-8">
+<div class="flex items-center space-x-3 mb-1">
+<h3 class="text-lg font-bold text-on-surface truncate">Silva vs. Empresa ABC — Trabalhista</h3>
+<span class="bg-primary/10 text-primary px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ring-1 ring-inset ring-primary/20">Trabalhista</span>
+</div>
+<div class="flex items-center space-x-4 text-xs text-outline mb-4">
+<span class="font-mono">0001234-56.2025.5.01.0001</span>
+<span class="flex items-center"><span class="material-symbols-outlined text-sm mr-1">history</span> Movimentação detectada há 2h</span>
+</div>
+<div class="flex items-center space-x-12">
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover grayscale opacity-80" data-alt="Portrait of a female client" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqtnc2EAvK1L2kEjHfFjxD9QNBAxnUtnveGXvrK3U8vevLlvRI9HKCgbRDhePuqJbpFKhMXaDYIABW8uPT_Ell0BpwyEQMGw7ROesi6b_8mylNm_jfFVaazHvpcQNakCos2oWhgCqdujbzSMvogF0ZxoazVFmL1iNykQUMP0gWf9AZFHjoThd0hJOS4A_mneaYippjfk3NWedJKjq9ZTrAdZO9P03lqCIQEx4pkkuQZ81wa7EW3blJR_9RYaf5BVp3ikbuqmkmHSPD"/>
+<div class="text-xs">
+<p class="text-outline uppercase tracking-tighter text-[9px]">Cliente</p>
+<p class="font-semibold text-on-surface">Maria Heloísa Silva</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a male lawyer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcPO21yFCjvbA0HxnzzO5DT3sDigiSX_iC_DFeYjKzPk2ltZuReLmjkfBtoJCO7MnQAWDazZUT0FARjSbObvNhvwffwLwgRmQfbLqkdbenJtTlJ4aeMQbczsLQtMUE82GuZNDwXTFHnAaRej8LZCNcxMYUq-zoySkQoLJjFezpNfN4XdxThcl_gIrSKKfTXKDX-kZ8PZhG_ZK0oID1VQJHBRRPTa0JgCIDz_PzBVgt6gWWBvNAcQ5THhK35qYcSWie0_PCUrPj23ln"/>
+<div class="text-xs">
+<p class="text-outline uppercase tracking-tighter text-[9px]">Responsável</p>
+<p class="font-semibold text-on-surface">Dr. Ricardo Mendes</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end space-y-4 text-right">
+<div class="flex items-center space-x-3">
+<span class="text-xs font-bold text-error flex items-center bg-error-container/20 px-3 py-1.5 rounded-lg border border-error/20">
+<span class="material-symbols-outlined text-sm mr-2" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+                                    Contestação — 3 dias
+                                </span>
+<button class="p-2 hover:bg-white/10 rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
+<span class="text-xs font-medium text-green-400">Em andamento</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass glass-hover p-6 rounded-xl relative transition-all duration-300 group overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-outline shadow-[0_0_15px_rgba(153,143,129,0.4)]"></div>
+<div class="flex items-center justify-between">
+<div class="flex-1 min-w-0 pr-8">
+<div class="flex items-center space-x-3 mb-1">
+<h3 class="text-lg font-bold text-on-surface truncate">Inventário — Espólio de João Santos</h3>
+<span class="bg-secondary/10 text-secondary px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ring-1 ring-inset ring-secondary/20">Cível</span>
+</div>
+<div class="flex items-center space-x-4 text-xs text-outline mb-4">
+<span class="font-mono">5004321-88.2024.8.19.0001</span>
+<span class="flex items-center"><span class="material-symbols-outlined text-sm mr-1">history</span> Último acesso ontem às 17:45</span>
+</div>
+<div class="flex items-center space-x-12">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-outline text-xs font-bold">AS</div>
+<div class="text-xs">
+<p class="text-outline uppercase tracking-tighter text-[9px]">Cliente</p>
+<p class="font-semibold text-on-surface">Ana Santos (Inventariante)</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a female lawyer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVzuB9OyvHqIat6DA4sE5OODuOVzsJpTHNZrfFHtPF1Vu2a5QaEEZSNNML-ckuJlYmoh6kpVkPRTRp8o7T-wWuHeyAy_489XCaBViK4qQTVqBA-cNe9grq7E25LGfs5OS-mVVmmLxER2bBCdhHc7Ua0T0K_tt-4ezjzz7qAaAWcO9jiZ0pcTF3_-0e8nIYFyrXLoKuPuriS6JG73NsCHAhLZQip6IxKwh1iyO2XxAGy7-0hbQe1NioLrhZDatHJOt3VofzcBpNTQR0"/>
+<div class="text-xs">
+<p class="text-outline uppercase tracking-tighter text-[9px]">Responsável</p>
+<p class="font-semibold text-on-surface">Dra. Clara Viana</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end space-y-4 text-right">
+<div class="flex items-center space-x-3">
+<span class="text-xs font-medium text-outline flex items-center px-3 py-1.5">
+                                    Manifestação — 12 dias
+                                </span>
+<button class="p-2 hover:bg-white/10 rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-yellow-500/80"></span>
+<span class="text-xs font-medium text-yellow-500/80">Aguardando Despacho</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass glass-hover p-6 rounded-xl relative transition-all duration-300 group overflow-hidden opacity-90">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary shadow-[0_0_15px_rgba(230,196,135,0.4)]"></div>
+<div class="flex items-center justify-between">
+<div class="flex-1 min-w-0 pr-8">
+<div class="flex items-center space-x-3 mb-1">
+<h3 class="text-lg font-bold text-on-surface truncate">Oliveira vs. Banco Digital S.A.</h3>
+<span class="bg-primary/10 text-primary px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ring-1 ring-inset ring-primary/20">Consumidor</span>
+</div>
+<div class="flex items-center space-x-4 text-xs text-outline mb-4">
+<span class="font-mono">0024411-12.2025.8.26.0100</span>
+<span class="flex items-center"><span class="material-symbols-outlined text-sm mr-1">history</span> Protocolo realizado há 4h</span>
+</div>
+<div class="flex items-center space-x-12">
+<div class="flex items-center space-x-3">
+<img class="w-8 h-8 rounded-full object-cover grayscale opacity-80" data-alt="Portrait of a male client" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK9ll4SWrHZtrmeXJyY46RkWCFM_i_CmnRzfTyisrnek5YfwhvKDdKuS9qv44TwQCrdp3MSA52MNZRxaxGPR4uhNSv2TVrDkGYKMCdKMtCM87sqeGUHD_5zHt9lo5Cn94iFQH2JHQU-2bpTUF7WrtvBdYIHcc4WBOQpBbVaZyZFcS9urv2PwJfdz1UJ7AcBQY4Wf5aPAn7MdDH5y5QNkkU94VlW1rj9ExFhdGezPAd0E2f7MLpCkTEkJp8OFGFM7ifTXTpOUPwYUyG"/>
+<div class="text-xs">
+<p class="text-outline uppercase tracking-tighter text-[9px]">Cliente</p>
+<p class="font-semibold text-on-surface">Marcos Oliveira</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold ring-1 ring-primary/40">RM</div>
+<div class="text-xs">
+<p class="text-outline uppercase tracking-tighter text-[9px]">Responsável</p>
+<p class="font-semibold text-on-surface">Dr. Ricardo Mendes</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end space-y-4 text-right">
+<div class="flex items-center space-x-3">
+<span class="text-xs font-bold text-primary flex items-center bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">
+<span class="material-symbols-outlined text-sm mr-2">event</span>
+                                    Audiência — 15 dias
+                                </span>
+<button class="p-2 hover:bg-white/10 rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
+<span class="text-xs font-medium text-green-400">Em andamento</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Repeat for entries... Generating compact mock rows for visual density -->
+<div class="space-y-4">
+<!-- Generic Compact Rows for the remaining 5 -->
+<div class="glass glass-hover p-5 rounded-xl flex items-center justify-between transition-all duration-300">
+<div class="flex items-center space-x-6">
+<div class="w-1 bg-primary/40 h-10 rounded-full"></div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Recurso Especial — Condomínio Miramar</h4>
+<p class="text-[10px] text-outline font-mono">0045622-09.2023.8.19.0001</p>
+</div>
+</div>
+<div class="flex items-center space-x-12">
+<span class="text-[10px] font-bold text-outline-variant bg-surface-container-high px-2 py-1 rounded">CÍVEL</span>
+<span class="text-[11px] font-medium text-outline">Dra. Clara Viana</span>
+<span class="text-[11px] font-bold text-error">Prazo: Amanhã</span>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</div>
+<div class="glass glass-hover p-5 rounded-xl flex items-center justify-between transition-all duration-300">
+<div class="flex items-center space-x-6">
+<div class="w-1 bg-primary/40 h-10 rounded-full"></div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Defesa Administrativa — Posto Rota 66</h4>
+<p class="text-[10px] text-outline font-mono">33211-PROCON/RJ-2025</p>
+</div>
+</div>
+<div class="flex items-center space-x-12">
+<span class="text-[10px] font-bold text-outline-variant bg-surface-container-high px-2 py-1 rounded">ADM</span>
+<span class="text-[11px] font-medium text-outline">Dr. Ricardo Mendes</span>
+<span class="text-[11px] font-medium text-outline">Prazo: 8 dias</span>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</div>
+<div class="glass glass-hover p-5 rounded-xl flex items-center justify-between transition-all duration-300">
+<div class="flex items-center space-x-6">
+<div class="w-1 bg-green-500/40 h-10 rounded-full"></div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Divórcio Consensual — Lima/Pereira</h4>
+<p class="text-[10px] text-outline font-mono">0011223-44.2024.8.26.0100</p>
+</div>
+</div>
+<div class="flex items-center space-x-12">
+<span class="text-[10px] font-bold text-outline-variant bg-surface-container-high px-2 py-1 rounded">FAMÍLIA</span>
+<span class="text-[11px] font-medium text-outline">Dra. Clara Viana</span>
+<span class="text-[11px] font-medium text-green-400">Finalizado</span>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</div>
+<div class="glass glass-hover p-5 rounded-xl flex items-center justify-between transition-all duration-300">
+<div class="flex items-center space-x-6">
+<div class="w-1 bg-primary/40 h-10 rounded-full"></div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Ação Ordinária — Teixeira vs. União</h4>
+<p class="text-[10px] text-outline font-mono">1055667-11.2025.4.01.3400</p>
+</div>
+</div>
+<div class="flex items-center space-x-12">
+<span class="text-[10px] font-bold text-outline-variant bg-surface-container-high px-2 py-1 rounded">FEDERAL</span>
+<span class="text-[11px] font-medium text-outline">Dr. Ricardo Mendes</span>
+<span class="text-[11px] font-medium text-outline">Prazo: 22 dias</span>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</div>
+<div class="glass glass-hover p-5 rounded-xl flex items-center justify-between transition-all duration-300">
+<div class="flex items-center space-x-6">
+<div class="w-1 bg-primary/40 h-10 rounded-full"></div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Contestação — Indústria Metalúrgica Sul</h4>
+<p class="text-[10px] text-outline font-mono">0099887-65.2025.5.04.0002</p>
+</div>
+</div>
+<div class="flex items-center space-x-12">
+<span class="text-[10px] font-bold text-outline-variant bg-surface-container-high px-2 py-1 rounded">TRABALHISTA</span>
+<span class="text-[11px] font-medium text-outline">Dr. Ricardo Mendes</span>
+<span class="text-[11px] font-bold text-error">Prazo: 2 dias</span>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<footer class="mt-12 flex items-center justify-between border-t border-outline-variant/10 pt-8">
+<p class="text-xs text-outline font-medium tracking-tight">Mostrando <span class="text-on-surface">1-8</span> de 47 casos</p>
+<div class="flex items-center space-x-1">
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-outline transition-colors"><span class="material-symbols-outlined text-xl">chevron_left</span></button>
+<button class="w-9 h-9 rounded-lg bg-primary text-on-primary text-xs font-bold transition-all">1</button>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container-high text-on-surface text-xs font-medium transition-colors">2</button>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container-high text-on-surface text-xs font-medium transition-colors">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-9 h-9 rounded-lg hover:bg-surface-container-high text-on-surface text-xs font-medium transition-colors">6</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-outline transition-colors"><span class="material-symbols-outlined text-xl">chevron_right</span></button>
+</div>
+</footer>
+</div>
+<!-- Ambient Glow -->
+<div class="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/5 blur-[150px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-[-10%] left-[20%] w-[400px] h-[400px] bg-secondary/5 blur-[150px] rounded-full pointer-events-none"></div>
+</main>
+</body></html>

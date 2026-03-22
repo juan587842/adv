@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI - Novo Contato</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#b6c6ef",
+              "secondary-fixed": "#d4e4fa",
+              "primary-fixed": "#ffdea4",
+              "on-error": "#690005",
+              "surface-container-low": "#131b2e",
+              "on-tertiary-fixed-variant": "#374669",
+              "secondary-fixed-dim": "#b9c8de",
+              "on-primary-fixed": "#261900",
+              "outline-variant": "#4d463a",
+              "on-secondary-container": "#a7b6cc",
+              "on-secondary": "#233143",
+              "primary-container": "#c9a96e",
+              "on-primary-fixed-variant": "#5a4312",
+              "primary": "#e6c487",
+              "secondary": "#b9c8de",
+              "error": "#ffb4ab",
+              "surface-container-lowest": "#060e20",
+              "outline": "#998f81",
+              "error-container": "#93000a",
+              "tertiary-fixed": "#d8e2ff",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "surface-tint": "#e4c285",
+              "surface-dim": "#0b1326",
+              "inverse-surface": "#dae2fd",
+              "on-background": "#dae2fd",
+              "on-tertiary-container": "#314163",
+              "on-secondary-fixed-variant": "#39485a",
+              "inverse-on-surface": "#283044",
+              "surface-variant": "#2d3449",
+              "surface-bright": "#31394d",
+              "background": "#0b1326",
+              "tertiary": "#b8c8f2",
+              "surface-container-high": "#222a3d",
+              "on-tertiary": "#203051",
+              "on-primary": "#412d00",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#171f33",
+              "surface": "#0b1326",
+              "on-surface": "#dae2fd",
+              "surface-container-highest": "#2d3449",
+              "tertiary-container": "#9dadd5",
+              "inverse-primary": "#745a27",
+              "on-secondary-fixed": "#0d1c2d",
+              "primary-fixed-dim": "#e4c285",
+              "secondary-container": "#39485a",
+              "on-tertiary-fixed": "#081b3b"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        background-color: rgba(45, 52, 73, 0.6);
+      }
+      body {
+        background-color: #0b1326;
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex items-center justify-center p-4">
+<!-- Background Mockup (Blurry Dashboard) -->
+<div class="fixed inset-0 z-0 flex overflow-hidden pointer-events-none opacity-20">
+<div class="w-64 h-full bg-surface-container border-r border-outline-variant/10 p-6 space-y-8">
+<div class="h-8 w-32 bg-surface-variant rounded-lg"></div>
+<div class="space-y-4">
+<div class="h-4 w-full bg-surface-variant rounded"></div>
+<div class="h-4 w-4/5 bg-surface-variant rounded"></div>
+<div class="h-4 w-full bg-surface-variant rounded"></div>
+</div>
+</div>
+<div class="flex-1 p-10 space-y-10">
+<div class="h-12 w-1/4 bg-surface-variant rounded-xl"></div>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-40 bg-surface-container-high rounded-xl"></div>
+<div class="h-40 bg-surface-container-high rounded-xl"></div>
+<div class="h-40 bg-surface-container-high rounded-xl"></div>
+</div>
+<div class="h-64 bg-surface-container-high rounded-xl w-full"></div>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"></div>
+<!-- Main Modal: Novo Contato / Lead -->
+<div class="relative z-50 w-full max-w-2xl overflow-hidden rounded-[2rem] border border-outline-variant/20 shadow-2xl shadow-black/50 glass-effect">
+<!-- Header -->
+<div class="px-8 pt-8 pb-6 flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-primary">Novo Contato / Lead</h2>
+<p class="text-sm text-outline font-medium tracking-wide mt-1 uppercase">Sovereign Case Intelligence</p>
+</div>
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form Content -->
+<form class="px-8 pb-10 space-y-6">
+<!-- Type Toggle -->
+<div class="space-y-3">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1">Classificação</label>
+<div class="flex p-1 bg-surface-container-low rounded-xl w-fit">
+<button class="px-6 py-2 rounded-lg text-sm font-semibold bg-primary text-on-primary shadow-lg transition-all" type="button">Lead</button>
+<button class="px-6 py-2 rounded-lg text-sm font-semibold text-outline hover:text-on-surface transition-all" type="button">Cliente</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Nome Completo -->
+<div class="space-y-2 md:col-span-2">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1" for="nome">Nome completo</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all" id="nome" placeholder="Ex: Dr. Roberto Silva" type="text"/>
+<div class="absolute inset-0 rounded-xl pointer-events-none border border-transparent group-focus-within:border-primary/30 transition-all"></div>
+</div>
+</div>
+<!-- CPF/CNPJ -->
+<div class="space-y-2">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1" for="documento">CPF/CNPJ</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all" id="documento" placeholder="000.000.000-00" type="text"/>
+</div>
+<!-- Origem -->
+<div class="space-y-2">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1" for="origem">Origem do Lead</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer" id="origem">
+<option value="">Selecione uma opção</option>
+<option value="indicacao">Indicação Direta</option>
+<option value="marketing">Marketing Digital</option>
+<option value="evento">Evento Jurídico</option>
+<option value="outro">Outro</option>
+</select>
+</div>
+<!-- WhatsApp -->
+<div class="space-y-2">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1" for="whatsapp">WhatsApp</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-outline text-lg">call</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all" id="whatsapp" placeholder="(11) 98765-4321" type="tel"/>
+</div>
+</div>
+<!-- E-mail -->
+<div class="space-y-2">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1" for="email">E-mail</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-outline text-lg">mail</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all" id="email" placeholder="contato@exemplo.com" type="email"/>
+</div>
+</div>
+</div>
+<!-- Notas Iniciais -->
+<div class="space-y-2">
+<label class="text-xs font-bold tracking-widest text-outline uppercase ml-1" for="notas">Notas Iniciais</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/20 transition-all resize-none" id="notas" placeholder="Detalhes preliminares do caso ou intenções do lead..." rows="3"></textarea>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-4">
+<button class="px-8 py-3 rounded-xl text-sm font-bold text-outline hover:text-on-surface hover:bg-surface-variant transition-all" type="button">
+                    Cancelar
+                </button>
+<button class="px-10 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-primary to-primary-container text-on-primary shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" type="submit">
+                    Salvar Contato
+                </button>
+</div>
+</form>
+<!-- Aesthetic Sidebar/Decoration (Asymmetric Detail) -->
+<div class="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-primary/50 via-primary/0 to-primary/50"></div>
+</div>
+<!-- Background Pattern Decoration -->
+<div class="fixed bottom-0 right-0 p-8 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[12rem] text-primary" data-weight="fill">gavel</span>
+</div>
+</body></html>

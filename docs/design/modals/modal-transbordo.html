@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#e6c487",
+              "on-tertiary-fixed": "#081b3b",
+              "surface-container": "#171f33",
+              "outline": "#998f81",
+              "on-secondary-fixed": "#0d1c2d",
+              "on-error-container": "#ffdad6",
+              "on-background": "#dae2fd",
+              "outline-variant": "#4d463a",
+              "on-secondary": "#233143",
+              "on-primary": "#412d00",
+              "secondary": "#b9c8de",
+              "on-primary-container": "#543d0c",
+              "on-tertiary": "#203051",
+              "inverse-surface": "#dae2fd",
+              "surface-container-highest": "#2d3449",
+              "surface": "#0b1326",
+              "surface-container-high": "#222a3d",
+              "primary-fixed-dim": "#e4c285",
+              "tertiary": "#b8c8f2",
+              "tertiary-container": "#9dadd5",
+              "on-error": "#690005",
+              "secondary-container": "#39485a",
+              "inverse-on-surface": "#283044",
+              "on-primary-fixed": "#261900",
+              "error-container": "#93000a",
+              "secondary-fixed-dim": "#b9c8de",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "surface-container-lowest": "#060e20",
+              "on-surface": "#dae2fd",
+              "on-secondary-fixed-variant": "#39485a",
+              "error": "#ffb4ab",
+              "surface-bright": "#31394d",
+              "secondary-fixed": "#d4e4fa",
+              "surface-variant": "#2d3449",
+              "inverse-primary": "#745a27",
+              "primary-fixed": "#ffdea4",
+              "primary-container": "#c9a96e",
+              "surface-container-low": "#131b2e",
+              "on-tertiary-container": "#314163",
+              "on-surface-variant": "#d0c5b5",
+              "on-tertiary-fixed-variant": "#374669",
+              "surface-dim": "#0b1326",
+              "on-secondary-container": "#a7b6cc",
+              "surface-tint": "#e4c285",
+              "on-primary-fixed-variant": "#5a4312",
+              "tertiary-fixed": "#d8e2ff",
+              "background": "#0b1326"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-overlay {
+        background: rgba(11, 19, 38, 0.85);
+        backdrop-filter: blur(12px);
+      }
+      .premium-gradient {
+        background: linear-gradient(135deg, #e6c487 0%, #c9a96e 100%);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden">
+<!-- Background Inbox Interface (Mockup) -->
+<div class="fixed inset-0 flex">
+<!-- Side Navigation (Shared Component) -->
+<aside class="h-screen w-72 bg-[#0b1326] border-r border-[#2d3449]/30 flex flex-col py-6">
+<div class="px-8 mb-10">
+<h1 class="text-[#e6c487] font-black tracking-tighter text-2xl">The Sovereign Counsel</h1>
+<p class="text-[0.7rem] uppercase tracking-widest text-[#998f81] mt-1">Premium Legal Intelligence</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="mx-4 my-1 px-4 py-3 flex items-center gap-3 text-[#998f81]">
+<span class="material-symbols-outlined">folder_special</span>
+<span class="text-sm font-medium uppercase tracking-widest">Matter Management</span>
+</div>
+<div class="mx-4 my-1 px-4 py-3 flex items-center gap-3 bg-[#2d3449] text-[#e6c487] rounded-xl">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium uppercase tracking-widest">Document Vault</span>
+</div>
+<div class="mx-4 my-1 px-4 py-3 flex items-center gap-3 text-[#998f81]">
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-sm font-medium uppercase tracking-widest">Time Tracking</span>
+</div>
+</nav>
+</aside></div>
+<!-- Main Content Area (Blurred) -->
+<main class="flex-1 flex flex-col">
+<header class="bg-[#0b1326]/60 backdrop-blur-xl flex items-center justify-between px-8 py-4 w-full">
+<div class="text-2xl font-bold tracking-tighter text-[#e6c487]">Juris AI</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#998f81]">notifications</span>
+<span class="material-symbols-outlined text-[#998f81]">settings</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-xs">person</span>
+</div>
+</div>
+</header>
+<div class="p-8 grid grid-cols-12 gap-6 opacity-40 grayscale">
+<div class="col-span-4 bg-surface-container p-6 rounded-xl h-[819px]">
+<div class="h-10 w-full bg-surface-container-highest rounded-lg mb-4"></div>
+<div class="space-y-4">
+<div class="h-16 w-full bg-surface-container-low rounded-lg"></div>
+<div class="h-16 w-full bg-surface-container-low rounded-lg"></div>
+<div class="h-16 w-full bg-surface-container-low rounded-lg"></div>
+</div>
+</div>
+<div class="col-span-8 bg-surface-container p-6 rounded-xl flex flex-col">
+<div class="flex-1 flex flex-col justify-end gap-4">
+<div class="w-1/2 h-12 bg-surface-container-highest rounded-lg self-end"></div>
+<div class="w-2/3 h-12 bg-surface-container-low rounded-lg"></div>
+<div class="w-1/3 h-12 bg-surface-container-highest rounded-lg self-end"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[100] glass-overlay flex items-center justify-center p-6">
+<!-- Modal Container -->
+<div class="w-full max-w-2xl bg-surface-container-low rounded-xl shadow-2xl shadow-black/60 border border-outline-variant/20 overflow-hidden relative">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Alert Header -->
+<div class="p-8 pb-4">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-primary font-bold text-lg">⚠️</span>
+<h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight">IA solicita assistência humana</h2>
+</div>
+<p class="text-outline text-base leading-relaxed max-w-lg">
+                    O cliente <span class="text-primary font-medium">Maria Silva</span> mencionou um termo jurídico complexo e a IA pausou o atendimento para garantir a precisão técnica.
+                </p>
+</div>
+<!-- Context Snippet (The "Heat Map" Area) -->
+<div class="px-8 py-6">
+<div class="bg-surface-container-lowest/50 rounded-xl p-5 border-l-4 border-primary">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-[0.65rem] uppercase tracking-[0.15em] font-bold text-outline">Contexto da Conversa</span>
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="text-[0.6rem] font-bold text-primary uppercase tracking-wider">Maria Silva</span>
+<div class="bg-surface-container-highest text-on-surface p-3 rounded-xl rounded-tl-none text-sm leading-relaxed max-w-[90%]">
+                                "Gostaria de entender melhor como funciona o princípio da <span class="bg-error-container text-on-error-container px-1.5 py-0.5 rounded-md font-semibold">fungibilidade recursal</span> no meu caso de apelação."
+                            </div>
+</div>
+<div class="flex flex-col gap-1 items-end">
+<span class="text-[0.6rem] font-bold text-outline uppercase tracking-wider">Juris AI</span>
+<div class="bg-surface-container-low border border-outline-variant/20 text-outline p-3 rounded-xl rounded-tr-none text-sm italic max-w-[90%]">
+                                Atendimento em espera. Solicitando revisão de especialista...
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="p-8 pt-4 flex flex-col sm:flex-row gap-4">
+<button class="flex-1 premium-gradient text-on-primary font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+                    Assumir Conversa
+                </button>
+<button class="flex-1 bg-surface-container-highest text-on-surface font-semibold py-4 px-8 rounded-xl border border-outline-variant/30 hover:bg-surface-bright transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined">visibility</span>
+                    Apenas monitorar
+                </button>
+</div>
+<!-- Footer Meta -->
+<div class="px-8 pb-8 flex justify-between items-center text-[0.65rem] text-outline/60 uppercase tracking-widest font-medium">
+<span>ID da Sessão: JUR-9921-AI</span>
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+                    Alta Prioridade
+                </span>
+</div>
+</div>
+</div>
+</body></html>

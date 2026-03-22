@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#b9c8de",
+              "on-surface-variant": "#d0c5b5",
+              "primary-fixed-dim": "#e4c285",
+              "surface-container-high": "#222a3d",
+              "outline": "#998f81",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "on-primary": "#412d00",
+              "surface": "#0b1326",
+              "secondary-fixed": "#d4e4fa",
+              "secondary-container": "#39485a",
+              "on-secondary-fixed-variant": "#39485a",
+              "surface-container": "#171f33",
+              "on-tertiary-fixed": "#081b3b",
+              "tertiary-fixed": "#d8e2ff",
+              "on-surface": "#dae2fd",
+              "surface-container-lowest": "#060e20",
+              "surface-container-highest": "#2d3449",
+              "on-secondary-fixed": "#0d1c2d",
+              "on-primary-fixed": "#261900",
+              "inverse-surface": "#dae2fd",
+              "surface-container-low": "#131b2e",
+              "secondary": "#b9c8de",
+              "on-background": "#dae2fd",
+              "inverse-primary": "#745a27",
+              "primary": "#e6c487",
+              "on-tertiary-container": "#314163",
+              "error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#374669",
+              "primary-fixed": "#ffdea4",
+              "primary-container": "#c9a96e",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#4d463a",
+              "background": "#0b1326",
+              "surface-variant": "#2d3449",
+              "inverse-on-surface": "#283044",
+              "on-error": "#690005",
+              "on-secondary": "#233143",
+              "on-primary-container": "#543d0c",
+              "error": "#ffb4ab",
+              "on-primary-fixed-variant": "#5a4312",
+              "on-tertiary": "#203051",
+              "tertiary-container": "#9dadd5",
+              "on-secondary-container": "#a7b6cc",
+              "surface-dim": "#0b1326",
+              "tertiary": "#b8c8f2",
+              "surface-tint": "#e4c285",
+              "surface-bright": "#31394d"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary/30 selection:text-primary">
+<!-- Shell Suppression applied: Onboarding flow excludes Global Nav -->
+<main class="relative flex flex-col items-center justify-center min-h-screen px-4 py-12 overflow-hidden">
+<!-- Ambient Background Glows -->
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/5 blur-[120px] rounded-full"></div>
+<div class="w-full max-w-2xl z-10">
+<!-- Header & Progress -->
+<div class="text-center mb-10">
+<div class="flex items-center justify-center gap-2 mb-6">
+<span class="text-primary font-bold text-2xl tracking-widest uppercase">Juris AI</span>
+</div>
+<!-- Progress Bar -->
+<div class="flex items-center justify-between max-w-xs mx-auto mb-2">
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary text-xs font-bold">1</div>
+</div>
+<div class="flex-1 h-[2px] mx-2 bg-primary"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary text-xs font-bold ring-4 ring-primary/20">2</div>
+</div>
+<div class="flex-1 h-[2px] mx-2 bg-surface-container-highest"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-outline text-xs font-bold">3</div>
+</div>
+</div>
+<div class="flex justify-between max-w-xs mx-auto text-[10px] uppercase tracking-widest text-outline font-medium">
+<span>Início</span>
+<span class="text-primary-fixed-dim">Escritório</span>
+<span>Finalizar</span>
+</div>
+</div>
+<!-- Main Onboarding Card -->
+<div class="glass-panel border border-outline-variant/20 rounded-[2rem] p-8 md:p-12 shadow-2xl">
+<header class="mb-10">
+<h1 class="text-2xl md:text-3xl font-headline font-bold text-on-background tracking-tight">Configure seu escritório</h1>
+<p class="text-outline mt-2">Personalize a inteligência para o seu nicho de atuação.</p>
+</header>
+<div class="space-y-12">
+<!-- Section 1: Áreas de Atuação -->
+<section>
+<label class="block text-xs font-bold uppercase tracking-[0.1em] text-primary-fixed-dim mb-6">Áreas de atuação</label>
+<div class="flex flex-wrap gap-3">
+<!-- Chips -->
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-primary text-primary text-sm font-medium transition-all hover:bg-primary/10">Trabalhista</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant text-sm font-medium transition-all hover:border-primary/50 hover:text-primary">Cível</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-primary text-primary text-sm font-medium transition-all hover:bg-primary/10">Criminal</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant text-sm font-medium transition-all hover:border-primary/50 hover:text-primary">Família</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant text-sm font-medium transition-all hover:border-primary/50 hover:text-primary">Previdenciário</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant text-sm font-medium transition-all hover:border-primary/50 hover:text-primary">Empresarial</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant text-sm font-medium transition-all hover:border-primary/50 hover:text-primary">Tributário</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-primary text-primary text-sm font-medium transition-all hover:bg-primary/10">Consumidor</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant text-sm font-medium transition-all hover:border-primary/50 hover:text-primary">Imobiliário</button>
+</div>
+</section>
+<!-- Section 2: Equipe Stepper -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div>
+<label class="block text-xs font-bold uppercase tracking-[0.1em] text-primary-fixed-dim mb-1">Equipe</label>
+<p class="text-on-surface text-base font-medium">Quantos advogados atuam?</p>
+</div>
+<div class="flex items-center bg-surface-container-low rounded-xl p-1 border border-outline-variant/10">
+<button class="w-12 h-12 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="w-16 text-center text-xl font-bold text-on-background">5</div>
+<button class="w-12 h-12 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</section>
+<!-- Section 3: WhatsApp Integration -->
+<section class="flex items-start justify-between gap-6 p-6 rounded-2xl bg-surface-container-low border border-outline-variant/10">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+</div>
+<div>
+<h3 class="font-medium text-on-background">Conectar Evolution API</h3>
+<p class="text-sm text-outline mt-1">Configure depois em Configurações</p>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-12 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</section>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-16 pt-8 border-t border-outline-variant/10 flex items-center justify-between">
+<button class="flex items-center gap-2 text-outline font-medium px-4 py-2 hover:text-on-surface transition-colors uppercase tracking-widest text-xs">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                        Voltar
+                    </button>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-xl shadow-primary/10 active:scale-95 transition-all">
+                        Próximo
+                    </button>
+</div>
+</div>
+<!-- Footer Meta -->
+<p class="mt-8 text-center text-outline/40 text-[10px] uppercase tracking-widest">
+                Segurança de Dados Sovereign Counsel © 2024
+            </p>
+</div>
+</main>
+<!-- Support Graphic Element -->
+<div class="fixed top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="fixed top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-tertiary/5 rounded-full blur-[120px] pointer-events-none"></div>
+</body></html>

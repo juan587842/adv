@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#b6c6ef",
+              "secondary-fixed": "#d4e4fa",
+              "primary-fixed": "#ffdea4",
+              "on-error": "#690005",
+              "surface-container-low": "#131b2e",
+              "on-tertiary-fixed-variant": "#374669",
+              "secondary-fixed-dim": "#b9c8de",
+              "on-primary-fixed": "#261900",
+              "outline-variant": "#4d463a",
+              "on-secondary-container": "#a7b6cc",
+              "on-secondary": "#233143",
+              "primary-container": "#c9a96e",
+              "on-primary-fixed-variant": "#5a4312",
+              "primary": "#e6c487",
+              "secondary": "#b9c8de",
+              "error": "#ffb4ab",
+              "surface-container-lowest": "#060e20",
+              "outline": "#998f81",
+              "error-container": "#93000a",
+              "tertiary-fixed": "#d8e2ff",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "surface-tint": "#e4c285",
+              "surface-dim": "#0b1326",
+              "inverse-surface": "#dae2fd",
+              "on-background": "#dae2fd",
+              "on-tertiary-container": "#314163",
+              "on-secondary-fixed-variant": "#39485a",
+              "inverse-on-surface": "#283044",
+              "surface-variant": "#2d3449",
+              "surface-bright": "#31394d",
+              "background": "#0b1326",
+              "tertiary": "#b8c8f2",
+              "surface-container-high": "#222a3d",
+              "on-tertiary": "#203051",
+              "on-primary": "#412d00",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#171f33",
+              "surface": "#0b1326",
+              "on-surface": "#dae2fd",
+              "surface-container-highest": "#2d3449",
+              "tertiary-container": "#9dadd5",
+              "inverse-primary": "#745a27",
+              "on-secondary-fixed": "#0d1c2d",
+              "primary-fixed-dim": "#e4c285",
+              "secondary-container": "#39485a",
+              "on-tertiary-fixed": "#081b3b"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .glass-modal {
+        background: rgba(45, 52, 73, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen flex items-center justify-center p-6">
+<!-- Background Overlay simulation -->
+<div class="fixed inset-0 bg-[#060e20]/80 z-0"></div>
+<!-- Top Navigation (Shell Implementation) -->
+<nav class="fixed top-0 w-full z-50 flex items-center justify-between px-8 h-16 bg-[#0b1326]/60 backdrop-blur-xl shadow-2xl shadow-blue-900/20">
+<div class="text-xl font-bold tracking-tighter text-[#e6c487] uppercase">Juris AI</div>
+<div class="hidden md:flex space-x-8">
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-medium" href="#">Dashboard</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-medium" href="#">Cases</a>
+<a class="text-[#e6c487] border-b-2 border-[#e6c487] pb-1 font-medium" href="#">Intelligence</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-medium" href="#">Documents</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-medium" href="#">Calendar</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-[#e6c487] hover:bg-[#2d3449]/50 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-[#e6c487]/30">
+<img class="w-full h-full object-cover" data-alt="Legal Counsel Profile Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJnOS4e7kHLjWyRpCfaDZi3XhL3z7rRAOfRNe8M6RopWK1_IdDl7_z9E-kmUBE3TlUaGczOXami-0xdaYH4ao8gtxUtjr2WU1V_CYy14DVqQQY8Xn252jBdPKzS8zMh8c36hMelaUi8Nl9dX4iX_Ay-t52W2nCPcAqJ9G6ifIh7vxXyLHk-nbEVaxDStgJ8kw4SSDSEn-g0P-sSh6PflrFc86iZi9TbdExGNlq5yoIf0QBJbQphcVm-wH32cKhVpmCA486Ix7VQ3hp"/>
+</div>
+</div>
+</nav>
+<!-- Modal Container -->
+<div class="glass-modal z-10 w-full max-w-2xl rounded-xl border border-outline-variant/20 shadow-2xl overflow-hidden">
+<!-- Modal Header -->
+<div class="px-8 pt-8 pb-4 flex justify-between items-start">
+<div>
+<h1 class="font-headline text-2xl font-bold text-primary tracking-tight">Novo Evento / Prazo</h1>
+<p class="text-outline text-sm mt-1">Agende compromissos críticos e defina prioridades jurídicas.</p>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors p-1">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="px-8 pb-8 space-y-6">
+<!-- Title Field -->
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Título do evento</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container text-on-surface placeholder-outline/50 transition-all outline-none" placeholder="Ex: Audiência de Instrução e Julgamento" type="text"/>
+</div>
+<!-- Row: Type and DateTime -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Tipo</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container text-on-surface appearance-none outline-none">
+<option>Audiência</option>
+<option>Prazo</option>
+<option>Reunião</option>
+<option>Diligência</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-3 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Data e Hora</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container text-on-surface outline-none [color-scheme:dark]" type="datetime-local"/>
+</div>
+</div>
+</div>
+<!-- Case Linked -->
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Caso Vinculado</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-3 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container text-on-surface placeholder-outline/50 transition-all outline-none" placeholder="Buscar por número do processo ou nome do cliente..." type="text"/>
+</div>
+</div>
+<!-- Reminders & Priority -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+<div class="space-y-3">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Alerta de Lembrete</label>
+<div class="flex flex-wrap gap-2">
+<label class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-full cursor-pointer hover:bg-surface-variant transition-colors border border-outline-variant/10">
+<input checked="" class="rounded border-outline-variant bg-surface-container-low text-primary focus:ring-offset-background" type="checkbox"/>
+<span class="text-sm">Email</span>
+</label>
+<label class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-full cursor-pointer hover:bg-surface-variant transition-colors border border-outline-variant/10">
+<input class="rounded border-outline-variant bg-surface-container-low text-primary focus:ring-offset-background" type="checkbox"/>
+<span class="text-sm">WhatsApp</span>
+</label>
+</div>
+</div>
+<div class="space-y-3">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline ml-1">Prioridade</label>
+<div class="flex items-center justify-between bg-surface-container-low p-3 rounded-xl border border-error-container/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+<span class="text-sm font-medium">Prazo Peremptório</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-error"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-6 mt-6 border-t border-outline-variant/10">
+<button class="px-6 py-3 rounded-xl text-outline font-medium hover:text-on-surface hover:bg-surface-container transition-all" type="button">
+                    Cancelar
+                </button>
+<button class="px-8 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-bold shadow-lg shadow-primary/10 active:scale-[0.98] transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+                    Agendar Evento
+                </button>
+</div>
+</form>
+</div>
+<!-- UI Background Texture -->
+<div class="fixed top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] -z-10 rounded-full"></div>
+<div class="fixed bottom-0 left-0 w-[400px] h-[400px] bg-blue-900/10 blur-[100px] -z-10 rounded-full"></div>
+</body></html>

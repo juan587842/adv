@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configurar Nova Skill de IA | Juris AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#b6c6ef",
+              "secondary-fixed": "#d4e4fa",
+              "primary-fixed": "#ffdea4",
+              "on-error": "#690005",
+              "surface-container-low": "#131b2e",
+              "on-tertiary-fixed-variant": "#374669",
+              "secondary-fixed-dim": "#b9c8de",
+              "on-primary-fixed": "#261900",
+              "outline-variant": "#4d463a",
+              "on-secondary-container": "#a7b6cc",
+              "on-secondary": "#233143",
+              "primary-container": "#c9a96e",
+              "on-primary-fixed-variant": "#5a4312",
+              "primary": "#e6c487",
+              "secondary": "#b9c8de",
+              "error": "#ffb4ab",
+              "surface-container-lowest": "#060e20",
+              "outline": "#998f81",
+              "error-container": "#93000a",
+              "tertiary-fixed": "#d8e2ff",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "surface-tint": "#e4c285",
+              "surface-dim": "#0b1326",
+              "inverse-surface": "#dae2fd",
+              "on-background": "#dae2fd",
+              "on-tertiary-container": "#314163",
+              "on-secondary-fixed-variant": "#39485a",
+              "inverse-on-surface": "#283044",
+              "surface-variant": "#2d3449",
+              "surface-bright": "#31394d",
+              "background": "#0b1326",
+              "tertiary": "#b8c8f2",
+              "surface-container-high": "#222a3d",
+              "on-tertiary": "#203051",
+              "on-primary": "#412d00",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#171f33",
+              "surface": "#0b1326",
+              "on-surface": "#dae2fd",
+              "surface-container-highest": "#2d3449",
+              "tertiary-container": "#9dadd5",
+              "inverse-primary": "#745a27",
+              "on-secondary-fixed": "#0d1c2d",
+              "primary-fixed-dim": "#e4c285",
+              "secondary-container": "#39485a",
+              "on-tertiary-fixed": "#081b3b"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4d463a;
+            border-radius: 10px;
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #39485a;
+            border-radius: 2px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #e6c487;
+            margin-top: -6px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(230, 196, 135, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary/30 min-h-screen flex items-center justify-center p-6 overflow-hidden">
+<!-- Mock Background for Context -->
+<div class="fixed inset-0 z-0 opacity-20 pointer-events-none grid grid-cols-4 gap-4 p-8">
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-96 bg-surface-container rounded-xl col-span-2"></div>
+<div class="h-96 bg-surface-container rounded-xl col-span-2"></div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm px-4">
+<!-- Main Modal Content -->
+<div class="glass-panel w-full max-w-4xl max-h-[921px] rounded-3xl overflow-hidden flex flex-col shadow-2xl border border-outline-variant/20">
+<!-- Header -->
+<header class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div>
+<h1 class="text-2xl font-headline font-bold tracking-tight text-on-surface">Configurar Nova Skill de IA</h1>
+<p class="text-sm text-outline font-medium tracking-wide">Crie assistentes especializados para sua prática jurídica</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full hover:bg-surface-variant flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</header>
+<!-- Modal Body -->
+<div class="flex-1 overflow-y-auto custom-scrollbar px-8 py-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+<!-- Left Column: Core Settings -->
+<div class="md:col-span-7 space-y-8">
+<!-- Skill Name -->
+<div class="space-y-3">
+<label class="block text-xs font-label uppercase tracking-widest text-outline">Nome da Skill</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/20 placeholder:text-outline/50 transition-all" placeholder="Ex: Analista de Jurisprudência Tributária" type="text"/>
+</div>
+<!-- System Prompt -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="block text-xs font-label uppercase tracking-widest text-outline">Prompt de Sistema</label>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded uppercase font-bold">Modo Expert</span>
+</div>
+<div class="relative group">
+<textarea class="w-full h-48 bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface font-mono text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline/50 transition-all resize-none custom-scrollbar" placeholder="Você é um assistente jurídico sênior especializado em..."></textarea>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<button class="p-2 bg-surface-variant/80 rounded-lg hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">auto_fix_high</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Temperature -->
+<div class="space-y-4 pt-2">
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<label class="block text-xs font-label uppercase tracking-widest text-outline">Temperatura da IA</label>
+<p class="text-[11px] text-outline/70">Equilíbrio entre precisão fatual e criatividade.</p>
+</div>
+<span class="text-xl font-bold text-primary tabular-nums">0.7</span>
+</div>
+<div class="px-2">
+<input class="w-full h-1" max="1" min="0" step="0.1" type="range" value="0.7"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline font-medium uppercase">
+<span>Preciso</span>
+<span>Criativo</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: RAG & Branding -->
+<div class="md:col-span-5 space-y-8">
+<!-- Reference Documents (RAG) -->
+<div class="space-y-3">
+<label class="block text-xs font-label uppercase tracking-widest text-outline">Documentos de Referência (RAG)</label>
+<div class="border-2 border-dashed border-outline-variant/30 rounded-2xl p-6 flex flex-col items-center justify-center bg-surface-container-low/50 hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-outline">upload_file</span>
+</div>
+<p class="text-sm text-on-surface font-medium mb-1">Upload de PDF ou Docx</p>
+<p class="text-xs text-outline/60 text-center">Arraste arquivos para treinar a IA com sua base de conhecimento</p>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<div class="bg-surface-variant/50 px-3 py-1.5 rounded-lg flex items-center gap-2 border border-outline-variant/20">
+<span class="material-symbols-outlined text-xs text-primary">description</span>
+<span class="text-xs text-on-surface-variant">Súmulas_STF.pdf</span>
+<button class="material-symbols-outlined text-xs hover:text-error transition-colors">close</button>
+</div>
+</div>
+</div>
+<!-- Icon Selection -->
+<div class="space-y-3">
+<label class="block text-xs font-label uppercase tracking-widest text-outline">Identidade Visual</label>
+<div class="grid grid-cols-4 gap-3">
+<button class="aspect-square rounded-xl bg-surface-container-highest flex items-center justify-center text-primary ring-2 ring-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">balance</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">description</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">security</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">search_insights</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">policy</span>
+</button>
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-variant transition-all flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">account_balance</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / CTA -->
+<footer class="px-8 py-6 bg-surface-container-low/40 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-2 text-outline/70">
+<span class="material-symbols-outlined text-sm">info</span>
+<span class="text-[11px] font-medium uppercase tracking-tight">Novas skills consomem tokens do seu plano Enterprise</span>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-xl font-medium text-sm text-outline hover:text-on-surface hover:bg-surface-variant transition-all active:scale-95">
+                        Cancelar
+                    </button>
+<button class="px-8 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-primary to-primary-container text-on-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 active:scale-95 transition-all">
+                        Criar Skill
+                    </button>
+</div>
+</footer>
+</div>
+</div>
+<!-- UI Background Decoration (Asymmetric Element) -->
+<div class="fixed -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="fixed -top-32 -right-32 w-96 h-96 bg-tertiary/5 rounded-full blur-[100px] pointer-events-none"></div>
+</body></html>

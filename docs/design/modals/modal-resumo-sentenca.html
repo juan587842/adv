@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#31394d",
+              "on-secondary": "#233143",
+              "tertiary-fixed": "#d8e2ff",
+              "primary-container": "#c9a96e",
+              "background": "#0b1326",
+              "secondary-fixed": "#d4e4fa",
+              "surface-container-high": "#222a3d",
+              "inverse-on-surface": "#283044",
+              "on-background": "#dae2fd",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "on-surface": "#dae2fd",
+              "on-error-container": "#ffdad6",
+              "primary-fixed-dim": "#e4c285",
+              "on-primary": "#412d00",
+              "surface": "#0b1326",
+              "on-error": "#690005",
+              "outline": "#998f81",
+              "surface-container-highest": "#2d3449",
+              "on-secondary-fixed": "#0d1c2d",
+              "on-secondary-container": "#a7b6cc",
+              "outline-variant": "#4d463a",
+              "on-primary-fixed-variant": "#5a4312",
+              "surface-dim": "#0b1326",
+              "surface-container-lowest": "#060e20",
+              "secondary-container": "#39485a",
+              "on-primary-fixed": "#261900",
+              "inverse-surface": "#dae2fd",
+              "secondary-fixed-dim": "#b9c8de",
+              "secondary": "#b9c8de",
+              "on-tertiary-fixed-variant": "#374669",
+              "tertiary": "#b8c8f2",
+              "inverse-primary": "#745a27",
+              "primary-fixed": "#ffdea4",
+              "on-tertiary-container": "#314163",
+              "surface-variant": "#2d3449",
+              "surface-container": "#171f33",
+              "on-secondary-fixed-variant": "#39485a",
+              "error-container": "#93000a",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "tertiary-container": "#9dadd5",
+              "surface-tint": "#e4c285",
+              "surface-container-low": "#131b2e",
+              "error": "#ffb4ab",
+              "primary": "#e6c487",
+              "on-tertiary-fixed": "#081b3b",
+              "on-tertiary": "#203051"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- Sidebar Navigation Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#0b1326] dark:bg-slate-950/60 backdrop-blur-xl flex flex-col p-6 border-r border-slate-800/30 shadow-2xl shadow-slate-950/50 z-50">
+<div class="mb-10">
+<h1 class="text-2xl font-black tracking-tighter text-[#e6c487]">Juris AI</h1>
+<p class="text-[0.65rem] uppercase tracking-widest text-[#998f81]">Sovereign Counsel</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="text-[#e6c487] bg-[#2d3449]/50 rounded-xl flex items-center gap-3 px-4 py-3 font-['Inter'] font-medium tracking-wide text-[0.875rem] uppercase cursor-pointer">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+                Intelligence
+            </div>
+<div class="text-[#998f81] hover:bg-[#171f33] hover:text-[#e6c487] transition-all duration-300 rounded-xl flex items-center gap-3 px-4 py-3 font-['Inter'] font-medium tracking-wide text-[0.875rem] uppercase cursor-pointer">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+                Cases
+            </div>
+<div class="text-[#998f81] hover:bg-[#171f33] hover:text-[#e6c487] transition-all duration-300 rounded-xl flex items-center gap-3 px-4 py-3 font-['Inter'] font-medium tracking-wide text-[0.875rem] uppercase cursor-pointer">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documents
+            </div>
+<div class="text-[#998f81] hover:bg-[#171f33] hover:text-[#e6c487] transition-all duration-300 rounded-xl flex items-center gap-3 px-4 py-3 font-['Inter'] font-medium tracking-wide text-[0.875rem] uppercase cursor-pointer">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Clients
+            </div>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-800/30 space-y-2">
+<div class="text-[#998f81] hover:text-[#e6c487] flex items-center gap-3 px-4 py-2 text-sm transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </div>
+</div>
+</aside>
+<!-- Top Bar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-[#0b1326]/80 backdrop-blur-md flex justify-between items-center px-8 z-40">
+<div class="flex items-center bg-[#131b2e] rounded-full px-4 py-1.5 w-96">
+<span class="material-symbols-outlined text-outline text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 text-on-surface w-full placeholder:text-outline" placeholder="Search case intelligence..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer transition-colors" data-icon="history">history</span>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-xl text-sm font-semibold hover:bg-primary-container transition-colors">
+                Priority Alert
+            </button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-primary/30">
+<img alt="Profile" class="h-full w-full object-cover" data-alt="Senior Counsel Profile Portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYxk3uHRcnt4ibX9w7ix7vKqAkf-Y6EEYeyFrBEeAEa1dTO9gPgIdWJvGO0gFouLJ_mC17mZEZUeMt1Tt9R9321rKV-ghRzNn3V5LlfodFtR35FdbCDNvirmsVfnMApd7i-yWHSp7TB7oBFMDfgJ37yjNzHZLATdieNAZtIBMha1b1aE_UfFKNjmh2SbdI6hAWGIl4qAUklrmnUH4mmMxQRuk2F_KyZAGyxn4NJu6y7QZJSaod5xj20E5KUC-XMuOd33HwtkZpA5V6"/>
+</div>
+</div>
+</header>
+<!-- Main Content Context (Under Modal) -->
+<main class="ml-64 pt-24 p-8 min-h-screen">
+<div class="max-w-7xl mx-auto opacity-20 pointer-events-none">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-4xl font-headline font-bold text-on-surface tracking-tight mb-2">Case Intelligence Dashboard</h2>
+<p class="text-outline">Active litigation monitoring and predictive analysis.</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-64 bg-surface-container rounded-xl"></div>
+<div class="h-64 bg-surface-container rounded-xl"></div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+<!-- Modal Container -->
+<div class="bg-surface-container-low w-full max-w-6xl rounded-xl overflow-hidden shadow-2xl border border-outline-variant/20 flex flex-col max-h-[921px]">
+<!-- Modal Header -->
+<div class="px-8 py-6 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight">Análise de Sentença por IA</h2>
+</div>
+<p class="text-sm text-outline">Processo nº 0012345-67.2023.8.19.0001 • Tribunal de Justiça RJ</p>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Modal Content (3 Columns) -->
+<div class="p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 overflow-y-auto">
+<!-- Left: Result (Procedente/Improcedente) -->
+<div class="lg:col-span-3 space-y-6">
+<div class="glass-panel rounded-xl p-6 text-center border border-primary/10">
+<span class="text-[0.65rem] uppercase tracking-widest text-outline mb-4 block">Veredito Identificado</span>
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-4">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="gavel" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<h3 class="text-3xl font-headline font-black text-primary mb-2">Procedente</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">A decisão acolhe os pedidos principais formulados na exordial.</p>
+</div>
+<div class="bg-surface-container-high rounded-xl p-5 border border-outline-variant/10">
+<h4 class="text-[0.65rem] uppercase tracking-widest text-outline mb-3">Probabilidade de Recurso</h4>
+<div class="flex items-end justify-between mb-2">
+<span class="text-2xl font-bold text-on-surface">84%</span>
+<span class="text-xs text-error font-medium">Alta</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[84%]"></div>
+</div>
+</div>
+</div>
+<!-- Middle: Key Points (Clausulas, Valores) -->
+<div class="lg:col-span-5 space-y-6">
+<h4 class="text-[0.75rem] font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="list_alt">list_alt</span>
+                        Pontos Cruciais da Decisão
+                    </h4>
+<div class="space-y-4">
+<!-- Card 1 -->
+<div class="bg-surface-container rounded-xl p-5 border-l-4 border-primary/40">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-on-surface-variant">Danos Morais</span>
+<span class="text-primary font-bold">R$ 15.000,00</span>
+</div>
+<p class="text-sm text-outline leading-relaxed">Fixados com base no caráter punitivo-pedagógico, citando jurisprudência do STJ sobre responsabilidade objetiva.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container rounded-xl p-5 border-l-4 border-outline/20">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-on-surface-variant">Cláusula de Fidelidade</span>
+<span class="text-on-surface-variant font-medium italic">Anulada</span>
+</div>
+<p class="text-sm text-outline leading-relaxed">Considerada abusiva sob a ótica do CDC, Art. 51, IV, por impor desvantagem exagerada ao consumidor.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container rounded-xl p-5 border-l-4 border-primary/40">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-on-surface-variant">Honorários Sucumbenciais</span>
+<span class="text-primary font-bold">15% s/ condenação</span>
+</div>
+<p class="text-sm text-outline leading-relaxed">Arbitrados conforme Art. 85, §2º do CPC, considerando o zelo profissional e tempo despendido.</p>
+</div>
+</div>
+</div>
+<!-- Right: Next Steps Recommended by AI -->
+<div class="lg:col-span-4 bg-surface-container-highest/30 rounded-xl p-6 border border-primary/5">
+<h4 class="text-[0.75rem] font-bold uppercase tracking-widest text-primary flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-sm" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                        Estratégia Recomendada
+                    </h4>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">1</div>
+<div>
+<h5 class="text-sm font-bold text-on-surface mb-1">Embargos de Declaração</h5>
+<p class="text-xs text-outline leading-relaxed">Identificada omissão quanto ao índice de correção monetária (IPCA-E vs SELIC). Prazo: 5 dias.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">2</div>
+<div>
+<h5 class="text-sm font-bold text-on-surface mb-1">Proposta de Acordo</h5>
+<p class="text-xs text-outline leading-relaxed">Chance de aceitação de 65% para pagamento imediato com 10% de desconto no principal.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">3</div>
+<div>
+<h5 class="text-sm font-bold text-on-surface mb-1">Provisionamento Financeiro</h5>
+<p class="text-xs text-outline leading-relaxed">Recomendamos reserva de R$ 18.450,00 considerando juros e correção incidentes.</p>
+</div>
+</li>
+</ul>
+<div class="mt-10 p-4 rounded-xl bg-error-container/20 border border-error/20">
+<div class="flex items-center gap-2 mb-2 text-error">
+<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span>
+<span class="text-[0.65rem] font-bold uppercase tracking-tighter">Atenção Crítica</span>
+</div>
+<p class="text-xs text-on-error-container leading-tight">Prazo fatal para recurso de Apelação se encerra em 12 dias úteis.</p>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-8 py-6 bg-surface-container flex justify-between items-center border-t border-outline-variant/10">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-xs font-bold text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        Exportar Relatório
+                    </button>
+<button class="flex items-center gap-2 text-xs font-bold text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+                        Compartilhar
+                    </button>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-xl text-sm font-bold text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+                        Ignorar Análise
+                    </button>
+<button class="px-8 py-2.5 rounded-xl text-sm font-bold bg-primary text-on-primary shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                        Aplicar Estratégia
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

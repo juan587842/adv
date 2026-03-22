@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#412d00",
+              "surface": "#0b1326",
+              "on-error": "#690005",
+              "outline": "#998f81",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c",
+              "on-surface": "#dae2fd",
+              "on-error-container": "#ffdad6",
+              "primary-fixed-dim": "#e4c285",
+              "tertiary-fixed": "#d8e2ff",
+              "primary-container": "#c9a96e",
+              "background": "#0b1326",
+              "secondary-fixed": "#d4e4fa",
+              "surface-container-high": "#222a3d",
+              "inverse-on-surface": "#283044",
+              "on-background": "#dae2fd",
+              "surface-bright": "#31394d",
+              "on-secondary": "#233143",
+              "surface-variant": "#2d3449",
+              "surface-container": "#171f33",
+              "on-secondary-fixed-variant": "#39485a",
+              "error-container": "#93000a",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "tertiary-container": "#9dadd5",
+              "surface-tint": "#e4c285",
+              "surface-container-low": "#131b2e",
+              "error": "#ffb4ab",
+              "primary": "#e6c487",
+              "on-tertiary-fixed": "#081b3b",
+              "on-tertiary": "#203051",
+              "secondary": "#b9c8de",
+              "on-tertiary-fixed-variant": "#374669",
+              "tertiary": "#b8c8f2",
+              "inverse-primary": "#745a27",
+              "primary-fixed": "#ffdea4",
+              "on-tertiary-container": "#314163",
+              "surface-dim": "#0b1326",
+              "surface-container-lowest": "#060e20",
+              "secondary-container": "#39485a",
+              "on-primary-fixed": "#261900",
+              "inverse-surface": "#dae2fd",
+              "secondary-fixed-dim": "#b9c8de",
+              "surface-container-highest": "#2d3449",
+              "on-secondary-fixed": "#0d1c2d",
+              "on-secondary-container": "#a7b6cc",
+              "outline-variant": "#4d463a",
+              "on-primary-fixed-variant": "#5a4312"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4d463a;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface overflow-hidden">
+<!-- Blurred Background (Contact List Preview) -->
+<div class="fixed inset-0 z-0 flex flex-col p-8 opacity-40 blur-md pointer-events-none">
+<header class="flex justify-between items-center mb-12">
+<div class="h-10 w-48 bg-surface-container rounded-lg"></div>
+<div class="flex gap-4">
+<div class="h-10 w-10 bg-surface-container rounded-full"></div>
+<div class="h-10 w-10 bg-surface-container rounded-full"></div>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+<!-- Modal Container -->
+<div class="glass-card w-full max-w-2xl border border-outline-variant/30 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col max-h-[921px]">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<h2 class="text-[20px] font-semibold text-white font-headline tracking-tight">Editar Perfil de Contato</h2>
+<button class="text-outline hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Scrollable Content -->
+<div class="p-8 overflow-y-auto custom-scrollbar space-y-10">
+<!-- Section 1: Basic Info -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary">Informações Básicas</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1">Nome Completo</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all text-on-surface" type="text" value="Arthur Cavalcante de Melo"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1">CPF/CNPJ</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="text" value="***.482.991-**"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1">Nascimento</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="text" value="14/08/1982"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Contact Info -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary">Canais de Contato</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">chat</span> WhatsApp
+                            </label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="text" value="+55 (11) 98822-4411"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">mail</span> E-mail
+                            </label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="email" value="arthur.melo@juriscounsel.com"/>
+</div>
+<div class="space-y-2 md:col-span-2">
+<label class="text-xs font-medium text-slate-400 ml-1">Telefone Alternativo</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="text" value="+55 (11) 3302-9000"/>
+</div>
+</div>
+</section>
+<!-- Section 3: Professional/Legal -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary">Dados Profissionais</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1">OAB (Opcional)</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" placeholder="UF 000.000" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1">Empresa</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="text" value="Melo &amp; Associados"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-medium text-slate-400 ml-1">Cargo</label>
+<input class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all text-on-surface" type="text" value="Sócio Diretor"/>
+</div>
+</div>
+</section>
+<!-- Section 4: Lead Scoring -->
+<section class="bg-surface-container-lowest/40 p-6 rounded-xl border border-primary/10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary block mb-1">Qualificação do Lead</span>
+<p class="text-xs text-slate-400">Avalie o potencial jurídico e comercial deste contato.</p>
+</div>
+<div class="flex gap-1">
+<button class="text-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-outline-variant hover:text-primary transition-colors hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">star</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<div class="p-6 border-t border-outline-variant/20 flex flex-col sm:flex-row justify-end gap-4 bg-surface-container/30 rounded-b-xl">
+<button class="px-8 py-3 rounded-xl border border-outline-variant text-sm font-medium text-on-surface-variant hover:bg-white/5 transition-all active:scale-95">
+                    Cancelar
+                </button>
+<button class="px-8 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-sm shadow-lg shadow-primary/10 hover:brightness-110 transition-all active:scale-95">
+                    Salvar Alterações
+                </button>
+</div>
+</div>
+</div>
+</body></html>

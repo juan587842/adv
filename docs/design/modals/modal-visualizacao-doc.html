@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#93000a",
+                        "on-tertiary": "#203051",
+                        "on-primary-fixed-variant": "#5a4312",
+                        "on-primary-container": "#543d0c",
+                        "primary-fixed-dim": "#e4c285",
+                        "tertiary-fixed-dim": "#b6c6ef",
+                        "surface": "#0b1326",
+                        "secondary": "#b9c8de",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#2d3449",
+                        "on-secondary": "#233143",
+                        "on-surface-variant": "#d0c5b5",
+                        "on-primary-fixed": "#261900",
+                        "on-surface": "#dae2fd",
+                        "background": "#0b1326",
+                        "outline-variant": "#4d463a",
+                        "secondary-fixed": "#d4e4fa",
+                        "on-secondary-container": "#a7b6cc",
+                        "surface-container-low": "#131b2e",
+                        "surface-container": "#171f33",
+                        "on-primary": "#412d00",
+                        "on-tertiary-fixed": "#081b3b",
+                        "on-tertiary-container": "#314163",
+                        "inverse-primary": "#745a27",
+                        "tertiary-container": "#9dadd5",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-container-lowest": "#060e20",
+                        "outline": "#998f81",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "secondary-container": "#39485a",
+                        "surface-dim": "#0b1326",
+                        "tertiary": "#b8c8f2",
+                        "on-tertiary-fixed-variant": "#374669",
+                        "primary": "#e6c487",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#222a3d",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "surface-bright": "#31394d",
+                        "inverse-on-surface": "#283044",
+                        "surface-tint": "#e4c285",
+                        "secondary-fixed-dim": "#b9c8de",
+                        "on-background": "#dae2fd",
+                        "on-error": "#690005",
+                        "primary-fixed": "#ffdea4",
+                        "primary-container": "#c9a96e"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen">
+<!-- Top Navigation Anchor (Shared Component) -->
+<nav class="bg-[#0b1326] text-[#e6c487] font-['Inter'] font-medium text-sm tracking-wide flex justify-between items-center w-full px-8 h-16 docked full-width top-0 z-50 bg-[#131b2e] flat no shadows">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#e6c487] uppercase">Juris AI</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#998f81] hover:text-[#dae2fd] transition-colors transition-all scale-95 active:duration-100" href="#">Dashboard</a>
+<a class="text-[#e6c487] border-b-2 border-[#e6c487] pb-1 transition-all scale-95 active:duration-100" href="#">Matters</a>
+<a class="text-[#998f81] hover:text-[#dae2fd] transition-colors transition-all scale-95 active:duration-100" href="#">Documents</a>
+<a class="text-[#998f81] hover:text-[#dae2fd] transition-colors transition-all scale-95 active:duration-100" href="#">Automations</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-[#171f33] rounded-lg transition-all"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 hover:bg-[#171f33] rounded-lg transition-all"><span class="material-symbols-outlined">history</span></button>
+<button class="p-2 hover:bg-[#171f33] rounded-lg transition-all"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all">New Case</button>
+</div>
+</nav>
+<!-- Modal Backdrop Overlay -->
+<div class="fixed inset-0 z-[60] bg-[#0F172A]/80 backdrop-blur-sm flex items-center justify-center p-4 md:p-8">
+<!-- Main Modal Container -->
+<div class="glass-panel w-full max-w-7xl h-[921px] rounded-xl flex flex-col overflow-hidden border border-outline-variant/20 shadow-2xl">
+<!-- Modal Header -->
+<header class="h-16 flex items-center justify-between px-6 border-b border-outline-variant/10 bg-surface-container-low/50">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 flex items-center justify-center rounded-lg bg-error-container/20 text-error">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h1 class="font-headline font-bold text-on-surface text-lg leading-tight">Petição_Inicial_Silva.pdf</h1>
+<p class="text-[10px] uppercase tracking-[0.1em] text-outline font-semibold">Visualização de Documento (Reader)</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-5 py-2 rounded-xl bg-primary text-on-primary font-bold text-sm transition-all hover:shadow-[0_0_15px_rgba(230,196,135,0.3)] active:scale-95">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'wght' 600;">download</span>
+                        Baixar
+                    </button>
+<div class="w-px h-6 bg-outline-variant/30 mx-2"></div>
+<button class="p-2 text-outline hover:text-on-surface hover:bg-surface-variant rounded-full transition-all">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- PDF Viewer Area (75%) -->
+<main class="w-3/4 bg-surface-container-lowest relative flex flex-col overflow-hidden">
+<!-- PDF Toolbar -->
+<div class="h-12 flex items-center justify-between px-6 bg-surface-container/40 border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-high rounded-lg p-1">
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined">remove</span></button>
+<span class="px-3 text-sm font-medium border-x border-outline-variant/20">125%</span>
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined">add</span></button>
+</div>
+<div class="flex items-center gap-2 text-sm text-outline">
+<input class="w-10 h-8 bg-surface-container-high border-none rounded-lg text-center text-on-surface text-sm focus:ring-1 focus:ring-primary" type="text" value="1"/>
+<span>de 12</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-all" title="Girar"><span class="material-symbols-outlined">rotate_right</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-all" title="Ajustar largura"><span class="material-symbols-outlined">fit_screen</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-all" title="Imprimir"><span class="material-symbols-outlined">print</span></button>
+</div>
+</div>
+<!-- PDF Canvas Area -->
+<div class="flex-1 overflow-y-auto p-12 flex justify-center bg-[#060e20]">
+<div class="w-full max-w-[800px] bg-white shadow-2xl relative min-h-[1100px] p-16 text-slate-800 font-serif leading-relaxed">
+<div class="border-b-2 border-slate-900 pb-4 mb-8 text-center">
+<p class="uppercase text-xs tracking-widest font-sans font-bold text-slate-500 mb-2">Poder Judiciário do Estado</p>
+<h2 class="text-xl font-bold uppercase">EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO</h2>
+</div>
+<p class="mb-6 text-justify"><strong>MARCOS SILVA</strong>, brasileiro, casado, portador do RG nº 00.000.000-0 e do CPF nº 000.000.000-00, residente e domiciliado na Rua das Flores, nº 123, Bairro Centro, por intermédio de seu advogado que esta subscreve, vem à presença de Vossa Excelência propor a presente:</p>
+<h3 class="text-center text-lg font-bold mb-8 uppercase underline">AÇÃO DE INDENIZAÇÃO POR DANOS MORAIS E MATERIAIS</h3>
+<p class="mb-4">Em face de <strong>EMPRESA DE TECNOLOGIA LTDA</strong>, pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 11.111.111/0001-11, com sede na Avenida Paulista, nº 1000, São Paulo/SP, pelos motivos de fato e de direito a seguir expostos:</p>
+<h4 class="font-bold text-md mb-2">1. DOS FATOS</h4>
+<p class="text-justify mb-4">O Requerente celebrou contrato de prestação de serviços com a Requerida em data de 15 de março de 2023, visando a implementação de sistema de gestão integrada. Ocorre que, após o pagamento da primeira parcela, a Requerida deixou de cumprir o cronograma estabelecido, causando prejuízos imensuráveis à operação do autor...</p>
+<div class="absolute inset-0 pointer-events-none border-[12px] border-black/5 opacity-10"></div>
+</div>
+</div>
+</main>
+<!-- AI Assistant Sidebar (25%) -->
+<aside class="w-1/4 flex flex-col bg-surface-container-low border-l border-outline-variant/10">
+<!-- Sidebar Header -->
+<div class="p-6 border-b border-outline-variant/10 bg-surface-container/30">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(230,196,135,0.6)]"></div>
+<h3 class="font-headline font-bold text-on-surface">Juris Assistant</h3>
+</div>
+<p class="text-xs text-outline font-medium uppercase tracking-wider">Inteligência Processual</p>
+</div>
+<!-- Chat/Insights Content -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Summary Section -->
+<div class="space-y-3">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+<span class="text-xs font-bold uppercase tracking-widest">Resumo dos pontos críticos</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-xl border-l-4 border-primary">
+<p class="text-sm leading-relaxed text-on-surface-variant">
+                                    O documento é uma Petição Inicial focada em inadimplemento contratual. O autor alega que a Empresa de Tecnologia LTDA não cumpriu os prazos após o pagamento inicial.
+                                </p>
+</div>
+</div>
+<!-- Identified Clauses -->
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+<span class="text-xs font-bold uppercase tracking-widest">Cláusulas Identificadas</span>
+</div>
+<div class="space-y-2">
+<div class="p-3 rounded-xl bg-surface-container border border-outline-variant/20 hover:border-primary/40 transition-all group cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">CONTRATO</span>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 transition-opacity">open_in_new</span>
+</div>
+<p class="text-xs font-semibold text-on-surface mb-1">Inadimplemento Parcial</p>
+<p class="text-[11px] text-outline leading-snug">Artigo 475 do Código Civil. Fundamentação robusta para resolução contratual.</p>
+</div>
+<div class="p-3 rounded-xl bg-surface-container border border-outline-variant/20 hover:border-primary/40 transition-all group cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-error bg-error/10 px-2 py-0.5 rounded">URGÊNCIA</span>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 transition-opacity">open_in_new</span>
+</div>
+<p class="text-xs font-semibold text-on-surface mb-1">Dano Material Requerido</p>
+<p class="text-[11px] text-outline leading-snug">R$ 45.000,00 relativos à interrupção da operação logística.</p>
+</div>
+<div class="p-3 rounded-xl bg-surface-container border border-outline-variant/20 hover:border-primary/40 transition-all group cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-tertiary bg-tertiary/10 px-2 py-0.5 rounded">PROVAS</span>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 transition-opacity">open_in_new</span>
+</div>
+<p class="text-xs font-semibold text-on-surface mb-1">Email comprobatório</p>
+<p class="text-[11px] text-outline leading-snug">Citado no parágrafo 3º da página 4. Anexo III pendente de conferência.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 border-t border-outline-variant/10 bg-surface-container/30">
+<div class="relative">
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-3 pl-4 pr-12 text-sm text-on-surface focus:ring-1 focus:ring-primary placeholder:text-outline/50" placeholder="Perguntar ao Juris AI..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<!-- Side Navigation Anchor (Hidden in modal focus but conceptually present) -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 space-y-8 bg-[#0b1326] text-[#e6c487] font-['Inter'] text-sm font-semibold uppercase tracking-widest docked h-screen left-0 w-64 border-r-0 bg-[#131b2e] shadow-2xl shadow-[#dae2fd]/5 fixed -z-10 opacity-50">
+<div class="flex items-center gap-3 px-2 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">gavel</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#e6c487] leading-none">Sovereign</h2>
+<p class="text-[10px] text-outline mt-1">Premium Tier</p>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center gap-3 p-3 text-[#e6c487] bg-[#171f33] rounded-xl font-bold translate-x-1 transition-transform">
+<span class="material-symbols-outlined">psychology</span>
+                Intelligence
+            </div>
+<div class="flex items-center gap-3 p-3 text-[#998f81] hover:text-[#dae2fd] hover:bg-[#171f33]/80 transition-all duration-300">
+<span class="material-symbols-outlined">bolt</span>
+                Workflows
+            </div>
+<div class="flex items-center gap-3 p-3 text-[#998f81] hover:text-[#dae2fd] hover:bg-[#171f33]/80 transition-all duration-300">
+<span class="material-symbols-outlined">folder_shared</span>
+                Vault
+            </div>
+</div>
+</aside>
+</body></html>

@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --color-background: #0a0f1e;
+  --color-surface: #111827;
+  --color-surface-elevated: #1a2235;
+  --color-primary: #c9a96e;
+  --color-primary-light: #e6c487;
+  --color-secondary: #c2d0e4;
+  --color-tertiary: #b8c8f2;
+  --color-error: #ffb4ab;
+  --color-border: rgba(201, 169, 110, 0.08);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-secondary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Remove default focus outlines and use custom */
+*:focus-visible {
+  outline: 1px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Cards and containers */
+.card {
+  background: linear-gradient(135deg, rgba(17,24,39,0.8), rgba(26,34,53,0.6));
+  border: 1px solid rgba(201,169,110,0.06);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(8px);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201,169,110,0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201,169,110,0.3);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

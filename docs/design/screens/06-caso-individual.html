@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI | Silva vs. Empresa ABC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1326; }
+        ::-webkit-scrollbar-thumb { background: #2d3449; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#2d3449",
+              "on-tertiary-container": "#314163",
+              "surface": "#0b1326",
+              "on-primary-fixed": "#261900",
+              "primary": "#e6c487",
+              "inverse-primary": "#745a27",
+              "surface-container": "#171f33",
+              "surface-variant": "#2d3449",
+              "on-surface": "#dae2fd",
+              "tertiary-fixed": "#d8e2ff",
+              "surface-container-lowest": "#060e20",
+              "surface-container-high": "#222a3d",
+              "background": "#0b1326",
+              "secondary-fixed-dim": "#b9c8de",
+              "outline": "#998f81",
+              "on-error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "on-primary-fixed-variant": "#5a4312",
+              "error-container": "#93000a",
+              "tertiary": "#b8c8f2",
+              "on-secondary-fixed-variant": "#39485a",
+              "surface-bright": "#31394d",
+              "on-secondary": "#233143",
+              "primary-fixed": "#ffdea4",
+              "on-secondary-fixed": "#0d1c2d",
+              "inverse-on-surface": "#283044",
+              "secondary-container": "#39485a",
+              "on-background": "#dae2fd",
+              "on-primary": "#412d00",
+              "primary-fixed-dim": "#e4c285",
+              "on-tertiary": "#203051",
+              "inverse-surface": "#dae2fd",
+              "secondary": "#b9c8de",
+              "outline-variant": "#4d463a",
+              "on-error": "#690005",
+              "on-tertiary-fixed-variant": "#374669",
+              "on-secondary-container": "#a7b6cc",
+              "primary-container": "#c9a96e",
+              "surface-tint": "#e4c285",
+              "on-tertiary-fixed": "#081b3b",
+              "secondary-fixed": "#d4e4fa",
+              "error": "#ffb4ab",
+              "surface-container-low": "#131b2e",
+              "surface-dim": "#0b1326",
+              "tertiary-container": "#9dadd5",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30 min-h-screen flex">
+<!-- Side Navigation Bar -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-6 px-4 border-r border-surface-container-highest/20 bg-surface-container-low z-50">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary font-bold" data-icon="balance">balance</span>
+</div>
+<div>
+<h1 class="text-primary font-bold tracking-widest uppercase text-sm leading-none">Juris AI</h1>
+<p class="text-[0.65rem] text-outline uppercase tracking-tighter">The Sovereign Counsel</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Painel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-surface-container-highest/50 rounded-xl font-semibold translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="folder_special">folder_special</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Casos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Contatos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Inbox</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Calendário</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Financeiro</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">IA &amp; Skills</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-outline hover:text-primary hover:bg-surface-container-highest transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Follow-up</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-surface-container-highest/20 space-y-1">
+<button class="w-full mb-4 bg-gradient-to-r from-primary to-primary-container text-on-primary py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Case
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-outline hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-outline hover:text-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-['Inter'] font-medium text-[0.875rem]">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 min-h-screen bg-background">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-8 h-16 sticky top-0 z-40 bg-surface-container-low/60 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<nav class="flex text-xs font-['Inter'] tracking-wide text-outline uppercase">
+<span class="hover:text-primary cursor-pointer transition-colors">Dashboard</span>
+<span class="mx-2">/</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Casos</span>
+<span class="mx-2">/</span>
+<span class="text-primary font-semibold">Silva vs. Empresa ABC</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<button class="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                        Editar
+                    </button>
+<button class="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="archive">archive</span>
+                        Arquivar
+                    </button>
+</div>
+<div class="h-6 w-px bg-surface-container-highest"></div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary" data-icon="settings">settings</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-primary/20 overflow-hidden">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="Corporate professional headshot for profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtKoj-cdesNtGpK6CyQcLToMAyhjc8bKhPub4-4Tn252mZ9jSeCXkvHJsh8jmFOWRKxRtj0uikcnwB_7ILwT8kL4xsBsEmLtZgHu5MuYw3YTUCuesc3DOesmA1CjCnuuNMZ5spVsyCV1VaFuw50BBmGetQXByn5Lmoio1Ex2d0jHt452phlj-ByyV4hq0PpQAM9l3Anydbsfa1sBfnM78QE3xJmfRFsnfOk7Oh3yLeeiXxNNUQi_xxxmZEK6fGxceGPPavzpmx_EAY"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto space-y-8">
+<!-- Header Card Section -->
+<section class="bg-surface-container rounded-3xl p-8 border-l-4 border-primary shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="gavel">gavel</span>
+</div>
+<div class="relative z-10">
+<div class="flex flex-wrap items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-surface-container-highest text-primary text-[0.65rem] font-bold uppercase tracking-widest rounded-full">Trabalhista</span>
+<span class="px-3 py-1 bg-surface-container-highest text-secondary text-[0.65rem] font-bold uppercase tracking-widest rounded-full flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                            Em andamento
+                        </span>
+<span class="px-3 py-1 bg-error-container text-error text-[0.65rem] font-bold uppercase tracking-widest rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="priority_high">priority_high</span>
+                            Urgência Alta
+                        </span>
+</div>
+<h2 class="text-3xl font-bold text-on-surface tracking-tight mb-2">Silva vs. Empresa ABC</h2>
+<div class="flex items-center gap-4 text-outline font-mono text-sm">
+<span>CNJ: 0001234-56.2025.5.01.0001</span>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+</div>
+</div>
+</section>
+<!-- Tabs Navigation -->
+<nav class="flex gap-8 border-b border-surface-container-highest/30 px-2 overflow-x-auto">
+<button class="pb-4 text-sm font-semibold text-primary border-b-2 border-primary flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="timeline">timeline</span>
+                    Movimentações
+                </button>
+<button class="pb-4 text-sm font-medium text-outline hover:text-on-surface flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="description">description</span>
+                    Documentos
+                </button>
+<button class="pb-4 text-sm font-medium text-outline hover:text-on-surface flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="sticky_note_2">sticky_note_2</span>
+                    Notas
+                </button>
+<button class="pb-4 text-sm font-medium text-outline hover:text-on-surface flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="account_balance_wallet">account_balance_wallet</span>
+                    Financeiro
+                </button>
+<button class="pb-4 text-sm font-medium text-primary-fixed hover:text-primary flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="smart_toy" data-weight="fill">smart_toy</span>
+                    IA Assistente
+                </button>
+</nav>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Timeline Content -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-xl font-bold text-on-surface">Histórico do Dossier</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest text-outline transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest text-outline transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</div>
+<!-- Vertical Timeline -->
+<div class="relative pl-8 space-y-10">
+<div class="absolute left-[11px] top-2 bottom-2 w-0.5 bg-surface-container-highest"></div>
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[29px] top-1 w-5 h-5 rounded-full bg-error flex items-center justify-center border-4 border-background">
+<span class="material-symbols-outlined text-[10px] text-on-error font-black" data-icon="bolt">bolt</span>
+</div>
+<div class="glass-panel rounded-2xl p-6 border-l-2 border-error/50">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[0.65rem] font-bold text-error uppercase tracking-widest">Calculado pela IA (Prazo Ativo)</span>
+<span class="text-xs text-outline">Hoje, 09:42</span>
+</div>
+<h4 class="font-bold text-on-surface mb-2">Manifestação sobre Contestação</h4>
+<p class="text-sm text-outline-variant leading-relaxed mb-4">Prazo fatal identificado via Datajud. Recomenda-se protocolo até 15/05 para evitar preclusão.</p>
+<div class="flex items-center justify-between">
+<div class="flex gap-2">
+<span class="px-2 py-0.5 rounded bg-error/10 text-error text-[0.6rem] font-bold">DEADLINE: 15/05</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-outline text-[0.6rem] font-bold">DATAJUD</span>
+</div>
+<button class="text-primary text-xs font-bold hover:underline">Resolver Agora</button>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[29px] top-1 w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center border-4 border-background">
+<span class="material-symbols-outlined text-[10px] text-outline font-black" data-icon="gavel">gavel</span>
+</div>
+<div class="bg-surface-container/40 rounded-2xl p-6 border-l-2 border-surface-container-highest">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[0.65rem] font-bold text-outline uppercase tracking-widest">Publicação Oficial</span>
+<span class="text-xs text-outline">Ontem, 16:20</span>
+</div>
+<h4 class="font-bold text-on-surface mb-2">Designação de Audiência de Instrução</h4>
+<p class="text-sm text-outline-variant leading-relaxed mb-4">Audiência presencial marcada para 22/06/2025 às 14:00 na 1ª Vara do Trabalho de Rio de Janeiro.</p>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-outline text-[0.6rem] font-bold">PJ-E</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-outline text-[0.6rem] font-bold">RT 0001234-56</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 (Manual) -->
+<div class="relative">
+<div class="absolute -left-[29px] top-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center border-4 border-background">
+<span class="material-symbols-outlined text-[10px] text-on-primary font-black" data-icon="person">person</span>
+</div>
+<div class="bg-surface-container/40 rounded-2xl p-6 border-l-2 border-primary/30">
+<div class="flex justify-between items-start mb-3">
+<span class="text-[0.65rem] font-bold text-primary uppercase tracking-widest">Nota de Equipe</span>
+<span class="text-xs text-outline">08 Mai, 2025</span>
+</div>
+<h4 class="font-bold text-on-surface mb-2">Reunião com Maria Silva</h4>
+<p class="text-sm text-outline-variant leading-relaxed">Cliente forneceu novas provas testemunhais relevantes para o pedido de horas extras. Documentos anexados à pasta de documentos.</p>
+<div class="mt-4 flex items-center gap-2">
+<img alt="Equipe Avatar" class="w-6 h-6 rounded-full grayscale" data-alt="Small avatar of a legal assistant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDl2ieChRV32X-vzvS-ISv9evJKhNYC5sgvCxBIa-RUNjOTnFuAGN0fu-ybao1Xlgw1tMxFzszuj0_CxDTBFKnBZ0oNRzehkq3cXimKloCtRiyT2Gbo-8tEgxshBF9iuXukEQdxaPTxS9xfeTeojDQuNk7N7EHpm70fIqMXUvT5FyDa6OxDVd9QiTHsd8JxhNSgNpIaw7zzMZD01NTrFCCygm2ff_0H7eoxpV3n7yZA3hGC8LwYsqBWPQsqDrG8T4twvdJaPQ0H23K"/>
+<span class="text-[0.7rem] text-outline">Atualizado por Dr. Ricardo Santos</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Contextual Widgets -->
+<aside class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Prazos Ativos Widget -->
+<div class="glass-panel rounded-3xl p-6 border border-surface-container-highest/30">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-error" data-icon="alarm">alarm</span>
+<h4 class="text-sm font-bold uppercase tracking-wider text-on-surface">Prazos Ativos</h4>
+</div>
+<div class="space-y-4">
+<div class="p-4 rounded-xl bg-surface-container-low border-r-4 border-error">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[0.65rem] font-bold text-error">URGENTE</span>
+<span class="text-[0.65rem] text-outline">Faltam 3 dias</span>
+</div>
+<p class="text-xs font-semibold text-on-surface">Réplica à Contestação</p>
+<p class="text-[0.6rem] text-outline mt-1">Limite: 15/05/2025</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border-r-4 border-primary">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[0.65rem] font-bold text-primary">AGENDADO</span>
+<span class="text-[0.65rem] text-outline">Em 41 dias</span>
+</div>
+<p class="text-xs font-semibold text-on-surface">Audiência Instrução</p>
+<p class="text-[0.6rem] text-outline mt-1">Data: 22/06/2025</p>
+</div>
+</div>
+</div>
+<!-- Cliente Mini-card -->
+<div class="bg-surface-container rounded-3xl p-6 border border-surface-container-highest/20">
+<h4 class="text-[0.65rem] font-bold uppercase tracking-widest text-outline mb-4">Cliente</h4>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-highest overflow-hidden">
+<img alt="Maria Silva Profile" class="w-full h-full object-cover" data-alt="Portrait of a mature female client" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAObG0nUGgyh1RLQJYh_bXbnGDMMviGFClzEHHK2nAVxi-vnEN7grJ6_xZ5H7eOxDaw_B9edTqjMWRHLCURGbt29CMH3xmslWIDJV6PVMF1XxW95gV2FUu00GTccULamC_DCVQWvqp-IIDtzoWkOVjuYBMlPutfbKdVp9OPM1EmfDw3cADVqkIaRtRsm3HbYgErcD3Ubb56k45QIJ729ajvA02JY0MTVSFFeuMI_tmHjn8A2qcUBQyYPWDrEhFEmTxxnT4q6WdSOin5"/>
+</div>
+<div>
+<h5 class="font-bold text-on-surface text-sm">Maria Silva</h5>
+<p class="text-xs text-outline">maria.silva@email.com</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-container-highest/20 flex justify-between">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-lg text-outline" data-icon="call">call</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-lg text-outline" data-icon="mail">mail</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-lg text-outline" data-icon="chat">chat</span>
+</button>
+</div>
+</div>
+<!-- Equipe Widget -->
+<div class="bg-surface-container rounded-3xl p-6 border border-surface-container-highest/20">
+<h4 class="text-[0.65rem] font-bold uppercase tracking-widest text-outline mb-4">Equipe Designada</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<img alt="Equipe 1" class="w-8 h-8 rounded-full" data-alt="Lawyer avatar headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI3DMV7_s8YaGTkKH7lGd7c3eMbha_gFhF5jK0wQ86XOgEMFSAEe_1GMCIYykaDUqPZagDiF99FfTlg1rNe_MUo5UqE0YFrcRRuOOFSCW3JsWXiKq7HAXXGZ9rZcxwmS5yWijVnUdoh50yv8jynRcux8e3FXqDwYVv0_t8UiR2YpWuyNijtLLiLKn5h8npliY6R-00p_beqbEv2UPHKAPw_FS48uChy0f762CQ3KAOF85dKosExu3E73tO3_jZlGyoPRfV2AUmtuFc"/>
+<div class="flex-1">
+<p class="text-xs font-bold text-on-surface leading-tight">Dr. Ricardo Santos</p>
+<p class="text-[0.6rem] text-primary">Advogado Pleno</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Equipe 2" class="w-8 h-8 rounded-full" data-alt="Junior lawyer avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2obiejIsn6iOa1X8cdN-C1YGOyFKjccXWduV--JTWi3YdOxZ3wB-LXY6AoZxb42N8AolAecBRjrhxIeKfqmHswTfRDaPOxQB27K_kxrvw4703QkGwAXB9D2bs_Ln6bsH69W1oZ9F9E3sWkqvqPWJXHevbW6knNPQQdeZVJHptb3pJWlbtydr5nn1Nkr6OlpcSxnLr2yRiypD3up4g3kT4t3zkrVQJX5NRsBiBy-jIEug5oam1JKljBynlhde9cKMooSgfZ2wMF3Kh"/>
+<div class="flex-1">
+<p class="text-xs font-bold text-on-surface leading-tight">Dra. Beatriz Lima</p>
+<p class="text-[0.6rem] text-outline">Estagiária</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 border border-outline-variant/30 rounded-xl text-[0.65rem] font-bold uppercase text-outline hover:text-primary hover:border-primary/50 transition-all">
+                            Gerenciar Equipe
+                        </button>
+</div>
+<!-- Tags Widget -->
+<div class="bg-surface-container rounded-3xl p-6 border border-surface-container-highest/20">
+<h4 class="text-[0.65rem] font-bold uppercase tracking-widest text-outline mb-3">Tags</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-highest text-on-surface text-[0.6rem] font-medium rounded-lg">#horas-extras</span>
+<span class="px-2 py-1 bg-surface-container-highest text-on-surface text-[0.6rem] font-medium rounded-lg">#justiça-gratuita</span>
+<span class="px-2 py-1 bg-surface-container-highest text-on-surface text-[0.6rem] font-medium rounded-lg">#rj</span>
+<button class="px-2 py-1 border border-dashed border-outline-variant rounded-lg text-[0.6rem] text-outline hover:text-primary">
+                                + Adicionar
+                            </button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Intelligence) -->
+<div class="fixed bottom-8 right-8 flex flex-col items-end gap-3">
+<div class="bg-primary text-on-primary p-4 rounded-2xl shadow-2xl shadow-primary/20 flex items-center gap-3 cursor-pointer hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="smart_toy" data-weight="fill">smart_toy</span>
+<span class="font-bold text-sm">Análise de IA do Caso</span>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#4d463a",
+              "on-secondary-container": "#a7b6cc",
+              "on-surface": "#dae2fd",
+              "tertiary": "#b8c8f2",
+              "secondary-fixed-dim": "#b9c8de",
+              "inverse-primary": "#745a27",
+              "on-tertiary": "#203051",
+              "secondary": "#b9c8de",
+              "surface": "#0b1326",
+              "primary-fixed-dim": "#e4c285",
+              "outline": "#998f81",
+              "on-tertiary-fixed-variant": "#374669",
+              "surface-variant": "#2d3449",
+              "error": "#ffb4ab",
+              "secondary-fixed": "#d4e4fa",
+              "tertiary-container": "#9dadd5",
+              "surface-container-high": "#222a3d",
+              "primary-container": "#c9a96e",
+              "on-tertiary-fixed": "#081b3b",
+              "on-error": "#690005",
+              "inverse-surface": "#dae2fd",
+              "background": "#0b1326",
+              "primary": "#e6c487",
+              "on-background": "#dae2fd",
+              "error-container": "#93000a",
+              "on-secondary": "#233143",
+              "on-primary-fixed-variant": "#5a4312",
+              "surface-tint": "#e4c285",
+              "primary-fixed": "#ffdea4",
+              "on-secondary-fixed-variant": "#39485a",
+              "on-error-container": "#ffdad6",
+              "inverse-on-surface": "#283044",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "on-tertiary-container": "#314163",
+              "tertiary-fixed": "#d8e2ff",
+              "on-primary-container": "#543d0c",
+              "surface-container-lowest": "#060e20",
+              "secondary-container": "#39485a",
+              "on-primary-fixed": "#261900",
+              "on-surface-variant": "#d0c5b5",
+              "surface-container": "#171f33",
+              "on-primary": "#412d00",
+              "surface-dim": "#0b1326",
+              "surface-container-low": "#131b2e",
+              "on-secondary-fixed": "#0d1c2d",
+              "surface-container-highest": "#2d3449",
+              "surface-bright": "#31394d"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #0b1326;
+        color: #dae2fd;
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+<!-- TopNavBar Implementation from Shared Components JSON -->
+<nav class="fixed top-0 w-full flex justify-between items-center px-8 h-20 bg-[#0b1326]/60 backdrop-blur-xl z-50 shadow-[0_8px_32px_0_rgba(218,226,253,0.08)]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-widest text-[#e6c487] uppercase font-['Inter']">Juris AI</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-['Inter'] tracking-tight" href="#">Dashboard</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-['Inter'] tracking-tight" href="#">Workflows</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-['Inter'] tracking-tight" href="#">Members</a>
+<a class="text-[#998f81] hover:text-[#e6c487] transition-colors font-['Inter'] tracking-tight" href="#">Integrations</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#998f81] hover:bg-[#2d3449]/50 p-2 rounded-xl transition-all cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-[#e6c487] border-b-2 border-[#e6c487] pb-1 p-2 transition-all cursor-pointer">settings</span>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant/30">
+<img class="h-full w-full object-cover" data-alt="Admin Profile Photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRbkHwZayG5SY4IigsgBm5BRSwkaF47qiSlQBvnrnV5ep-sLw3Xsjv9r-b0GIJqWR6k8N82l6YWXHwqzaHtQiPxoLMuFykffzlQ5L7ALjj51pvZdyZ82gP67MAUXo9rSeIPr7jZnrxvZD8v0CGVyiPbFsnavOBHtndLj3i8p-NFWpGwbWfF1oX1v7B6-fDP135529gQBOCRUSxkmzINQP9V4i-Irf7wrzPjfkr-7m7aCWYJhQv88R5lTnycYTibGqnAsapKBU3Yi2r"/>
+</div>
+</div>
+</nav>
+<!-- Modal Backdrop -->
+<main class="pt-24 pb-12 px-4 md:px-8 flex justify-center items-start min-h-screen bg-surface">
+<!-- Profile Modal Container -->
+<div class="w-full max-w-4xl bg-surface-container-low rounded-xl shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] overflow-hidden relative border border-outline-variant/10">
+<!-- Modal Header -->
+<div class="p-8 border-b border-outline-variant/20 flex justify-between items-center bg-gradient-to-r from-surface-container-low to-surface-container">
+<div>
+<h1 class="text-2xl font-headline font-bold text-on-surface tracking-tight">Perfil de Usuário</h1>
+<p class="text-outline text-sm font-label uppercase tracking-widest mt-1">Gerencie suas credenciais e identidade</p>
+</div>
+<button class="h-10 w-10 flex items-center justify-center rounded-xl hover:bg-surface-container-highest text-outline transition-all">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex flex-col md:flex-row">
+<!-- Sidebar / Navigation -->
+<aside class="w-full md:w-64 p-6 border-r border-outline-variant/10 space-y-2">
+<button class="w-full flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary rounded-xl font-medium transition-all">
+<span class="material-symbols-outlined">person</span>
+<span>Dados Pessoais</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-outline hover:bg-surface-container/50 hover:text-on-surface rounded-xl font-medium transition-all">
+<span class="material-symbols-outlined">lock</span>
+<span>Segurança</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-outline hover:bg-surface-container/50 hover:text-on-surface rounded-xl font-medium transition-all">
+<span class="material-symbols-outlined">notifications_active</span>
+<span>Notificações</span>
+</button>
+</aside>
+<!-- Content Area -->
+<div class="flex-1 p-8 md:p-12 space-y-12">
+<!-- Avatar Section -->
+<section class="flex flex-col md:flex-row items-center gap-8">
+<div class="relative group">
+<div class="h-32 w-32 rounded-full overflow-hidden border-2 border-primary/30 ring-4 ring-primary/5 shadow-2xl">
+<img class="h-full w-full object-cover" data-alt="User profile avatar photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBogXxc77e87gGTz7i3FQFPDOxWWPLZnddv6hiq-yAGDpAQaqrqr37sN18vfiHJG5IUVH56-_hpr3g0hOwRK9TXsNGmSGOCK4skooh_0CkiHKcM5Chjw7uEdDzH3kHPmyjoNEIgPVusZ1tqqE3Vudz7dfQrdRgPFTsn22s_8E2zD_9E6jkiD4ULGMx7xAB6KbhY4HIt1tQ1W_QM4E760_o0sPbW969zzqOllR4aedZKvOL3dtVMxqxL6fzjtcOhXwEMz2MgteB_vYum"/>
+</div>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary-container h-10 w-10 rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="text-center md:text-left">
+<h3 class="text-lg font-bold text-on-surface">Foto de Perfil</h3>
+<p class="text-outline text-sm mt-1">Recomendado: JPG ou PNG de pelo menos 400x400px.</p>
+<div class="mt-4 flex gap-3 justify-center md:justify-start">
+<button class="px-4 py-2 bg-surface-container-highest text-primary font-medium rounded-lg text-sm hover:brightness-110 transition-all">Upload</button>
+<button class="px-4 py-2 text-error font-medium rounded-lg text-sm hover:bg-error-container/20 transition-all">Remover</button>
+</div>
+</div>
+</section>
+<!-- Form Section: Personal Info -->
+<section class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Name Input -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-outline uppercase tracking-widest px-1">Nome Completo</label>
+<div class="relative group">
+<input class="w-full bg-surface-container text-on-surface border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 transition-all" type="text" value="Dr. Henrique Cavalcante"/>
+</div>
+</div>
+<!-- OAB Input -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-outline uppercase tracking-widest px-1">Número OAB</label>
+<div class="relative group">
+<input class="w-full bg-surface-container text-on-surface border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 transition-all" type="text" value="123.456/SP"/>
+</div>
+</div>
+<!-- Email Input -->
+<div class="md:col-span-2 space-y-2">
+<label class="text-xs font-bold text-outline uppercase tracking-widest px-1">E-mail Profissional</label>
+<div class="relative group">
+<input class="w-full bg-surface-container text-on-surface border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 transition-all" type="email" value="henrique.cavalcante@jurisai.com.br"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Password Section -->
+<section class="p-6 bg-surface-container rounded-xl border border-outline-variant/10">
+<div class="flex items-center gap-4 mb-6">
+<div class="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h3 class="text-on-surface font-bold">Alterar Senha</h3>
+<p class="text-outline text-xs">Mantenha sua conta Juris AI protegida</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<input class="w-full bg-surface-container-low text-on-surface border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Senha Atual" type="password"/>
+<div class="hidden md:block"></div> <!-- Spacer -->
+<input class="w-full bg-surface-container-low text-on-surface border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Nova Senha" type="password"/>
+<input class="w-full bg-surface-container-low text-on-surface border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Confirmar Nova Senha" type="password"/>
+</div>
+</section>
+<!-- Actions -->
+<div class="flex flex-col md:flex-row items-center justify-end gap-4 pt-6">
+<button class="w-full md:w-auto px-8 py-3 text-outline font-bold hover:text-on-surface transition-all">Cancelar</button>
+<button class="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition-all">
+                            Salvar Alterações
+                        </button>
+</div>
+</div>
+</div>
+<!-- Footer Decorative Element -->
+<div class="h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+</div>
+</main>
+<!-- SideNavBar (Hidden on desktop, integrated logic for mobile fallback or admin toggle) -->
+<div class="hidden">
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 bg-[#0b1326] w-72 border-r-0 z-[60]">
+<div class="px-8 mb-12">
+<h2 class="text-[#e6c487] font-black font-['Inter'] text-sm font-medium uppercase tracking-widest">Sovereign Counsel</h2>
+<p class="text-[#998f81] text-xs">Admin Terminal</p>
+</div>
+<nav class="flex-1">
+<div class="bg-[#2d3449] text-[#e6c487] rounded-xl mx-4 my-1 p-3 flex items-center gap-3">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Automations</span>
+</div>
+<!-- ... other items ... -->
+</nav>
+</aside>
+</div>
+</body></html>

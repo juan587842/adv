@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI | Criar Conta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#b9c8de",
+                        "on-surface-variant": "#d0c5b5",
+                        "primary-fixed-dim": "#e4c285",
+                        "surface-container-high": "#222a3d",
+                        "outline": "#998f81",
+                        "tertiary-fixed-dim": "#b6c6ef",
+                        "on-primary": "#412d00",
+                        "surface": "#0b1326",
+                        "secondary-fixed": "#d4e4fa",
+                        "secondary-container": "#39485a",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "surface-container": "#171f33",
+                        "on-tertiary-fixed": "#081b3b",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-surface": "#dae2fd",
+                        "surface-container-lowest": "#060e20",
+                        "surface-container-highest": "#2d3449",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "on-primary-fixed": "#261900",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container-low": "#131b2e",
+                        "secondary": "#b9c8de",
+                        "on-background": "#dae2fd",
+                        "inverse-primary": "#745a27",
+                        "primary": "#e6c487",
+                        "on-tertiary-container": "#314163",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#374669",
+                        "primary-fixed": "#ffdea4",
+                        "primary-container": "#c9a96e",
+                        "on-error-container": "#ffdad6",
+                        "outline-variant": "#4d463a",
+                        "background": "#0b1326",
+                        "surface-variant": "#2d3449",
+                        "inverse-on-surface": "#283044",
+                        "on-error": "#690005",
+                        "on-secondary": "#233143",
+                        "on-primary-container": "#543d0c",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#5a4312",
+                        "on-tertiary": "#203051",
+                        "tertiary-container": "#9dadd5",
+                        "on-secondary-container": "#a7b6cc",
+                        "surface-dim": "#0b1326",
+                        "tertiary": "#b8c8f2",
+                        "surface-tint": "#e4c285",
+                        "surface-bright": "#31394d"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(230, 196, 135, 0.1);
+        }
+        .radial-bg {
+            background: radial-gradient(circle at center, #131b2e 0%, #0b1326 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface radial-bg min-h-screen flex items-center justify-center p-6 selection:bg-primary selection:text-on-primary">
+<main class="w-full max-w-[540px]">
+<div class="glass-card rounded-[2rem] p-8 md:p-12 shadow-2xl flex flex-col gap-8">
+<!-- Header section -->
+<header class="flex flex-col items-center text-center gap-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="balance">balance</span>
+<span class="text-primary font-headline font-bold text-2xl tracking-widest uppercase">Juris AI</span>
+</div>
+<div class="space-y-2">
+<h1 class="text-white text-3xl font-headline font-semibold tracking-tight">Crie sua conta</h1>
+<p class="text-outline text-sm font-medium">Configure seu escritório em minutos</p>
+</div>
+</header>
+<!-- Signup Form -->
+<form action="#" class="flex flex-col gap-5" method="POST">
+<!-- Name -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant px-1">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+                        Nome completo
+                    </label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all placeholder:text-outline/40" placeholder="Seu nome" type="text"/>
+</div>
+<!-- Email -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant px-1">
+<span class="material-symbols-outlined text-sm" data-icon="mail">mail</span>
+                        E-mail profissional
+                    </label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all placeholder:text-outline/40" placeholder="seu@email.com.br" type="email"/>
+</div>
+<!-- Office and OAB row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant px-1">
+<span class="material-symbols-outlined text-sm" data-icon="corporate_fare">corporate_fare</span>
+                            Nome do escritório
+                        </label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all placeholder:text-outline/40" placeholder="Juris Advocacia" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant px-1">
+<span class="material-symbols-outlined text-sm" data-icon="badge">badge</span>
+                            OAB (opcional)
+                        </label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all placeholder:text-outline/40" placeholder="00.000/UF" type="text"/>
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant px-1">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+                        Senha
+                    </label>
+<div class="relative group">
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all placeholder:text-outline/40" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- LGPD Checkbox -->
+<div class="flex items-start gap-3 px-1 pt-2">
+<div class="flex items-center h-5">
+<input class="h-4 w-4 rounded border-outline-variant bg-surface-container text-primary focus:ring-primary focus:ring-offset-surface" id="terms" name="terms" type="checkbox"/>
+</div>
+<label class="text-xs text-on-surface-variant leading-tight" for="terms">
+                        Li e aceito os <a class="text-primary hover:underline" href="#">Termos de Uso</a> e <a class="text-primary hover:underline" href="#">Política de Privacidade (LGPD)</a>
+</label>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-4 mt-4">
+<button class="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-bold text-base uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-primary/10" type="submit">
+                        Criar conta
+                    </button>
+<div class="relative flex items-center justify-center py-2">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant/30"></div>
+</div>
+<span class="relative px-4 bg-[#21283a] text-[10px] uppercase tracking-widest text-outline">Ou continue com</span>
+</div>
+<button class="w-full py-3 rounded-xl border border-outline-variant/50 flex items-center justify-center gap-3 text-on-surface hover:bg-surface-container-highest transition-all group active:scale-[0.98]" type="button">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="currentColor"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="currentColor"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="currentColor"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="currentColor"></path>
+</svg>
+<span class="font-medium">Entrar com Google</span>
+</button>
+</div>
+</form>
+<!-- Footer -->
+<footer class="text-center">
+<p class="text-sm text-on-surface-variant font-medium">
+                    Já tem conta? 
+                    <a class="text-primary font-bold hover:underline ml-1" href="#">Faça login</a>
+</p>
+</footer>
+</div>
+<!-- System Meta Info (Asymmetric Decorative Element) -->
+<div class="mt-8 flex justify-center gap-12 opacity-20 select-none grayscale pointer-events-none">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="security">security</span>
+<span class="text-[10px] font-label uppercase tracking-widest">End-to-end Encrypted</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="cloud_done">cloud_done</span>
+<span class="text-[10px] font-label uppercase tracking-widest">Cloud Sovereign Data</span>
+</div>
+</div>
+</main>
+<!-- Decorative ambient light -->
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full pointer-events-none"></div>
+</body></html>

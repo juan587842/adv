@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI - Contatos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#2d3449",
+              "on-tertiary-container": "#314163",
+              "surface": "#0b1326",
+              "on-primary-fixed": "#261900",
+              "primary": "#e6c487",
+              "inverse-primary": "#745a27",
+              "surface-container": "#171f33",
+              "surface-variant": "#2d3449",
+              "on-surface": "#dae2fd",
+              "tertiary-fixed": "#d8e2ff",
+              "surface-container-lowest": "#060e20",
+              "surface-container-high": "#222a3d",
+              "background": "#0b1326",
+              "secondary-fixed-dim": "#b9c8de",
+              "outline": "#998f81",
+              "on-error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "on-primary-fixed-variant": "#5a4312",
+              "error-container": "#93000a",
+              "tertiary": "#b8c8f2",
+              "on-secondary-fixed-variant": "#39485a",
+              "surface-bright": "#31394d",
+              "on-secondary": "#233143",
+              "primary-fixed": "#ffdea4",
+              "on-secondary-fixed": "#0d1c2d",
+              "inverse-on-surface": "#283044",
+              "secondary-container": "#39485a",
+              "on-background": "#dae2fd",
+              "on-primary": "#412d00",
+              "primary-fixed-dim": "#e4c285",
+              "on-tertiary": "#203051",
+              "inverse-surface": "#dae2fd",
+              "secondary": "#b9c8de",
+              "outline-variant": "#4d463a",
+              "on-error": "#690005",
+              "on-tertiary-fixed-variant": "#374669",
+              "on-secondary-container": "#a7b6cc",
+              "primary-container": "#c9a96e",
+              "surface-tint": "#e4c285",
+              "on-tertiary-fixed": "#081b3b",
+              "secondary-fixed": "#d4e4fa",
+              "error": "#ffb4ab",
+              "surface-container-low": "#131b2e",
+              "surface-dim": "#0b1326",
+              "tertiary-container": "#9dadd5",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-container": "#543d0c"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-6 px-4 border-r border-[#2d3449]/20 bg-[#131b2e] z-50">
+<div class="mb-10 px-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded-xl overflow-hidden">
+<img alt="Juris AI Logo" class="w-8 h-8" data-alt="Abstract geometric logo for legal AI" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDv1lqs9OfeRDLmLPz30lnlk4COF6HiAg3pQzzstUrtD9yVGeyunaIlJ7ncUh7mPzWODPUOzc8gqn-9qMAyeLjvTMgyjEjCz00vhoV6hYbxFgWOCpnHMtq-Ui9-udzTSwAUSg87ZYn5VAF34jBVfiJESPc4VJWe1TOOVAHJV7aK1Nij2Qa6jmF3Cz0YbgkQXzgi5oSAPePakgx56gikvVKBpEXCm0hUUpLVfFCrGn5AOhI8AQHXirIzBhz_YESItWZ7SOU1erqgRQv"/>
+</div>
+<div>
+<h1 class="text-[#e6c487] font-bold tracking-widest uppercase font-headline">Juris AI</h1>
+<p class="text-[0.65rem] text-outline uppercase tracking-tighter">The Sovereign Counsel</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Painel
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="folder_special">folder_special</span>
+                Casos
+            </a>
+<!-- ACTIVE TAB: Contatos -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#e6c487] bg-[#2d3449]/50 rounded-xl font-semibold translate-x-1 transition-transform font-['Inter'] text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Contatos
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+                Inbox
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                Calendário
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Financeiro
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                IA &amp; Skills
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#998f81] hover:text-[#e6c487] hover:bg-[#2d3449] transition-all duration-300 rounded-xl font-['Inter'] font-medium text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+                Follow-up
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-[#2d3449]/30 space-y-1">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary py-3 rounded-xl font-bold mb-4 shadow-lg shadow-primary/10 active:scale-95 transition-all">
+                Novo Contato
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#998f81] hover:text-[#e6c487] transition-all font-['Inter'] text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#998f81] hover:text-[#e6c487] transition-all font-['Inter'] text-[0.875rem]" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 h-20 sticky top-0 z-40 bg-surface/60 backdrop-blur-xl border-b border-[#2d3449]/10">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-primary text-on-surface placeholder:text-outline/50 transition-all" placeholder="Pesquisar por nome, CPF ou caso..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#998f81] hover:text-[#e6c487] transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-[#998f81] hover:text-[#e6c487] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-px bg-outline/20 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Dr. Ricardo Alencar</p>
+<p class="text-[0.65rem] text-outline">Sócio Principal</p>
+</div>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-xl bg-surface-container-highest" data-alt="Portrait of a professional man in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM8K2GCw32SszuamIjkGB3gdUegaYgyfskYiHznx-omyBO_APhH8q7mrn3g7yfmSmUvDJEcu7qMusW1MAFh2seG1kQwCzGvjBYDIWag_AC2O8yXtMTrgsHin0GPttlL_14Nnym2MRSywcpAHQjowFC32J8fhlJCQX1_emO0vbuIY2dXCW3VMZNRG4ME73bYGQ74u6r_lU5OnB4WDeL1OoYqjPwcKXJ-h04rHyFKo60tW9UxAF1gqfRxP2uHp1uPbRvozICODQJCiph"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div>
+<h2 class="text-3xl font-bold font-headline text-on-surface tracking-tight mb-2">Gestão de Contatos</h2>
+<p class="text-outline max-w-lg">Central de inteligência para relacionamento com clientes e prospecção de leads ativos.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-outline/20 hover:border-primary/40 hover:bg-surface-container transition-all text-sm font-medium">
+<span class="material-symbols-outlined text-xl" data-icon="filter_list">filter_list</span>
+                        Filtros Avançados
+                    </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm">
+<span class="material-symbols-outlined text-xl" data-icon="add">add</span>
+                        Novo Contato
+                    </button>
+</div>
+</div>
+<!-- Filters & Chips Bar -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-surface-container-low p-3 rounded-2xl">
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-5 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold uppercase tracking-wider transition-all">Todos</button>
+<button class="px-5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-bright transition-all">Clientes</button>
+<button class="px-5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-bright transition-all">Leads</button>
+<button class="px-5 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-bright transition-all">Ex-clientes</button>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-outline uppercase tracking-widest">Score:</span>
+<div class="relative">
+<select class="appearance-none bg-surface border-none text-sm rounded-xl py-2 pl-4 pr-10 focus:ring-1 focus:ring-primary text-on-surface min-w-[140px]">
+<option>Lead Score</option>
+<option>Prioridade Alta</option>
+<option>Prioridade Média</option>
+<option>Prioridade Baixa</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid of Contacts -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="glass-panel group p-6 rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-500 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full">Cliente</span>
+</div>
+<div class="flex items-start gap-4 mb-6">
+<div class="relative">
+<img alt="Maria da Silva Avatar" class="w-16 h-16 rounded-2xl bg-surface-container object-cover" data-alt="Portrait of a smiling Brazilian woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYwjrZW5b8ppTMORtXwCjBLpQN_mltMSyYyXXo-pBCkNTQGLfHdUQORUiSelwY8LTxrZtgPA2qzjZ5ukZmNLCSU0A_PMaBmAIvWZG8C2zEaXQMkvq_e3nUwNhN8oTnY2Uf3Ekxm-lbq0uu2bymQVt6TqTSVNI7VzXLN7HHoLAo2LQA4alCCMIQiVDw-6gTZXdH6u5Ov0aii7rgOKQalov9jlI4neI8_rq-4VIwA_73NgIdFeeeolLq6OCCOJmb_efQnMesZuU-kmhJ"/>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-4 border-surface rounded-full"></div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-on-surface leading-tight mb-1">Maria da Silva</h3>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs text-outline ml-1">(5.0)</span>
+</div>
+</div>
+</div>
+<div class="space-y-4 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-outline">Casos vinculados:</span>
+<span class="font-bold text-on-surface">2 Casos ativos</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-primary font-bold uppercase">Saúde: 85%</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex-1 bg-surface-container-highest hover:bg-surface-bright p-2.5 rounded-xl transition-all group/btn">
+<span class="material-symbols-outlined text-green-400 group-hover/btn:scale-110 transition-transform" data-icon="chat">chat</span>
+</button>
+<button class="flex-[3] bg-surface-container-highest hover:bg-primary hover:text-on-primary py-2.5 rounded-xl text-sm font-bold transition-all">
+                            Ver Perfil Completo
+                        </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel group p-6 rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-500 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-3 py-1 bg-secondary-container text-secondary text-[10px] font-bold uppercase tracking-widest rounded-full">Lead</span>
+</div>
+<div class="flex items-start gap-4 mb-6">
+<div class="relative">
+<img alt="João Mendes Avatar" class="w-16 h-16 rounded-2xl bg-surface-container object-cover" data-alt="Portrait of a serious businessman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFnB0fZnwNDT2nKofm5GyZdsJZ4M80iaT5ebA6e0MbMFTDYOYuE41VandEy_VuoPaanjjRfw_yP8Dj9eXVP1HN2vJZFNAbVQYVZB9Mo-a47ZQ44q1WtIWp9M1hkH1eQ0cyCQQSFyDorLFt447kbL3fYfWvtX5neIKuolgrlmH0_d0noqrRCOLl8nS9HGlggEPnASg-lD5_5SMNXkAfM7W50bQIj_oxacL-T4SFrNn2sB_eSjg96qkXcaGzTDnnyFkX0MV3-4XkeL8p"/>
+</div>
+<div>
+<h3 class="text-lg font-bold text-on-surface leading-tight mb-1">João Mendes</h3>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-xs text-outline ml-1">(4.0)</span>
+</div>
+</div>
+</div>
+<div class="space-y-4 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-outline">Última interação:</span>
+<span class="font-bold text-on-surface">Há 2 horas</span>
+</div>
+<div class="bg-surface-container-high/50 p-3 rounded-xl border-l-4 border-primary">
+<p class="text-[11px] text-outline leading-tight">Interessado em: <span class="text-on-surface font-semibold italic">Consultoria Tributária</span></p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex-1 bg-surface-container-highest hover:bg-surface-bright p-2.5 rounded-xl transition-all group/btn">
+<span class="material-symbols-outlined text-green-400 group-hover/btn:scale-110 transition-transform" data-icon="chat">chat</span>
+</button>
+<button class="flex-[3] bg-surface-container-highest hover:bg-primary hover:text-on-primary py-2.5 rounded-xl text-sm font-bold transition-all">
+                            Ver Lead Detalhes
+                        </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel group p-6 rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-500 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full">Cliente</span>
+</div>
+<div class="flex items-start gap-4 mb-6">
+<div class="relative">
+<img alt="Beatriz Costa Avatar" class="w-16 h-16 rounded-2xl bg-surface-container object-cover" data-alt="Portrait of a young professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2BuMhxubq40tHD69gL4wqbsX5S32rI4OosKIKXK4gmwEwfc-45x1Frh5yLCUfbr2T1xACvcYIyQg9Jqzsmd3cg0J6BDnfXUbRYeq2QAfOJmBiG6zJR7ieFYcoTAiZw23HoRPWSZ2w7fFojtNCnb0891jymPSUZaggs6Wz2R1_hbjpYZjtPAVSaf5FipC6wr0Ti0Zc6k1BKoylHR4Q0HfaGOxY_Vrlh3_WODl-6pwMWW8huhnFdM-RzkQItU5WLYqeppVk_90wAvAq"/>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-yellow-500 border-4 border-surface rounded-full"></div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-on-surface leading-tight mb-1">Beatriz Costa</h3>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs text-outline ml-1">(5.0)</span>
+</div>
+</div>
+</div>
+<div class="space-y-4 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-outline">Casos vinculados:</span>
+<span class="font-bold text-on-surface">5 Casos ativos</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[98%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-primary font-bold uppercase">VIP: 98%</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex-1 bg-surface-container-highest hover:bg-surface-bright p-2.5 rounded-xl transition-all group/btn">
+<span class="material-symbols-outlined text-green-400 group-hover/btn:scale-110 transition-transform" data-icon="chat">chat</span>
+</button>
+<button class="flex-[3] bg-surface-container-highest hover:bg-primary hover:text-on-primary py-2.5 rounded-xl text-sm font-bold transition-all">
+                            Ver Perfil Completo
+                        </button>
+</div>
+</div>
+</div>
+<!-- Empty State / Load More (Asymmetric Layout element) -->
+<div class="mt-12 flex justify-center">
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+<button class="relative px-8 py-3 rounded-2xl bg-surface-container border border-outline/20 hover:border-primary/50 text-outline hover:text-primary transition-all font-medium text-sm flex items-center gap-3">
+                        Carregar mais contatos
+                        <span class="material-symbols-outlined animate-bounce" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Supressed as per rules on list pages typically, but here specifically added for the "Novo Contato" action mentioned) -->
+<div class="fixed bottom-8 right-8 z-50 md:hidden">
+<button class="w-14 h-14 bg-primary rounded-full shadow-2xl flex items-center justify-center text-on-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</div>
+</body></html>

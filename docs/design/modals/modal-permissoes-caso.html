@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Juris AI - Gerenciar Permissões</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#93000a",
+              "on-tertiary": "#203051",
+              "on-primary-fixed-variant": "#5a4312",
+              "on-primary-container": "#543d0c",
+              "primary-fixed-dim": "#e4c285",
+              "tertiary-fixed-dim": "#b6c6ef",
+              "surface": "#0b1326",
+              "secondary": "#b9c8de",
+              "on-error-container": "#ffdad6",
+              "surface-variant": "#2d3449",
+              "on-secondary": "#233143",
+              "on-surface-variant": "#d0c5b5",
+              "on-primary-fixed": "#261900",
+              "on-surface": "#dae2fd",
+              "background": "#0b1326",
+              "outline-variant": "#4d463a",
+              "secondary-fixed": "#d4e4fa",
+              "on-secondary-container": "#a7b6cc",
+              "surface-container-low": "#131b2e",
+              "surface-container": "#171f33",
+              "on-primary": "#412d00",
+              "on-tertiary-fixed": "#081b3b",
+              "on-tertiary-container": "#314163",
+              "inverse-primary": "#745a27",
+              "tertiary-container": "#9dadd5",
+              "on-secondary-fixed": "#0d1c2d",
+              "tertiary-fixed": "#d8e2ff",
+              "surface-container-lowest": "#060e20",
+              "outline": "#998f81",
+              "inverse-surface": "#dae2fd",
+              "surface-container-highest": "#2d3449",
+              "secondary-container": "#39485a",
+              "surface-dim": "#0b1326",
+              "tertiary": "#b8c8f2",
+              "on-tertiary-fixed-variant": "#374669",
+              "primary": "#e6c487",
+              "error": "#ffb4ab",
+              "surface-container-high": "#222a3d",
+              "on-secondary-fixed-variant": "#39485a",
+              "surface-bright": "#31394d",
+              "inverse-on-surface": "#283044",
+              "surface-tint": "#e4c285",
+              "secondary-fixed-dim": "#b9c8de",
+              "on-background": "#dae2fd",
+              "on-error": "#690005",
+              "primary-fixed": "#ffdea4",
+              "primary-container": "#c9a96e"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4d463a;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen flex items-center justify-center p-4 lg:p-0">
+<!-- TopNavBar Placeholder Background -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0b1326] flex justify-between items-center px-8 h-16">
+<div class="text-xl font-bold tracking-tighter text-[#e6c487] uppercase">Juris AI</div>
+<div class="hidden md:flex items-center space-x-8 text-[#998f81] font-medium text-sm tracking-wide">
+<span class="text-[#e6c487] border-b-2 border-[#e6c487] pb-1">Matters</span>
+<span class="hover:text-[#dae2fd] transition-colors cursor-pointer">Dashboard</span>
+<span class="hover:text-[#dae2fd] transition-colors cursor-pointer">Documents</span>
+<span class="hover:text-[#dae2fd] transition-colors cursor-pointer">Automations</span>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-[#998f81] cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-[#998f81] cursor-pointer">settings</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User profile" data-alt="Professional user avatar for legal dashboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaMkySRQLpkE2sPckqpDQdiiDf11xF_YYhSyNLAbc_rGzLhunpDyU48cjdPVcW0-ao2lfUv5Ei98K03mIOlE9VVjcgGZvCWz2_RSCSOSg6okmm-Ab3lekpP2AmIu-TK_Ytx7tpRGTgp32sMY7Aqb70LVc8_Zh3wlH7SO-re7Y-luWqc44yVXwScdA-QhW_yka-kho7dfNLGghjQEm75AxfLX6_e16hYBUMUChOvAPCBuYvlDs6FB4aehVxo00E12n3UZRORXiMrQA1"/>
+</div>
+</div>
+</header>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-surface/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+<!-- Glassmorphism Modal Container -->
+<div class="glass-panel w-full max-w-2xl rounded-xl overflow-hidden border border-outline-variant/20 shadow-2xl flex flex-col max-h-[921px]">
+<!-- Header -->
+<div class="px-8 pt-8 pb-6 flex items-center justify-between">
+<div>
+<span class="text-[0.7rem] font-bold tracking-[0.2em] text-outline uppercase block mb-1">Permissões de Acesso</span>
+<h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight">Controle de Acesso: Silva vs. ABC</h2>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+<!-- Search Section -->
+<div class="px-8 mb-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-xl">person_add</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3.5 pl-12 pr-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Adicionar novos membros por nome ou email..." type="text"/>
+</div>
+</div>
+<!-- Content Area: Team Members List -->
+<div class="flex-1 overflow-y-auto px-8 py-2 custom-scrollbar">
+<div class="space-y-4">
+<!-- Member Row 1 -->
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center space-x-4">
+<div class="relative">
+<img alt="James" class="w-12 h-12 rounded-xl bg-surface-container-high" data-alt="Profile photo of legal associate James" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8O4ob5dDMFwuPGr9IEFsU-TAAWijCtEJ5_C8BJLGGri7YgcCGhIhvXKS-oHPyn-BtFLX7iFe4VeWmW0-RPVEDn8FMIsI8zKaFY-K9GTThEvMSNdjH2IU4RiaaxcqephaCYUstWv06G88_40vM9W1B_FD3o4rMCxYoDebEIALTuyMlC_V37ckZDLvFHpoLvEROp0szPoE199J6NtzCGp4eW8s89FRcjLUoVU2X5NRgQ2Lwepz0xO1IBzuqR81s7Gj71S2G2jKYWCtB"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-on-surface">Dr. Ricardo Silva</h4>
+<p class="text-xs text-outline tracking-wide uppercase">Sócio Sênior</p>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg px-4 py-2 pr-10 text-xs font-bold text-primary focus:ring-0 focus:border-primary cursor-pointer uppercase tracking-wider">
+<option>Acesso Total</option>
+<option>Apenas Leitura</option>
+<option>Sem Acesso</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+<!-- Member Row 2 -->
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center space-x-4">
+<div class="relative">
+<img alt="Sarah" class="w-12 h-12 rounded-xl bg-surface-container-high" data-alt="Profile photo of legal associate Sarah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0AQee_-Kpwk4Ob2qQMpMJiv6EGziLUEJTKKBCmsyxcZ5V7y4eHml5q_xGi3XSIdRpFl7MGWX0ilZSvXj5SzAF1WIdaE2DOm_Nx6JA3w5Ob2HQnSL3qiY6SVkxwZZ2IlGnvKEpN5-2PHStWEzkNAFYMDXD7YEVYuVhe3YLibrFCH_bcvOZ9nF63wrhQ4uzS-Zjhn1ZVGs4eI4gemdnI9UAql2HlXeGMQCK2j6gEnzagFd8Gbh8UhfUHINSs8A4oVqQy3emJIpkC75y"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-surface-container-highest border-2 border-surface rounded-full"></div>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-on-surface">Dra. Amanda Castro</h4>
+<p class="text-xs text-outline tracking-wide uppercase">Advogada Plena</p>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg px-4 py-2 pr-10 text-xs font-bold text-on-surface focus:ring-0 focus:border-primary cursor-pointer uppercase tracking-wider">
+<option>Acesso Total</option>
+<option selected="">Apenas Leitura</option>
+<option>Sem Acesso</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+<!-- Member Row 3 -->
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center space-x-4">
+<img alt="Beto" class="w-12 h-12 rounded-xl bg-surface-container-high" data-alt="Profile photo of legal intern Beto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3AoThAvNZ8Lswkf-6I8aNBODVf3ke0YRxnKxjlTn0xNqaIRYPTjIOjNWnVnWlabAUs3xJrhtHoHsp8CW6Nnii5q5ZkkxLnLIK1orJq4UJu9KTkaZD1lpImCegLnWKbjw7Ns2-OxqL9E2j5UYUVa1feGpDt0HoaBbB1oA_iRtMV3WrN7E4sO2VSrliwEEnUs1eSaCu30aUEOxtLTGUTXsTGEnEIkj-tqElS_EAHVB-0VtNWKZ5ywo8CHV-NAs9B9nKwhzWAFP28T_Y"/>
+<div>
+<h4 class="text-sm font-semibold text-on-surface">Roberto Oliveira</h4>
+<p class="text-xs text-outline tracking-wide uppercase">Estagiário de Direito</p>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg px-4 py-2 pr-10 text-xs font-bold text-error focus:ring-0 focus:border-error cursor-pointer uppercase tracking-wider">
+<option>Acesso Total</option>
+<option>Apenas Leitura</option>
+<option selected="">Sem Acesso</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-error pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+<!-- Member Row 4 -->
+<div class="group flex items-center justify-between p-4 rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center space-x-4">
+<img alt="Elena" class="w-12 h-12 rounded-xl bg-surface-container-high" data-alt="Profile photo of paralegal Elena" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC14XlBLtjnaL4CgBOtDQExxSCMsprHXDXPRudKTo7qXNjyfjPBkOx5Q06sdrBzRswfCDq9nEMT9y1VVNm_k3gT8IsAy118o7AUCcW73oe3TY6bMmnIZWlWHWoKz_hrLYGYpSyqQ0WAz4_2h14qorfbTXSENEWOJ6qbiYfkfJ8PQYDjTywEKgnsG-aGY4YZylVJgHQ3v5_vaOaW8MWGsYSp4hrdyThTSh3QqIng9YG7nuTuHGdzFhJVh8qrI-4Nd2WuUQiZoE2x8xHd"/>
+<div>
+<h4 class="text-sm font-semibold text-on-surface">Dra. Elena Vasconcelos</h4>
+<p class="text-xs text-outline tracking-wide uppercase">Consultora Externa</p>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg px-4 py-2 pr-10 text-xs font-bold text-on-surface focus:ring-0 focus:border-primary cursor-pointer uppercase tracking-wider">
+<option>Acesso Total</option>
+<option selected="">Apenas Leitura</option>
+<option>Sem Acesso</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="text-xs text-outline italic text-center sm:text-left">Alterações afetarão a visibilidade de documentos e fluxos de IA.</p>
+<div class="flex items-center space-x-4 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-6 py-3 rounded-xl text-sm font-bold text-on-surface border border-outline-variant/20 hover:bg-surface-container-highest transition-all uppercase tracking-widest">
+                        Cancelar
+                    </button>
+<button class="flex-1 sm:flex-none px-8 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-primary to-primary-container text-on-primary hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest shadow-lg shadow-primary/10">
+                        Atualizar Permissões
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- SideNav Mockup Background (Visible behind modal) -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest hidden lg:flex flex-col py-6 px-4 space-y-8">
+<div class="flex items-center space-x-4 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-black">SC</div>
+<div>
+<p class="text-[0.6rem] font-bold text-primary tracking-[0.2em] uppercase">Premium Tier</p>
+<h3 class="text-sm font-black text-on-surface uppercase tracking-tight leading-none">Sovereign Counsel</h3>
+</div>
+</div>
+<nav class="space-y-2 flex-1">
+<div class="flex items-center space-x-4 px-4 py-3 text-primary bg-surface-container rounded-xl font-bold translate-x-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-[0.7rem] uppercase tracking-[0.15em]">Intelligence</span>
+</div>
+<div class="flex items-center space-x-4 px-4 py-3 text-outline hover:text-[#dae2fd] hover:bg-surface-container/80 transition-all cursor-pointer">
+<span class="material-symbols-outlined">bolt</span>
+<span class="text-[0.7rem] uppercase tracking-[0.15em]">Workflows</span>
+</div>
+<div class="flex items-center space-x-4 px-4 py-3 text-outline hover:text-[#dae2fd] hover:bg-surface-container/80 transition-all cursor-pointer">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="text-[0.7rem] uppercase tracking-[0.15em]">Vault</span>
+</div>
+</nav>
+<div class="px-2 pt-6">
+<button class="w-full bg-surface-container-highest py-4 rounded-xl text-primary text-[0.7rem] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/5 hover:brightness-125 transition-all">
+                AI Insights
+            </button>
+</div>
+</aside>
+</body></html>

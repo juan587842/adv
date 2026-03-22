@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary": "#233143",
+                        "surface-dim": "#0b1326",
+                        "on-surface": "#dae2fd",
+                        "on-background": "#dae2fd",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "inverse-primary": "#745a27",
+                        "surface-variant": "#2d3449",
+                        "error-container": "#93000a",
+                        "outline-variant": "#4d463a",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "on-tertiary-fixed": "#081b3b",
+                        "secondary-container": "#39485a",
+                        "primary-fixed-dim": "#e4c285",
+                        "on-tertiary": "#203051",
+                        "on-error": "#690005",
+                        "on-primary-container": "#543d0c",
+                        "inverse-on-surface": "#283044",
+                        "tertiary-container": "#9dadd5",
+                        "secondary-fixed": "#d4e4fa",
+                        "primary-container": "#c9a96e",
+                        "surface-bright": "#31394d",
+                        "on-tertiary-container": "#314163",
+                        "inverse-surface": "#dae2fd",
+                        "surface-container": "#171f33",
+                        "secondary": "#b9c8de",
+                        "on-surface-variant": "#d0c5b5",
+                        "surface-container-highest": "#2d3449",
+                        "tertiary": "#b8c8f2",
+                        "on-tertiary-fixed-variant": "#374669",
+                        "background": "#0b1326",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-primary-fixed-variant": "#5a4312",
+                        "on-primary": "#412d00",
+                        "surface-container-high": "#222a3d",
+                        "on-secondary-container": "#a7b6cc",
+                        "secondary-fixed-dim": "#b9c8de",
+                        "surface-tint": "#e4c285",
+                        "surface-container-lowest": "#060e20",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#b6c6ef",
+                        "primary-fixed": "#ffdea4",
+                        "primary": "#e6c487",
+                        "surface": "#0b1326",
+                        "outline": "#998f81",
+                        "on-primary-fixed": "#261900",
+                        "on-error-container": "#ffdad6"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1326;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3449;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30 selection:text-primary">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl flex justify-between items-center px-8 h-16 w-full shadow-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#e6c487] font-inter antialiased tracking-tight">Juris AI</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 hover:text-slate-200 cursor-pointer active:scale-95 transition-transform font-medium" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-slate-200 cursor-pointer active:scale-95 transition-transform font-medium" href="#">Updates</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-white/5 transition-colors duration-200 text-slate-400">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-white/5 transition-colors duration-200 text-slate-400">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold cursor-pointer">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-72 flex flex-col fixed left-0 top-16 z-40 bg-[#0b1326] shadow-2xl shadow-slate-950/50 p-6 flex flex-col gap-2">
+<div class="mb-6 px-2">
+<h2 class="text-lg font-black text-[#c9a96e] mb-1">The Sovereign Counsel</h2>
+<p class="text-[0.7rem] uppercase tracking-widest text-slate-400 font-bold">Senior Partner</p>
+</div>
+<nav class="flex flex-col gap-1 overflow-y-auto pb-20">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Painel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="gavel">gavel</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Casos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="group">group</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Contatos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="inbox">inbox</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Inbox</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="calendar_month">calendar_month</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Calendário</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="payments">payments</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Financeiro</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="psychology">psychology</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">IA &amp; Skills</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="quick_reply">quickreply</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Follow-up</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-[#c9a96e]/20 to-transparent text-[#e6c487] border-l-4 border-[#c9a96e] hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="font-inter text-sm font-medium tracking-wide uppercase">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl">
+<button class="w-full bg-primary py-3 rounded-lg text-on-primary font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span>New Case File</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 p-10 overflow-y-auto">
+<!-- Breadcrumb & Header -->
+<div class="mb-10">
+<nav class="flex text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">
+<span class="hover:text-primary cursor-pointer transition-colors">Dashboard</span>
+<span class="mx-2 text-slate-600">/</span>
+<span class="text-on-surface">Configurações</span>
+</nav>
+<h1 class="text-4xl font-headline font-bold text-on-surface tracking-tight">Preferências do Sistema</h1>
+</div>
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Vertical Settings Tabs -->
+<div class="col-span-12 lg:col-span-3 sticky top-24">
+<div class="flex flex-col gap-1 p-2 bg-surface-container rounded-2xl">
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl bg-surface-container-highest text-primary font-medium transition-all">
+<span class="material-symbols-outlined" data-icon="business">business</span>
+<span>Escritório</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span>Equipe</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span>WhatsApp / Evolution</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span>E-mail</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span>Integrações</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span>IA / Ollama</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Segurança &amp; LGPD</span>
+</button>
+<button class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span>Plano &amp; Faturamento</span>
+</button>
+</div>
+</div>
+<!-- Settings Forms Canvas -->
+<div class="col-span-12 lg:col-span-9 space-y-8 pb-20">
+<!-- Section 1: Dados do Escritório -->
+<section class="glass-panel p-8 rounded-3xl space-y-8">
+<div class="flex items-start justify-between border-b border-white/5 pb-6">
+<div>
+<h3 class="text-2xl font-bold text-on-surface">Dados do Escritório</h3>
+<p class="text-slate-400 mt-1">Gerencie as informações institucionais da sua firma.</p>
+</div>
+<span class="material-symbols-outlined text-primary/30 text-5xl" data-icon="account_balance">account_balance</span>
+</div>
+<div class="flex flex-col md:flex-row gap-10">
+<!-- Logo Upload -->
+<div class="flex-shrink-0">
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Logotipo</label>
+<div class="relative group cursor-pointer">
+<div class="w-40 h-40 rounded-2xl bg-surface-container-low border-2 border-dashed border-outline-variant flex flex-col items-center justify-center text-center p-4 transition-colors group-hover:border-primary/50">
+<span class="material-symbols-outlined text-4xl text-outline mb-2" data-icon="add_a_photo">add_a_photo</span>
+<span class="text-xs text-slate-500 font-medium">Upload logo (PNG/SVG)</span>
+</div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+</div>
+</div>
+<!-- Inputs Grid -->
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Nome do Escritório</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface placeholder-slate-600 transition-all" type="text" value="Silva &amp; Associados"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">CNPJ</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" placeholder="00.000.000/0001-00" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Telefone</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" placeholder="(11) 99999-9999" type="text"/>
+</div>
+<div class="col-span-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Endereço</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" placeholder="Av. Paulista, 1000 - São Paulo, SP" type="text"/>
+</div>
+<div class="col-span-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Áreas de atuação</label>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2">Cível <span class="material-symbols-outlined text-[14px] cursor-pointer" data-icon="close">close</span></span>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2">Trabalhista <span class="material-symbols-outlined text-[14px] cursor-pointer" data-icon="close">close</span></span>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2">Tributário <span class="material-symbols-outlined text-[14px] cursor-pointer" data-icon="close">close</span></span>
+<button class="bg-surface-container-highest text-slate-400 px-3 py-1 rounded-full text-xs font-bold border border-white/5 flex items-center gap-1 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[14px]" data-icon="add">add</span> Adicionar
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Preferências -->
+<section class="glass-panel p-8 rounded-3xl space-y-6">
+<div>
+<h3 class="text-xl font-bold text-on-surface">Preferências de Localização</h3>
+<p class="text-slate-400 text-sm mt-1">Configure como as informações de tempo e região são exibidas.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Fuso horário</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface appearance-none cursor-pointer">
+<option value="America/Sao_Paulo">America/Sao_Paulo</option>
+<option value="UTC">UTC (Londres)</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Idioma</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface appearance-none cursor-pointer">
+<option value="pt">Português (Brasil)</option>
+<option value="en">English (US)</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Formato de data</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface appearance-none cursor-pointer">
+<option value="DD/MM/YYYY">DD/MM/YYYY</option>
+<option value="MM/DD/YYYY">MM/DD/YYYY</option>
+<option value="YYYY-MM-DD">YYYY-MM-DD</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Section 3: Aparência -->
+<section class="glass-panel p-8 rounded-3xl space-y-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface">Aparência da Interface</h3>
+<p class="text-slate-400 text-sm mt-1">Personalize a experiência visual do Juris AI para seu escritório.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Theme Toggle -->
+<div class="space-y-4">
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400">Modo de Exibição</label>
+<div class="grid grid-cols-2 gap-4">
+<div class="relative group cursor-pointer border-2 border-transparent hover:border-primary/30 rounded-2xl p-1 transition-all">
+<div class="bg-white rounded-xl h-24 w-full flex items-center justify-center overflow-hidden">
+<div class="w-full h-full p-2 space-y-1">
+<div class="h-2 w-1/2 bg-slate-200 rounded"></div>
+<div class="h-10 w-full bg-slate-100 rounded"></div>
+</div>
+</div>
+<p class="text-center mt-2 text-xs font-bold text-slate-400 group-hover:text-primary transition-colors">Claro</p>
+</div>
+<div class="relative group cursor-pointer border-2 border-primary rounded-2xl p-1 transition-all bg-primary/5">
+<div class="bg-slate-900 rounded-xl h-24 w-full flex items-center justify-center overflow-hidden">
+<div class="w-full h-full p-2 space-y-1">
+<div class="h-2 w-1/2 bg-slate-700 rounded"></div>
+<div class="h-10 w-full bg-slate-800 rounded"></div>
+</div>
+</div>
+<p class="text-center mt-2 text-xs font-bold text-primary">Escuro</p>
+<div class="absolute top-2 right-2 h-5 w-5 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary" data-icon="check">check</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Accent Color -->
+<div class="space-y-4">
+<label class="block text-xs font-bold uppercase tracking-widest text-slate-400">Cor de Destaque</label>
+<div class="flex flex-wrap gap-4">
+<button class="w-10 h-10 rounded-full bg-[#C9A96E] ring-2 ring-primary ring-offset-4 ring-offset-[#0b1326] shadow-lg"></button>
+<button class="w-10 h-10 rounded-full bg-blue-500 hover:scale-110 transition-transform"></button>
+<button class="w-10 h-10 rounded-full bg-emerald-500 hover:scale-110 transition-transform"></button>
+<button class="w-10 h-10 rounded-full bg-purple-500 hover:scale-110 transition-transform"></button>
+<button class="w-10 h-10 rounded-full bg-rose-500 hover:scale-110 transition-transform"></button>
+<div class="w-10 h-10 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-slate-400" data-icon="palette">palette</span>
+</div>
+</div>
+<p class="text-xs text-slate-500 font-medium">Esta cor será aplicada a botões primários e indicadores de estado.</p>
+</div>
+</div>
+</section>
+<!-- Form Actions -->
+<div class="flex items-center justify-end gap-4 mt-12">
+<button class="px-8 py-4 rounded-xl text-slate-400 font-bold hover:bg-white/5 transition-colors">Descartar</button>
+<button class="px-10 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold shadow-2xl shadow-primary/10 hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 transition-all">Salvar alterações</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating UI Decal (Abstract decorative elements) -->
+<div class="fixed top-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-0 -left-20 w-80 h-80 bg-blue-900/10 blur-[100px] rounded-full pointer-events-none"></div>
+</body></html>
