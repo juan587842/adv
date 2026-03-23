@@ -126,35 +126,35 @@ export default function WatcherDashboard() {
       </div>
 
       {/* Stats Strip */}
-      <div className="grid grid-cols-4 gap-3">
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Shield size={10} /> Status</p>
-          <p className="text-sm font-bold text-green-500 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Ativo
+      <div className="grid grid-cols-4 gap-4">
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Shield size={12} className="text-secondary/60" /> Status</p>
+          <p className="text-xl font-bold text-green-500 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span> Ativo
           </p>
         </div>
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Zap size={10} /> Pendentes</p>
-          <p className="text-xl font-bold text-secondary/90">{pendingCount}</p>
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Zap size={12} className="text-blue-400" /> Pendentes</p>
+          <p className="text-2xl font-bold text-secondary/90">{pendingCount}</p>
         </div>
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><AlertTriangle size={10} /> Críticos</p>
-          <p className={`text-xl font-bold ${criticalCount > 0 ? 'text-red-400' : 'text-secondary/30'}`}>{criticalCount}</p>
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><AlertTriangle size={12} className="text-red-400" /> Críticos</p>
+          <p className={`text-2xl font-bold ${criticalCount > 0 ? 'text-red-500' : 'text-secondary/30'}`}>{criticalCount}</p>
         </div>
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Clock size={10} /> Último Scan</p>
-          <p className="text-sm font-bold text-secondary/60">Há 3 min</p>
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Clock size={12} className="text-secondary/60" /> Último Scan</p>
+          <p className="text-lg font-bold text-secondary/50">Há 3 min</p>
         </div>
       </div>
 
       {/* Priority Filters */}
-      <div className="flex gap-1.5">
+      <div className="inline-flex gap-2 p-1.5 bg-surface/40 backdrop-blur-md rounded-xl shadow-inner border border-primary/[0.01]">
         {[ { key: 'all', label: 'Todas' }, { key: 'critical', label: '🔴 Críticas' }, { key: 'high', label: '🟡 Altas' }, { key: 'medium', label: '🔵 Médias' }, { key: 'low', label: '⚪ Baixas' } ].map(f => (
           <button
             key={f.key}
             onClick={() => setFilterPriority(f.key)}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-              filterPriority === f.key ? 'bg-primary/10 text-primary' : 'text-secondary/40 hover:text-secondary/60'
+            className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-300 ${
+              filterPriority === f.key ? 'bg-background/80 text-primary shadow-sm' : 'text-secondary/50 hover:text-secondary/80 hover:bg-surface/50'
             }`}
           >
             {f.label}
@@ -171,11 +171,11 @@ export default function WatcherDashboard() {
           return (
             <div 
               key={task.id} 
-              className={`p-4 rounded-2xl border backdrop-blur-md transition-all ${isDone ? 'opacity-50' : ''} ${pc.bg} ${pc.border} ${!isDone ? pc.glow : ''}`}
+              className={`p-5 rounded-2xl backdrop-blur-md transition-all duration-500 border border-transparent shadow-[0_8px_32px_rgba(230,196,135,0.01)] hover:shadow-[0_8px_32px_rgba(230,196,135,0.03)] ${isDone ? 'opacity-50 grayscale-[50%]' : ''} ${pc.bg} hover:border-primary/10 ${!isDone ? pc.glow : ''}`}
             >
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-4">
                 {/* Type Icon */}
-                <div className="p-2 bg-background/50 rounded-xl flex-shrink-0 mt-0.5">
+                <div className="p-3 bg-background/40 rounded-xl flex-shrink-0 mt-1 shadow-inner border border-primary/[0.05]">
                   {typeIcons[task.type]}
                 </div>
 

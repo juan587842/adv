@@ -149,17 +149,17 @@ export default function PublicationsPage() {
         
         {/* Categories Sidebar */}
         <div className="lg:col-span-1 space-y-4">
-          <div className="bg-surface border border-primary/20 rounded-xl overflow-hidden shadow-sm">
-            <div className="p-4 bg-background/50 border-b border-primary/10">
+          <div className="bg-surface/40 backdrop-blur-md rounded-2xl shadow-card">
+            <div className="p-4 bg-background/30 rounded-t-2xl">
               <h3 className="font-semibold text-sm text-secondary flex items-center gap-2"><Filter size={14}/> Filtros de Caixa</h3>
             </div>
             <div className="p-2 space-y-1">
               <button 
                 onClick={() => setActiveTab('all')}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${activeTab === 'all' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary/70 hover:bg-surface/80 hover:text-secondary'}`}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all duration-300 ${activeTab === 'all' ? 'bg-primary/[0.08] text-primary font-semibold shadow-inner' : 'text-secondary/60 hover:bg-surface/60 hover:text-secondary'}`}
               >
                 <div className="flex items-center gap-2"><BookOpen size={14} /> Caixa de Entrada</div>
-                <span className="text-xs bg-background px-1.5 rounded border border-primary/10">{publications.filter(p => p.status !== 'archived').length}</span>
+                <span className="text-xs bg-background/80 px-2 py-0.5 rounded-md text-secondary/70">{publications.filter(p => p.status !== 'archived').length}</span>
               </button>
               <button 
                 onClick={() => setActiveTab('action_required')}
@@ -205,13 +205,13 @@ export default function PublicationsPage() {
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-5">
               {filteredPublications.map(pub => (
-                <div key={pub.id} className={`bg-surface border rounded-xl overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md ${pub.status === 'action_required' ? 'border-red-500/30' : 'border-primary/20'}`}>
+                <div key={pub.id} className={`bg-surface/50 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm transition-all duration-500 hover:shadow-[0_8px_32px_rgba(218,226,253,0.03)] border border-transparent ${pub.status === 'action_required' ? 'hover:border-red-500/20' : 'hover:border-primary/10'}`}>
                   {pub.status === 'action_required' && (
-                     <div className="bg-red-500/10 px-4 py-2 border-b border-red-500/20 flex items-center gap-2">
-                       <AlertCircle size={14} className="text-red-500" />
-                       <span className="text-xs font-bold uppercase tracking-wider text-red-500">Atenção Prioritária (Análise Vigia 24/7)</span>
+                     <div className="bg-red-500/10 backdrop-blur-[2px] px-5 py-2.5 flex items-center gap-2">
+                       <AlertCircle size={14} className="text-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                       <span className="text-xs font-bold uppercase tracking-widest text-red-500">Atenção Prioritária (Análise Vigia 24/7)</span>
                      </div>
                   )}
                   
@@ -233,13 +233,13 @@ export default function PublicationsPage() {
                         </div>
                       </div>
 
-                      <div className="bg-background rounded-lg p-4 border border-primary/5 text-sm font-mono text-gray-300 leading-relaxed whitespace-pre-wrap">
+                      <div className="bg-background/40 backdrop-blur-sm rounded-xl p-5 text-sm font-mono text-secondary/70 leading-[1.6]">
                         {pub.content.length > 300 && pub.status === 'unread' 
                           ? pub.content.substring(0, 300) + '...'
                           : pub.content}
                       </div>
 
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-primary/10">
+                      <div className="flex items-center justify-between mt-6 pt-5">
                         <span className="text-xs text-secondary/40 flex items-center gap-1">
                           Capturado {formatDistanceToNow(new Date(pub.created_at), { addSuffix: true, locale: ptBR })}
                         </span>

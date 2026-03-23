@@ -14,10 +14,10 @@ export default function DashboardPage() {
         </div>
         
         <div className="hidden md:flex gap-3">
-          <button className="px-4 py-2 bg-surface border border-primary/20 rounded-md text-sm font-medium hover:border-primary/50 transition-colors">
+          <button className="px-5 py-2.5 bg-surface/50 backdrop-blur-md rounded-xl text-sm font-semibold text-secondary/70 hover:bg-surface hover:text-secondary hover:shadow-[0_4px_16px_rgba(230,196,135,0.05)] transition-all">
             Gerar Relatório
           </button>
-          <button className="px-4 py-2 bg-primary text-background rounded-md text-sm font-bold hover:bg-primary-light transition-colors">
+          <button className="px-5 py-2.5 bg-primary text-background rounded-xl text-sm font-bold hover:bg-primary-light hover:shadow-[0_4px_16px_rgba(230,196,135,0.2)] transition-all">
             Novo Processo
           </button>
         </div>

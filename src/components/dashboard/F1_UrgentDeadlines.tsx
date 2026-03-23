@@ -7,7 +7,7 @@ export function UrgentDeadlinesZone() {
   ];
 
   return (
-    <div className="bg-gradient-to-r from-red-950/30 to-surface rounded-xl p-5 shadow-card relative overflow-hidden">
+    <div className="bg-gradient-to-r from-red-950/20 to-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-[0_8px_32px_rgba(239,68,68,0.05)] border border-primary/[0.02] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-b from-red-500 to-red-500/20"></div>
       
       <div className="flex items-center justify-between mb-4">

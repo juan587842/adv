@@ -63,8 +63,8 @@ export default function KnowledgeBasePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
         
         {/* Ingestion Panel */}
-        <div className="flex flex-col bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden">
-          <div className="p-5 border-b border-primary/5 bg-background/20 font-medium text-sm text-secondary/80 flex items-center gap-2">
+        <div className="flex flex-col bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(230,196,135,0.02)] overflow-hidden">
+          <div className="p-5 bg-background/30 font-semibold text-sm text-secondary/90 flex items-center gap-2">
             <UploadCloud size={16} className="text-primary" />
             Vetorizar Novo Conhecimento
           </div>
@@ -76,7 +76,7 @@ export default function KnowledgeBasePage() {
                 value={ingestTitle}
                 onChange={(e) => setIngestTitle(e.target.value)}
                 placeholder="Ex: Tese Defesa Trabalhista Acidente"
-                className="w-full px-4 py-2.5 bg-background/50 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/30 border border-primary/[0.05]"
+                className="w-full px-4 py-3 bg-surface/50 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent shadow-inner transition-all"
               />
             </div>
             <div className="flex-1 flex flex-col">
@@ -85,11 +85,11 @@ export default function KnowledgeBasePage() {
                 value={ingestText}
                 onChange={(e) => setIngestText(e.target.value)}
                 placeholder="Cole o texto da peça, lei, ou orientação aqui..."
-                className="w-full flex-1 p-4 bg-background/50 rounded-xl text-sm text-secondary/90 placeholder:text-secondary/30 resize-none focus:outline-none focus:ring-1 focus:ring-primary/30 border border-primary/[0.05] min-h-[200px]"
+                className="w-full flex-1 p-4 bg-surface/50 rounded-xl text-sm text-secondary/90 placeholder:text-secondary/30 resize-none focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent shadow-inner transition-all min-h-[200px]"
               />
             </div>
           </div>
-          <div className="p-5 border-t border-primary/5 bg-background/20">
+          <div className="p-5 bg-background/20">
             <button 
               onClick={handleIngest}
               disabled={isIngesting || !ingestTitle || !ingestText}
@@ -102,18 +102,18 @@ export default function KnowledgeBasePage() {
         </div>
 
         {/* RAG Sandbox Chat */}
-        <div className="flex flex-col bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden relative">
+        <div className="flex flex-col bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(230,196,135,0.02)] overflow-hidden relative">
           
           <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
             <BrainCircuit size={120} />
           </div>
 
-          <div className="p-5 border-b border-primary/5 bg-background/20 font-medium text-sm text-secondary/80 flex items-center justify-between">
+          <div className="p-5 bg-background/30 font-semibold text-sm text-secondary/90 flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Sparkles size={16} className="text-blue-500" />
               Sandbox RAG (Teste)
             </span>
-            <span className="text-[10px] bg-blue-500/10 text-blue-500 px-2 py-0.5 rounded font-bold uppercase">MiniMax M2.7</span>
+            <span className="text-[10px] bg-blue-500/10 text-blue-500 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider backdrop-blur-sm shadow-[0_0_12px_rgba(59,130,246,0.15)]">MiniMax M2.7</span>
           </div>
           
           <div className="flex-1 p-5 overflow-y-auto space-y-4">
@@ -127,19 +127,19 @@ export default function KnowledgeBasePage() {
             ) : (
                 chatMessages.map((msg, i) => (
                   <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[85%] rounded-2xl p-4 text-sm shadow-sm ${
+                    <div className={`max-w-[85%] rounded-2xl p-5 text-sm shadow-sm transition-all duration-300 ${
                       msg.role === 'user' 
-                        ? 'bg-primary text-background rounded-tr-sm' 
-                        : 'bg-background/80 border border-primary/[0.04] text-secondary/90 rounded-tl-sm backdrop-blur-md'
+                        ? 'bg-gradient-to-br from-primary to-primary-container text-background rounded-tr-sm shadow-[0_4px_12px_rgba(230,196,135,0.2)]' 
+                        : 'bg-surface/80 text-secondary/90 rounded-tl-sm backdrop-blur-md'
                     }`}>
                       <p className="leading-relaxed">{msg.content}</p>
                       
                       {msg.sources && (
                         <div className="mt-3 pt-3 border-t border-secondary/10">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-secondary/40 mb-2">Fontes Utilizadas (RAG):</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-secondary/30 mb-2">Fontes Utilizadas (RAG):</p>
                           <div className="flex flex-wrap gap-2">
                             {msg.sources.map((src, idx) => (
-                              <span key={idx} className="flex items-center gap-1 text-[10px] bg-surface px-2 py-1 rounded text-secondary/60 border border-primary/5">
+                              <span key={idx} className="flex items-center gap-1 text-[10px] bg-background/50 px-2.5 py-1 rounded-md text-secondary/50 shadow-inner">
                                 <FileText size={10} /> {src}
                               </span>
                             ))}
@@ -152,14 +152,14 @@ export default function KnowledgeBasePage() {
             )}
             {isChatting && (
                 <div className="flex justify-start">
-                  <div className="bg-background/80 border border-primary/[0.04] rounded-2xl p-4 rounded-tl-sm backdrop-blur-md">
-                     <Loader2 size={16} className="animate-spin text-primary" />
+                  <div className="bg-surface/80 rounded-2xl p-4 rounded-tl-sm backdrop-blur-md shadow-sm">
+                     <Loader2 size={16} className="animate-spin text-primary/70" />
                   </div>
                 </div>
             )}
           </div>
           
-          <div className="p-4 bg-background/20 border-t border-primary/5">
+          <div className="p-4 bg-background/20 mt-auto">
             <div className="relative flex items-center">
               <input 
                 type="text"
@@ -167,7 +167,7 @@ export default function KnowledgeBasePage() {
                 onChange={e => setChatInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleChat()}
                 placeholder="Pergunte à inteligência..."
-                className="w-full bg-surface py-3 pl-4 pr-12 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/30 border border-primary/[0.05] shadow-inner-glow"
+                className="w-full bg-surface/50 py-3.5 pl-5 pr-12 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/40 text-secondary placeholder:text-secondary/30 transition-all shadow-inner"
               />
               <button 
                 onClick={handleChat}

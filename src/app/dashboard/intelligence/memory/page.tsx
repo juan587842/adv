@@ -102,41 +102,41 @@ export default function MemoryExplorerPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3">
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Brain size={10} /> Total</p>
-          <p className="text-xl font-bold text-secondary/90">{demoMemories.length}</p>
+      <div className="grid grid-cols-4 gap-4">
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Brain size={12} className="text-primary/60" /> Total</p>
+          <p className="text-2xl font-bold text-secondary/90">{demoMemories.length}</p>
         </div>
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><User size={10} /> Contatos</p>
-          <p className="text-xl font-bold text-secondary/90">{contacts.length}</p>
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><User size={12} className="text-blue-400" /> Contatos</p>
+          <p className="text-2xl font-bold text-secondary/90">{contacts.length}</p>
         </div>
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Sparkles size={10} /> Auto-extraídas</p>
-          <p className="text-xl font-bold text-green-500">{demoMemories.filter(m => m.source === 'auto').length}</p>
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Sparkles size={12} className="text-green-400" /> Auto-extraídas</p>
+          <p className="text-2xl font-bold text-green-500">{demoMemories.filter(m => m.source === 'auto').length}</p>
         </div>
-        <div className="p-3 bg-surface/60 backdrop-blur-md rounded-xl border border-primary/[0.03] shadow-card">
-          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Shield size={10} /> Críticas (85+)</p>
-          <p className="text-xl font-bold text-red-400">{demoMemories.filter(m => m.importance >= 85).length}</p>
+        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+          <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Shield size={12} className="text-red-400" /> Críticas (85+)</p>
+          <p className="text-2xl font-bold text-red-500/90">{demoMemories.filter(m => m.importance >= 85).length}</p>
         </div>
       </div>
 
       {/* Filters */}
       <div className="flex gap-3 items-center">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary/30" size={14} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary/30" size={16} />
           <input
             type="text"
             placeholder="Buscar memórias por conteúdo ou chave..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-surface/60 rounded-xl text-sm text-secondary placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-primary/30 border border-primary/[0.05]"
+            className="w-full pl-11 pr-4 py-3 bg-surface/40 backdrop-blur-md rounded-xl text-sm text-secondary placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent hover:bg-surface/60 transition-colors shadow-inner"
           />
         </div>
         <select 
           value={filterContact}
           onChange={e => setFilterContact(e.target.value)}
-          className="px-3 py-2 bg-surface/60 rounded-xl text-sm text-secondary focus:outline-none border border-primary/[0.05] appearance-none"
+          className="px-4 py-3 bg-surface/40 backdrop-blur-md rounded-xl text-sm text-secondary focus:outline-none border border-transparent shadow-inner appearance-none min-w-[180px]"
         >
           <option value="all">Todos Contatos</option>
           {contacts.map(c => <option key={c} value={c}>{c}</option>)}
@@ -144,27 +144,28 @@ export default function MemoryExplorerPage() {
         <select
           value={filterType}
           onChange={e => setFilterType(e.target.value)}
-          className="px-3 py-2 bg-surface/60 rounded-xl text-sm text-secondary focus:outline-none border border-primary/[0.05] appearance-none"
+          className="px-4 py-3 bg-surface/40 backdrop-blur-md rounded-xl text-sm text-secondary focus:outline-none border border-transparent shadow-inner appearance-none min-w-[180px]"
         >
           <option value="all">Todos Tipos</option>
           {Object.entries(typeLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
         </select>
       </div>
 
-      {/* Memory Table */}
-      <div className="bg-surface/60 backdrop-blur-md rounded-2xl border border-primary/[0.03] shadow-card overflow-hidden">
-        <div className="grid grid-cols-[180px_100px_140px_1fr_80px_80px] px-4 py-3 border-b border-primary/5 bg-background/20 text-[10px] font-bold text-secondary/40 uppercase tracking-wider">
+      {/* Memory List */}
+      <div className="flex flex-col gap-2.5">
+        <div className="grid grid-cols-[200px_120px_160px_1fr_100px_80px] px-6 py-2 text-[10px] font-bold text-secondary/30 uppercase tracking-widest">
           <span>Contato</span>
-          <span>Tipo</span>
-          <span>Chave</span>
-          <span>Conteúdo</span>
-          <span>Importância</span>
-          <span>Atualizado</span>
+          <span>Tipo de Dado</span>
+          <span>Metadata Key</span>
+          <span>Conteúdo / Contexto</span>
+          <span>Relevância</span>
+          <span className="text-right">Sync</span>
         </div>
+        
         {filtered.map(mem => (
-          <div key={mem.id} className="grid grid-cols-[180px_100px_140px_1fr_80px_80px] px-4 py-3 border-b border-primary/[0.02] hover:bg-background/30 transition-colors items-center group">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center text-primary text-[10px] font-bold flex-shrink-0">
+          <div key={mem.id} className="grid grid-cols-[200px_120px_160px_1fr_100px_80px] bg-surface/30 hover:bg-surface/60 backdrop-blur-sm rounded-2xl px-6 py-4 transition-all duration-300 items-center group shadow-sm border border-transparent hover:border-primary/5 hover:shadow-card">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-primary text-[10px] font-bold flex-shrink-0 shadow-inner group-hover:from-primary/30 transition-colors">
                 {mem.contact_name.split(' ').map(n => n[0]).join('').slice(0, 2)}
               </div>
               <span className="text-xs text-secondary/80 font-medium truncate">{mem.contact_name}</span>
@@ -181,7 +182,7 @@ export default function MemoryExplorerPage() {
               )}
             </div>
             {importanceBar(mem.importance)}
-            <span className="text-[10px] text-secondary/30">{mem.updated_at}</span>
+            <span className="text-[10px] font-medium text-secondary/30 text-right">{mem.updated_at}</span>
           </div>
         ))}
       </div>

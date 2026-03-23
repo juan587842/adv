@@ -8,7 +8,7 @@ export function ActiveCasesZone() {
   ];
 
   return (
-    <div className="bg-surface rounded-xl p-5 shadow-card h-full">
+    <div className="bg-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02] h-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-base font-semibold flex items-center gap-2 text-secondary">
           <Briefcase size={18} className="text-primary/70" />
