@@ -1,40 +1,46 @@
-import { DollarSign, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { Wallet } from "lucide-react";
 
 export function FinancialOverviewZone() {
-  const transactions = [
-    { title: "Alvará Liberado - Proc. 001", amount: "R$ 15.400,00", type: "in", date: "Hoje" },
-    { title: "Custas Iniciais - Silva Adv", amount: "R$ 450,00", type: "out", date: "Ontem" },
-    { title: "Honorários Sucesso - M&A", amount: "R$ 8.200,00", type: "in", date: "20 Mar" },
-  ];
-
   return (
-    <div className="bg-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02] h-full">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold flex items-center gap-2 text-secondary">
-          <DollarSign size={18} className="text-primary/70" />
-          <span>Financeiro</span>
-        </h2>
-        <a href="/dashboard/financial" className="text-xs text-primary/50 hover:text-primary transition-colors">Ver módulo</a>
+    <div className="bg-surface-container-highest/40 backdrop-blur-md rounded-2xl p-6 relative overflow-hidden h-full">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-lg font-bold text-on-surface tracking-tight">Resumo Financeiro</h2>
+        <Wallet className="text-primary" size={24} />
       </div>
 
-      <div className="mb-4 p-3 bg-gradient-to-r from-green-950/20 to-transparent rounded-lg">
-        <p className="text-[10px] text-secondary/40 font-medium uppercase tracking-wider">Receitas a Liquidar (7 dias)</p>
-        <p className="text-xl font-bold text-green-400 mt-1">R$ 23.600<span className="text-sm text-green-600">,00</span></p>
+      <div className="grid grid-cols-2 gap-6 mb-6">
+        <div className="space-y-1">
+          <p className="text-[10px] uppercase tracking-widest font-black text-outline">Receitas Pendentes</p>
+          <p className="text-2xl font-black text-primary">R$ 45.200</p>
+        </div>
+        <div className="flex justify-end items-end pb-1">
+          {/* Sparkline SVG */}
+          <svg className="w-24 h-8" viewBox="0 0 100 40">
+            <path d="M0 35 Q 20 5, 40 25 T 80 15 T 100 5" fill="none" stroke="#e6c487" strokeWidth="2"></path>
+          </svg>
+        </div>
       </div>
 
-      <div className="space-y-0">
-        {transactions.map((tx, idx) => (
-          <div key={idx} className="flex items-center justify-between py-2.5 border-b border-primary/[0.04] last:border-0">
-            <div>
-              <p className="text-sm font-medium text-secondary/80">{tx.title}</p>
-              <p className="text-[10px] text-secondary/30 mt-0.5">{tx.date}</p>
-            </div>
-            <div className={`flex items-center gap-1 font-semibold text-sm ${tx.type === 'in' ? 'text-green-400/80' : 'text-red-400/80'}`}>
-              {tx.type === 'in' ? <ArrowUpRight size={13} /> : <ArrowDownRight size={13} />}
-              {tx.amount}
-            </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-surface-container-lowest/40 p-3 rounded-xl border border-outline-variant/10">
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] font-bold text-outline uppercase">Alvarás</span>
+            <span className="text-sm font-black text-on-surface">02</span>
           </div>
-        ))}
+          <div className="mt-2 w-full bg-outline-variant/20 h-1 rounded-full">
+            <div className="bg-primary w-2/3 h-full rounded-full"></div>
+          </div>
+        </div>
+        
+        <div className="bg-surface-container-lowest/40 p-3 rounded-xl border border-outline-variant/10">
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] font-bold text-outline uppercase">Guias Venc.</span>
+            <span className="text-sm font-black text-error">01</span>
+          </div>
+          <div className="mt-2 w-full bg-outline-variant/20 h-1 rounded-full">
+            <div className="bg-error w-1/4 h-full rounded-full"></div>
+          </div>
+        </div>
       </div>
     </div>
   );

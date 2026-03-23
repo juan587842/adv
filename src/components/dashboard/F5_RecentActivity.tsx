@@ -1,36 +1,62 @@
-import { Clock, ShieldAlert, FileText, UserPlus } from "lucide-react";
-
 export function RecentActivityZone() {
-  const logs = [
-    { icon: <FileText size={13} className="text-blue-400/80" />, action: "Documento anexado", detail: "Petição Inicial - Caso 402", time: "Há 10 min", user: "Dr. Juan" },
-    { icon: <ShieldAlert size={13} className="text-yellow-400/80" />, action: "HITL Intervenção", detail: "Agente de IA pausou para revisão", time: "Há 45 min", user: "Sistema IA" },
-    { icon: <UserPlus size={13} className="text-green-400/80" />, action: "Novo Lead", detail: "Contato via WhatsApp B2B", time: "Há 2 horas", user: "Evolution API" },
+  const activities = [
+    {
+      actor: "Juris AI", action: "respondeu dúvida do cliente João M. sobre o processo 445...",
+      time: "Agora mesmo", isPrimary: true,
+      colorClass: "bg-primary", bgClass: "bg-primary/20", borderClass: "border-primary/40", textClass: "text-primary"
+    },
+    {
+      actor: "Sistema", action: "Novo prazo calculado para Agravo de Instrumento em Proc. 889...",
+      time: "Há 15 min",
+      colorClass: "bg-on-tertiary-container", bgClass: "bg-on-tertiary-container/20", borderClass: "border-on-tertiary-container/40"
+    },
+    {
+      actor: "Financeiro", action: "Fatura #1029 emitida para Escritório Global Ltda.",
+      time: "Há 2 horas",
+      colorClass: "bg-primary", bgClass: "bg-primary/20", borderClass: "border-primary/40", textClass: "text-primary"
+    },
+    {
+      actor: "Datajud API", action: "Movimentação detectada no STJ para Proc. 2234/23.",
+      time: "Hoje, 09:30", isLast: true,
+      colorClass: "bg-on-tertiary-container", bgClass: "bg-on-tertiary-container/20", borderClass: "border-on-tertiary-container/40"
+    }
   ];
 
   return (
-    <div className="bg-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02] h-full">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold flex items-center gap-2 text-secondary">
-          <Clock size={18} className="text-primary/70" />
-          <span>Atividade Recente</span>
-        </h2>
-        <span className="text-[10px] text-secondary/30 uppercase tracking-wider">Audit Log</span>
+    <div className="bg-surface-container-highest/40 backdrop-blur-md rounded-2xl p-6 h-full">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-lg font-bold text-on-surface tracking-tight">Log de Atividade</h2>
+        <button className="text-[10px] uppercase font-black text-outline hover:text-primary transition-colors">
+          Ver Log Completo
+        </button>
       </div>
-
-      <div className="relative border-l border-primary/[0.08] ml-2 space-y-5 pt-1">
-        {logs.map((log, idx) => (
-          <div key={idx} className="relative pl-5">
-            <div className="absolute -left-[7px] top-0.5 bg-surface rounded-full p-1">
-              {log.icon}
+      
+      <div className="space-y-5">
+        {activities.map((activity, idx) => (
+          <div key={idx} className="flex gap-4 relative">
+            {!activity.isLast && (
+              <div className="absolute left-2 top-6 bottom-[-14px] w-px bg-outline-variant/20"></div>
+            )}
+            
+            <div className={`w-4 h-4 rounded-full ${activity.bgClass} border ${activity.borderClass} flex items-center justify-center z-10`}>
+              <div className={`w-1.5 h-1.5 ${activity.colorClass} rounded-full`}></div>
             </div>
-            <div>
-              <p className="text-sm font-medium text-secondary/80">{log.action}</p>
-              <p className="text-xs text-secondary/40 mt-0.5">{log.detail}</p>
-              <div className="flex items-center gap-2 mt-1 text-[10px] text-secondary/25 uppercase font-semibold tracking-wider">
-                <span>{log.time}</span>
-                <span>•</span>
-                <span>{log.user}</span>
-              </div>
+            
+            <div className="flex-1 -mt-1">
+              <p className="text-xs text-on-surface">
+                {activity.actor && activity.isPrimary ? (
+                  <><span className={`font-bold ${activity.textClass || ''}`}>{activity.actor}</span> {activity.action}</>
+                ) : activity.actor ? (
+                  <>{activity.action.replace(activity.actor, '')}<span className="font-bold">{activity.actor}</span>{activity.action.includes(activity.actor) ? '' : activity.action}</>
+                ) : (
+                  activity.action
+                )}
+                {/* Fallback to simple render if no strict matching is needed */}
+                {activity.isPrimary ? 
+                  (<span><span className="font-bold text-primary">{activity.actor}</span> {activity.action}</span>) 
+                  : (<span>{activity.action}</span>)}
+              </p>
+              <p className="text-[10px] text-outline mt-1 uppercase font-bold tracking-tighter">{activity.time}</p>
             </div>
           </div>
         ))}

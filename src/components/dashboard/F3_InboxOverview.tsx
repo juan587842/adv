@@ -1,41 +1,53 @@
-import { MessageCircle, Mail, AlertTriangle } from "lucide-react";
+import { MessageCircle, Mail } from "lucide-react";
 
 export function InboxZone() {
-  const unreadMessages = [
-    { source: "whatsapp", sender: "Roberto Alves", preview: "Dr., a procuração assinada...", time: "10 min", urgent: true },
-    { source: "email", sender: "tj-sp@jusbrasil.com.br", preview: "Nova movimentação...", time: "1 hr", urgent: false },
-    { source: "whatsapp", sender: "Sérgio Vieira", preview: "Podemos agendar para quinta?", time: "3 hr", urgent: false },
+  const messages = [
+    { sender: "Mariana Costa", time: "14:20", text: "Doutor, consegue analisar o novo anexo do processo...", icon: "whatsapp", avatar: "https://i.pravatar.cc/150?u=12" },
+    { sender: "Roberto Almeida", time: "11:05", text: "Encaminhei os comprovantes de pagamento das taxas...", icon: "email", avatar: "https://i.pravatar.cc/150?u=13" },
+    { sender: "Carlos Pereira", time: "Ontem", text: "Obrigado pelo retorno rápido sobre o agravo.", icon: "whatsapp", avatar: "CP", isInitials: true }
   ];
 
   return (
-    <div className="bg-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02] h-full flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold flex items-center gap-2 text-secondary">
-          <MessageCircle size={18} className="text-primary/70" />
-          <span>Inbox</span>
-        </h2>
-        <span className="bg-primary/[0.1] text-primary/80 text-[10px] font-bold px-2 py-0.5 rounded-full">3 novas</span>
+    <div className="bg-surface-container-highest/40 backdrop-blur-md rounded-2xl p-6 h-full flex flex-col">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-lg font-bold text-on-surface tracking-tight">Mensagens Recentes</h2>
+        <span className="bg-error-container/20 text-error px-2 py-0.5 rounded-lg text-[10px] font-black uppercase">5 Pendentes</span>
       </div>
-
-      <div className="space-y-1 flex-1">
-        {unreadMessages.map((msg, idx) => (
-          <div key={idx} className="p-2.5 rounded-lg hover:bg-background/40 transition-all cursor-pointer">
-            <div className="flex items-center justify-between mb-0.5">
-              <div className="flex items-center gap-2">
-                {msg.source === 'whatsapp' ? <MessageCircle size={13} className="text-green-500/70" /> : <Mail size={13} className="text-blue-400/70" />}
-                <span className="text-sm font-medium text-secondary/80">{msg.sender}</span>
-                {msg.urgent && <AlertTriangle size={11} className="text-yellow-500/70" />}
-              </div>
-              <span className="text-[10px] text-secondary/30">{msg.time}</span>
+      
+      <div className="space-y-4 flex-1">
+        {messages.map((msg, idx) => (
+          <div key={idx} className="flex items-center gap-4 p-3 hover:bg-surface-container-highest/30 rounded-xl transition-all cursor-pointer group">
+            <div className="relative">
+              {msg.isInitials ? (
+                <div className="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container text-xs font-black">
+                  {msg.avatar}
+                </div>
+              ) : (
+                <img className="w-10 h-10 rounded-full object-cover" alt={msg.sender} src={msg.avatar} />
+              )}
+              {msg.icon === 'whatsapp' ? (
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#25D366] rounded-full border-2 border-surface flex items-center justify-center">
+                  <MessageCircle size={10} className="text-white" />
+                </div>
+              ) : (
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-500 rounded-full border-2 border-surface flex items-center justify-center">
+                  <Mail size={10} className="text-white" />
+                </div>
+              )}
             </div>
-            <p className="text-xs text-secondary/40 truncate pl-5">{msg.preview}</p>
+            
+            <div className="flex-1 overflow-hidden">
+              <div className="flex justify-between items-center">
+                <p className="text-sm font-bold text-on-surface truncate">{msg.sender}</p>
+                <span className="text-[10px] text-outline">{msg.time}</span>
+              </div>
+              <p className="text-xs text-outline truncate">{msg.text}</p>
+            </div>
+            
+            <div className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </div>
         ))}
       </div>
-      
-      <button className="w-full mt-3 py-2 text-xs font-medium rounded-lg bg-background/40 text-secondary/50 hover:text-primary hover:bg-primary/[0.06] transition-all">
-        Abrir Central Omnicanal
-      </button>
     </div>
   );
 }
