@@ -1,3 +1,5 @@
+"use client";
+
 import { Search, Plus, Filter, MoreVertical, Briefcase, Clock, FileText } from "lucide-react";
 import Link from "next/link";
 
