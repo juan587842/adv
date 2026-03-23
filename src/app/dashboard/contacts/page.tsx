@@ -1,88 +1,178 @@
-import { Search, Plus, Filter, MoreVertical, ShieldAlert, BadgeCheck } from "lucide-react";
+"use client";
+
+import { Search, Filter, Plus, ChevronDown, Star, MessageCircle, ChevronDownSquare } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function ContactsPage() {
+  const [activeTab, setActiveTab] = useState("Todos");
+  const tabs = ["Todos", "Clientes", "Leads", "Ex-clientes"];
+
   const contacts = [
-    { id: "1", name: "TechNova Corp", type: "Empresa", phone: "(11) 98888-7777", email: "legal@technova.com", score: 95, status: "Cliente Ativo", color: "text-green-400/80 bg-green-400/[0.08]" },
-    { id: "2", name: "Roberto Alves", type: "Pessoa Física", phone: "(11) 91234-5678", email: "roberto.alves@email.com", score: 40, status: "Lead Frio", color: "text-secondary/50 bg-secondary/[0.06]" },
-    { id: "3", name: "Sérgio Vieira", type: "Pessoa Física", phone: "(21) 97777-6666", email: "sergio.vieira@email.com", score: 85, status: "Lead Quente", color: "text-yellow-400/80 bg-yellow-400/[0.08]" },
+    {
+      id: "1",
+      name: "Maria da Silva",
+      type: "Cliente",
+      avatar: "https://i.pravatar.cc/150?u=maria",
+      statusColor: "bg-green-500",
+      typeColor: "bg-primary/10 text-primary",
+      rating: 5.0,
+      linkedInfoLabel: "Casos vinculados:",
+      linkedInfoValue: "2 Casos ativos",
+      progressLabel: "Saúde: 85%",
+      progressValue: 85,
+      progressColor: "bg-primary",
+      buttonText: "Ver Perfil Completo"
+    },
+    {
+      id: "2",
+      name: "João Mendes",
+      type: "Lead",
+      avatar: "https://i.pravatar.cc/150?u=joao",
+      statusColor: "bg-red-500", // not explicitly in html but let's give him one or remove
+      typeColor: "bg-secondary-container text-secondary",
+      rating: 4.0,
+      linkedInfoLabel: "Última interação:",
+      linkedInfoValue: "Há 2 horas",
+      interest: "Consultoria Tributária",
+      buttonText: "Ver Lead Detalhes",
+      hasInterest: true
+    },
+    {
+      id: "3",
+      name: "Beatriz Costa",
+      type: "Cliente",
+      avatar: "https://i.pravatar.cc/150?u=beatriz",
+      statusColor: "bg-yellow-500",
+      typeColor: "bg-primary/10 text-primary",
+      rating: 5.0,
+      linkedInfoLabel: "Casos vinculados:",
+      linkedInfoValue: "5 Casos ativos",
+      progressLabel: "VIP: 98%",
+      progressValue: 98,
+      progressColor: "bg-primary",
+      buttonText: "Ver Perfil Completo"
+    }
   ];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6 pb-12">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="max-w-7xl mx-auto pb-12 relative">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div>
-          <h1 className="text-2xl font-bold text-secondary">Diretório de Clientes</h1>
-          <p className="text-sm text-secondary/40 mt-1">Gestão centralizada de contatos, leads e scoring.</p>
+          <h2 className="text-3xl font-bold font-headline text-on-surface tracking-tight mb-2">Gestão de Contatos</h2>
+          <p className="text-outline max-w-lg">Central de inteligência para relacionamento com clientes e prospecção de leads ativos.</p>
         </div>
         
-        <div className="flex gap-3">
-          <button className="px-4 py-2 bg-primary text-background rounded-lg text-sm font-semibold hover:bg-primary-light transition-colors flex items-center gap-2">
-            <Plus size={16} /> Novo Contato
+        <div className="flex flex-wrap items-center gap-3">
+          <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-outline/20 hover:border-primary/40 hover:bg-surface-container transition-all text-sm font-medium">
+            <Filter size={20} /> Filtros Avançados
+          </button>
+          <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm">
+            <Plus size={20} /> Novo Contato
           </button>
         </div>
       </div>
 
-      <div className="bg-surface rounded-xl shadow-card overflow-hidden">
-        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center p-4">
-          <div className="relative w-full sm:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary/30" size={16} />
-            <input 
-              type="text" 
-              placeholder="Buscar por nome, email ou CPF/CNPJ..." 
-              className="w-full pl-10 pr-4 py-2 bg-background/50 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary/30 text-secondary placeholder:text-secondary/20 transition-all"
-            />
-          </div>
-          <button className="flex items-center gap-2 px-4 py-2 bg-background/50 rounded-lg text-sm font-medium hover:bg-background/80 transition-colors text-secondary/60 w-full sm:w-auto">
-            <Filter size={14} className="text-primary/60" /> Filtros
-          </button>
+      {/* Filters & Chips Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-8 bg-surface-container-low p-3 rounded-2xl">
+        <div className="flex flex-wrap items-center gap-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all 
+                ${activeTab === tab 
+                  ? "bg-primary text-on-primary" 
+                  : "bg-surface-container-highest text-on-surface-variant hover:bg-surface-bright"
+                }`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-bold text-outline uppercase tracking-widest hidden sm:inline-block">Score:</span>
+          <div className="relative">
+            <select className="appearance-none bg-surface border-none text-sm rounded-xl py-2 pl-4 pr-10 focus:ring-1 focus:ring-primary text-on-surface min-w-[140px] outline-none cursor-pointer">
+              <option>Lead Score</option>
+              <option>Prioridade Alta</option>
+              <option>Prioridade Média</option>
+              <option>Prioridade Baixa</option>
+            </select>
+            <ChevronDown size={18} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary" />
+          </div>
+        </div>
+      </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-y border-primary/[0.04]">
-                <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Nome / Empresa</th>
-                <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Contato</th>
-                <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Lead Score</th>
-                <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Status</th>
-                <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30 text-right">Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact) => (
-                <tr key={contact.id} className="border-b border-primary/[0.03] hover:bg-background/30 transition-colors group">
-                  <td className="py-3 px-4">
-                    <Link href={`/dashboard/contacts/${contact.id}`} className="block">
-                      <p className="font-medium text-sm text-secondary/90 group-hover:text-primary transition-colors">{contact.name}</p>
-                      <p className="text-[10px] text-secondary/30">{contact.type}</p>
-                    </Link>
-                  </td>
-                  <td className="py-3 px-4">
-                    <p className="text-sm text-secondary/70">{contact.email}</p>
-                    <p className="text-[10px] text-secondary/30">{contact.phone}</p>
-                  </td>
-                  <td className="py-3 px-4">
-                    <div className="flex items-center gap-2">
-                       {contact.score >= 90 && <ShieldAlert size={13} className="text-green-500/70" />}
-                       {contact.score >= 70 && contact.score < 90 && <BadgeCheck size={13} className="text-yellow-500/70" />}
-                       <span className="text-sm font-medium text-secondary/70">{contact.score}/100</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4">
-                    <span className={`px-2 py-1 text-[10px] font-semibold rounded-md ${contact.color}`}>
-                      {contact.status}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4 text-right">
-                    <button className="text-secondary/30 hover:text-primary transition-colors p-1">
-                      <MoreVertical size={16} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Bento Grid of Contacts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {contacts.map((c) => (
+          <div key={c.id} className="bg-surface-variant/40 hover:bg-surface-variant/60 backdrop-blur-md group p-6 rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-500 relative overflow-hidden flex flex-col justify-between h-full">
+            <div className="absolute top-0 right-0 p-4">
+              <span className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full ${c.typeColor}`}>
+                {c.type}
+              </span>
+            </div>
+            
+            <div className="flex items-start gap-4 mb-6">
+              <div className="relative">
+                <img alt={c.name} className="w-16 h-16 rounded-2xl bg-surface-container object-cover" src={c.avatar} />
+                {c.statusColor && (
+                  <div className={`absolute -bottom-1 -right-1 w-6 h-6 ${c.statusColor} border-4 border-surface rounded-full`}></div>
+                )}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-on-surface leading-tight mb-1 group-hover:text-primary transition-colors">{c.name}</h3>
+                <div className="flex items-center gap-1 text-primary">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} className={i < Math.floor(c.rating) ? "fill-current" : "text-outline/40"} />
+                  ))}
+                  <span className="text-xs text-outline ml-1">({c.rating.toFixed(1)})</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4 mb-6 flex-1">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-outline">{c.linkedInfoLabel}</span>
+                <span className="font-bold text-on-surface">{c.linkedInfoValue}</span>
+              </div>
+              
+              {c.hasInterest ? (
+                <div className="bg-surface-container-high/50 p-3 rounded-xl border-l-4 border-primary">
+                  <p className="text-[11px] text-outline leading-tight">Interessado em: <span className="text-on-surface font-semibold italic">{c.interest}</span></p>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 h-1 bg-surface-container rounded-full overflow-hidden">
+                    <div className={`h-full ${c.progressColor} rounded-full`} style={{ width: `${c.progressValue}%` }}></div>
+                  </div>
+                  <span className="text-[10px] text-primary font-bold uppercase">{c.progressLabel}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 mt-auto">
+              <button className="flex-1 bg-surface-container-highest hover:bg-surface-bright p-2.5 rounded-xl transition-all group/btn flex items-center justify-center">
+                <MessageCircle size={20} className="text-green-400 group-hover/btn:scale-110 transition-transform" />
+              </button>
+              <Link href={`/dashboard/contacts/${c.id}`} className="flex-[3] bg-surface-container-highest hover:bg-primary hover:text-on-primary py-2.5 rounded-xl text-sm font-bold transition-all text-center">
+                {c.buttonText}
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Load More Button (Asymmetric Layout element) */}
+      <div className="mt-12 flex justify-center">
+        <div className="relative group">
+          <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-50 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+          <button className="relative px-8 py-3 rounded-2xl bg-surface-container border border-outline/20 hover:border-primary/50 text-outline hover:text-primary transition-all font-medium text-sm flex items-center gap-3">
+            Carregar mais contatos
+            <ChevronDown size={20} className="animate-bounce" />
+          </button>
         </div>
       </div>
     </div>
