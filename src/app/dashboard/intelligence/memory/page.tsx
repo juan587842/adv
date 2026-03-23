@@ -103,19 +103,19 @@ export default function MemoryExplorerPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+        <div className="p-5 glass-panel rounded-3xl shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Brain size={12} className="text-primary/60" /> Total</p>
           <p className="text-2xl font-bold text-secondary/90">{demoMemories.length}</p>
         </div>
-        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+        <div className="p-5 glass-panel rounded-3xl shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><User size={12} className="text-blue-400" /> Contatos</p>
           <p className="text-2xl font-bold text-secondary/90">{contacts.length}</p>
         </div>
-        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+        <div className="p-5 glass-panel rounded-3xl shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Sparkles size={12} className="text-green-400" /> Auto-extraídas</p>
           <p className="text-2xl font-bold text-green-500">{demoMemories.filter(m => m.source === 'auto').length}</p>
         </div>
-        <div className="p-4 bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_4px_16px_rgba(230,196,135,0.02)] border border-primary/[0.02]">
+        <div className="p-5 glass-panel rounded-3xl shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Shield size={12} className="text-red-400" /> Críticas (85+)</p>
           <p className="text-2xl font-bold text-red-500/90">{demoMemories.filter(m => m.importance >= 85).length}</p>
         </div>
@@ -130,13 +130,13 @@ export default function MemoryExplorerPage() {
             placeholder="Buscar memórias por conteúdo ou chave..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 bg-surface/40 backdrop-blur-md rounded-xl text-sm text-secondary placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent hover:bg-surface/60 transition-colors shadow-inner"
+            className="w-full pl-11 pr-4 py-3 bg-surface-container-highest/50 rounded-xl text-sm text-secondary placeholder:text-outline-variant focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent hover:bg-surface-container transition-colors shadow-inner"
           />
         </div>
         <select 
           value={filterContact}
           onChange={e => setFilterContact(e.target.value)}
-          className="px-4 py-3 bg-surface/40 backdrop-blur-md rounded-xl text-sm text-secondary focus:outline-none border border-transparent shadow-inner appearance-none min-w-[180px]"
+          className="px-4 py-3 bg-surface-container-highest/50 rounded-xl text-sm text-secondary focus:outline-none border border-transparent shadow-inner appearance-none min-w-[180px]"
         >
           <option value="all">Todos Contatos</option>
           {contacts.map(c => <option key={c} value={c}>{c}</option>)}
@@ -144,7 +144,7 @@ export default function MemoryExplorerPage() {
         <select
           value={filterType}
           onChange={e => setFilterType(e.target.value)}
-          className="px-4 py-3 bg-surface/40 backdrop-blur-md rounded-xl text-sm text-secondary focus:outline-none border border-transparent shadow-inner appearance-none min-w-[180px]"
+          className="px-4 py-3 bg-surface-container-highest/50 rounded-xl text-sm text-secondary focus:outline-none border border-transparent shadow-inner appearance-none min-w-[180px]"
         >
           <option value="all">Todos Tipos</option>
           {Object.entries(typeLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
@@ -163,7 +163,7 @@ export default function MemoryExplorerPage() {
         </div>
         
         {filtered.map(mem => (
-          <div key={mem.id} className="grid grid-cols-[200px_120px_160px_1fr_100px_80px] bg-surface/30 hover:bg-surface/60 backdrop-blur-sm rounded-2xl px-6 py-4 transition-all duration-300 items-center group shadow-sm border border-transparent hover:border-primary/5 hover:shadow-card">
+          <div key={mem.id} className="grid grid-cols-[200px_120px_160px_1fr_100px_80px] bg-surface-container hover:bg-surface-container-highest rounded-2xl px-6 py-4 transition-all duration-300 items-center group shadow-sm border border-transparent hover:border-outline-variant/30 hover:shadow-card">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-primary text-[10px] font-bold flex-shrink-0 shadow-inner group-hover:from-primary/30 transition-colors">
                 {mem.contact_name.split(' ').map(n => n[0]).join('').slice(0, 2)}

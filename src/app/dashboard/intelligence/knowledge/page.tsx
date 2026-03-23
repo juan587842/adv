@@ -63,8 +63,8 @@ export default function KnowledgeBasePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
         
         {/* Ingestion Panel */}
-        <div className="flex flex-col bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(230,196,135,0.02)] overflow-hidden">
-          <div className="p-5 bg-background/30 font-semibold text-sm text-secondary/90 flex items-center gap-2">
+        <div className="flex flex-col bg-surface-container rounded-3xl shadow-card overflow-hidden border border-surface-container-highest/30">
+          <div className="p-5 bg-surface-container-highest/30 font-semibold text-sm text-secondary flex items-center gap-2">
             <UploadCloud size={16} className="text-primary" />
             Vetorizar Novo Conhecimento
           </div>
@@ -76,7 +76,7 @@ export default function KnowledgeBasePage() {
                 value={ingestTitle}
                 onChange={(e) => setIngestTitle(e.target.value)}
                 placeholder="Ex: Tese Defesa Trabalhista Acidente"
-                className="w-full px-4 py-3 bg-surface/50 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent shadow-inner transition-all"
+                className="w-full px-4 py-3 bg-surface-container-highest/50 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent shadow-inner transition-all"
               />
             </div>
             <div className="flex-1 flex flex-col">
@@ -85,7 +85,7 @@ export default function KnowledgeBasePage() {
                 value={ingestText}
                 onChange={(e) => setIngestText(e.target.value)}
                 placeholder="Cole o texto da peça, lei, ou orientação aqui..."
-                className="w-full flex-1 p-4 bg-surface/50 rounded-xl text-sm text-secondary/90 placeholder:text-secondary/30 resize-none focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent shadow-inner transition-all min-h-[200px]"
+                className="w-full flex-1 p-4 bg-surface-container-highest/50 rounded-xl text-sm text-secondary placeholder:text-outline-variant resize-none focus:outline-none focus:ring-1 focus:ring-primary/40 border border-transparent shadow-inner transition-all min-h-[200px]"
               />
             </div>
           </div>
@@ -102,13 +102,13 @@ export default function KnowledgeBasePage() {
         </div>
 
         {/* RAG Sandbox Chat */}
-        <div className="flex flex-col bg-surface/40 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(230,196,135,0.02)] overflow-hidden relative">
+        <div className="flex flex-col bg-surface-container rounded-3xl shadow-card overflow-hidden relative border border-surface-container-highest/30">
           
           <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
             <BrainCircuit size={120} />
           </div>
 
-          <div className="p-5 bg-background/30 font-semibold text-sm text-secondary/90 flex items-center justify-between">
+          <div className="p-5 bg-surface-container-highest/30 font-semibold text-sm text-secondary flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Sparkles size={16} className="text-blue-500" />
               Sandbox RAG (Teste)
@@ -129,8 +129,8 @@ export default function KnowledgeBasePage() {
                   <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[85%] rounded-2xl p-5 text-sm shadow-sm transition-all duration-300 ${
                       msg.role === 'user' 
-                        ? 'bg-gradient-to-br from-primary to-primary-container text-background rounded-tr-sm shadow-[0_4px_12px_rgba(230,196,135,0.2)]' 
-                        : 'bg-surface/80 text-secondary/90 rounded-tl-sm backdrop-blur-md'
+                        ? 'bg-primary text-on-primary rounded-tr-sm shadow-md' 
+                        : 'bg-surface-container-highest text-secondary rounded-tl-sm shadow-sm'
                     }`}>
                       <p className="leading-relaxed">{msg.content}</p>
                       
@@ -167,7 +167,7 @@ export default function KnowledgeBasePage() {
                 onChange={e => setChatInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleChat()}
                 placeholder="Pergunte à inteligência..."
-                className="w-full bg-surface/50 py-3.5 pl-5 pr-12 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/40 text-secondary placeholder:text-secondary/30 transition-all shadow-inner"
+                className="w-full bg-surface-container-highest/50 py-3.5 pl-5 pr-12 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-outline-variant transition-all shadow-inner"
               />
               <button 
                 onClick={handleChat}
