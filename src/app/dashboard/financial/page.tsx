@@ -27,7 +27,7 @@ export default function FinancialPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-surface rounded-xl p-5 shadow-card">
+        <div className="glass-panel rounded-3xl p-5 shadow-card border border-surface-container-highest/30">
           <div className="flex justify-between items-start mb-3">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Receita do Mês</p>
             <div className="p-1.5 bg-green-500/[0.08] text-green-400/70 rounded-lg"><ArrowUpRight size={16} /></div>
@@ -36,7 +36,7 @@ export default function FinancialPage() {
           <p className="text-[10px] text-green-400/70 mt-2 font-medium">+12% vs. mês passado</p>
         </div>
         
-        <div className="bg-surface rounded-xl p-5 shadow-card">
+        <div className="glass-panel rounded-3xl p-5 shadow-card border border-surface-container-highest/30">
           <div className="flex justify-between items-start mb-3">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Despesas e Custas</p>
             <div className="p-1.5 bg-red-500/[0.08] text-red-400/70 rounded-lg"><ArrowDownRight size={16} /></div>
@@ -45,7 +45,7 @@ export default function FinancialPage() {
           <p className="text-[10px] text-red-400/60 mt-2 font-medium">+5% vs. mês passado</p>
         </div>
         
-        <div className="bg-surface rounded-xl p-5 shadow-card">
+        <div className="glass-panel rounded-3xl p-5 shadow-card border border-surface-container-highest/30">
            <div className="flex justify-between items-start mb-3">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-secondary/30">A Receber (Alvarás)</p>
             <div className="p-1.5 bg-yellow-500/[0.08] text-yellow-400/70 rounded-lg"><FileCheck size={16} /></div>
@@ -54,7 +54,7 @@ export default function FinancialPage() {
           <p className="text-[10px] text-secondary/30 mt-2 font-medium">Previsão: 30 dias</p>
         </div>
         
-        <div className="bg-gradient-to-br from-primary/[0.06] to-transparent rounded-xl p-5 shadow-card">
+        <div className="bg-gradient-to-br from-primary/[0.06] to-transparent rounded-3xl p-5 shadow-card border border-surface-container-highest/30">
            <div className="flex justify-between items-start mb-3">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-primary/60">Saldo Líquido</p>
             <div className="p-1.5 bg-primary/[0.1] text-primary/70 rounded-lg"><DollarSign size={16} /></div>
@@ -64,8 +64,8 @@ export default function FinancialPage() {
         </div>
       </div>
 
-      <div className="bg-surface rounded-xl shadow-card overflow-hidden">
-        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center p-4 border-b border-primary/[0.04]">
+      <div className="bg-surface-container rounded-3xl shadow-card overflow-hidden border border-surface-container-highest/30">
+        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center p-4 border-b border-surface-container-highest/30">
           <div className="flex gap-4 w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0">
              <button className="text-xs font-bold text-primary border-b-2 border-primary pb-1 whitespace-nowrap">Todas</button>
              <button className="text-xs font-medium text-secondary/30 hover:text-secondary/60 border-b-2 border-transparent pb-1 whitespace-nowrap">Honorários</button>
@@ -80,7 +80,7 @@ export default function FinancialPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-primary/[0.04] bg-background/20">
+              <tr className="border-b border-surface-container-highest/30 bg-surface-container-highest/20">
                 <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Lançamento</th>
                 <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Dossiê</th>
                 <th className="py-3 px-4 text-[10px] font-semibold uppercase tracking-widest text-secondary/30">Data</th>
@@ -91,7 +91,7 @@ export default function FinancialPage() {
             </thead>
             <tbody>
               {transactions.map((tx) => (
-                <tr key={tx.id} className="border-b border-primary/[0.03] hover:bg-background/30 transition-colors">
+                <tr key={tx.id} className="border-b border-surface-container-highest/20 hover:bg-surface-container-highest/30 transition-colors">
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
                       <div className={`p-1.5 rounded-full ${tx.type === 'income' ? 'bg-green-500/[0.08] text-green-400/70' : 'bg-red-500/[0.08] text-red-400/70'}`}>

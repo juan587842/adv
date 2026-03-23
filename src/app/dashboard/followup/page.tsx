@@ -57,28 +57,28 @@ export default function FollowupDashboard() {
 
       {/* Global Health Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
+        <div className="p-5 rounded-3xl glass-panel shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1">Contatos Engajados</p>
           <div className="flex items-end gap-2">
             <span className="text-2xl font-bold text-secondary/90">187</span>
             <span className="text-xs text-green-500 font-medium mb-1">+12%</span>
           </div>
         </div>
-        <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
+        <div className="p-5 rounded-3xl glass-panel shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1">Taxa de Conversão (Leads)</p>
           <div className="flex items-end gap-2">
             <span className="text-2xl font-bold text-secondary/90">12%</span>
             <span className="text-xs text-secondary/30 font-medium mb-1">Últimos 30 dias</span>
           </div>
         </div>
-        <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
+        <div className="p-5 rounded-3xl glass-panel shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1">No-Shows (Ausências)</p>
           <div className="flex items-end gap-2">
             <span className="text-2xl font-bold text-green-500">2%</span>
             <span className="text-xs text-secondary/30 font-medium mb-1">Redução de 80%</span>
           </div>
         </div>
-        <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
+        <div className="p-5 rounded-3xl glass-panel shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1">NPS Global</p>
           <div className="flex items-end gap-2">
             <span className="text-2xl font-bold text-secondary/90">78</span>
@@ -88,9 +88,9 @@ export default function FollowupDashboard() {
       </div>
 
       {/* Campaign List Header */}
-      <div className="bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-primary/[0.04] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-background/20">
-          <div className="flex gap-2 bg-surface p-1 rounded-xl shadow-inner-glow border border-primary/[0.02]">
+      <div className="bg-surface-container rounded-3xl shadow-card border border-surface-container-highest/30 overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-surface-container-highest/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-container-highest/20">
+          <div className="flex gap-2 bg-surface-container-highest/50 p-1 rounded-xl shadow-inner border border-transparent">
             {["all", "Prospecção", "Pré-Consulta", "Fase Processual", "Pós-Venda"].map(tab => (
               <button
                 key={tab}
@@ -109,13 +109,13 @@ export default function FollowupDashboard() {
             <input
               type="text"
               placeholder="Buscar régua..."
-              className="w-full sm:w-64 pl-9 pr-4 py-2 bg-surface rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-primary/30 text-secondary placeholder:text-secondary/20 shadow-inner-glow border border-primary/[0.02]"
+              className="w-full sm:w-64 pl-9 pr-4 py-2 bg-surface-container-highest/50 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-primary/30 text-secondary placeholder:text-outline-variant shadow-inner border border-transparent"
             />
           </div>
         </div>
 
         {/* Campaign List */}
-        <div className="divide-y divide-primary/[0.03]">
+        <div className="divide-y divide-surface-container-highest/30">
           {demoCampaigns.filter(c => filter === "all" || c.audience === filter).map(campaign => (
             <div key={campaign.id} className="p-4 sm:p-5 hover:bg-primary/[0.01] transition-colors flex flex-col sm:flex-row gap-4 sm:items-center justify-between group">
               
@@ -161,10 +161,10 @@ export default function FollowupDashboard() {
                 }`}>
                   {campaign.status === "active" ? <Pause size={16} /> : <Play size={16} />}
                 </button>
-                <Link href={`/dashboard/followup/builder?id=${campaign.id}`} className="p-2 rounded-lg bg-surface text-secondary/40 hover:text-primary transition-colors shadow-card border border-primary/[0.04]">
+                <Link href={`/dashboard/followup/builder?id=${campaign.id}`} className="p-2 rounded-lg bg-surface-container-highest/50 text-secondary/40 hover:text-primary transition-colors shadow-sm border border-transparent">
                   <Settings2 size={16} />
                 </Link>
-                <Link href={`/dashboard/followup/metrics/${campaign.id}`} className="p-2 rounded-lg bg-surface text-secondary/40 hover:text-primary transition-colors shadow-card border border-primary/[0.04]">
+                <Link href={`/dashboard/followup/metrics/${campaign.id}`} className="p-2 rounded-lg bg-surface-container-highest/50 text-secondary/40 hover:text-primary transition-colors shadow-sm border border-transparent">
                   <BarChart3 size={16} />
                 </Link>
               </div>

@@ -36,8 +36,8 @@ export default function CalendarPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Main Calendar Grid */}
-        <div className="lg:col-span-2 bg-surface rounded-xl shadow-card overflow-hidden flex flex-col">
-          <div className="flex justify-between items-center p-4 border-b border-primary/[0.04]">
+        <div className="lg:col-span-2 bg-surface-container rounded-3xl shadow-card overflow-hidden flex flex-col border border-surface-container-highest/30">
+          <div className="flex justify-between items-center p-4 border-b border-surface-container-highest/30">
              <h2 className="text-base font-semibold text-secondary flex items-center gap-2">
                <CalendarIcon size={18} className="text-primary/70" /> Março 2026
              </h2>
@@ -64,7 +64,7 @@ export default function CalendarPage() {
               {daysInMonth.map(day => {
                 const dayEvents = events.filter(e => e.day === day);
                 return (
-                  <div key={day} className="h-20 bg-background/30 rounded-lg p-1 hover:bg-background/50 transition-colors relative group cursor-pointer">
+                  <div key={day} className="h-20 bg-surface-container-highest/30 rounded-lg p-1 hover:bg-surface-container-highest/50 transition-colors relative group cursor-pointer">
                     <span className="text-[10px] font-medium text-secondary/40 p-0.5 block">{day}</span>
                     <div className="flex flex-col gap-0.5 mt-0.5 overflow-y-auto max-h-[44px] no-scrollbar">
                       {dayEvents.map((event, idx) => (
@@ -90,7 +90,7 @@ export default function CalendarPage() {
             <CPCCalculator />
           </div>
 
-          <div className="bg-surface rounded-xl p-5 shadow-card">
+          <div className="bg-surface-container rounded-3xl p-5 shadow-card border border-surface-container-highest/30">
              <h3 className="font-semibold text-secondary flex items-center gap-2 mb-4 text-sm">
                <AlertCircle size={16} className="text-primary/70" /> Próximos 7 Dias
              </h3>
