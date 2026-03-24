@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowLeft, Save, Plus, MessageCircle, Mail, GripVertical, Clock, MoreVertical, Trash2, Tag, Play } from "lucide-react";
+import { useState, useEffect, Suspense } from "react";
+import { ArrowLeft, Save, Plus, MessageCircle, Mail, GripVertical, Clock, MoreVertical, Trash2, Tag, Play, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useTenantId } from "@/hooks/useTenantId";
+import { createClient } from "@/utils/supabase/client";
 
 type Step = {
-  id: string;
+  id: string; // temporary id for UI or real UUID
   delayDays: number;
   delayHours: number;
   channel: "whatsapp" | "email";
@@ -14,13 +17,142 @@ type Step = {
 
 const defaultSteps: Step[] = [
   { id: "1", delayDays: 2, delayHours: 0, channel: "whatsapp", template: "Olá {{contact_name}}, aqui é do escritório. Ficou alguma dúvida sobre a proposta que enviamos?" },
-  { id: "2", delayDays: 4, delayHours: 0, channel: "whatsapp", template: "Oi {{contact_name}}, separei um caso de sucesso parecido com o seu para você dar uma olhada (link)." },
 ];
 
-export default function CampaignBuilder() {
+function CampaignBuilderContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const campaignId = searchParams.get("id");
+  const { tenantId } = useTenantId();
+  const supabase = createClient();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
   const [steps, setSteps] = useState<Step[]>(defaultSteps);
-  const [campaignName, setCampaignName] = useState("Nutrição Leads Trabalhista");
+  const [campaignName, setCampaignName] = useState("");
   const [audience, setAudience] = useState("Prospecção");
+
+  useEffect(() => {
+    if (campaignId && tenantId) {
+      loadCampaign(campaignId);
+    } else {
+      setCampaignName("Nova Régua de Cadência");
+    }
+  }, [campaignId, tenantId]);
+
+  const loadCampaign = async (id: string) => {
+    try {
+      setIsLoading(true);
+      const { data: campaign, error: campaignError } = await supabase
+        .from('campaigns')
+        .select('*')
+        .eq('id', id)
+        .eq('tenant_id', tenantId)
+        .single();
+      
+      if (campaignError) throw campaignError;
+      
+      if (campaign) {
+        setCampaignName(campaign.name);
+        
+        let mappedAudience = "Prospecção";
+        if (campaign.type === 'pre_consult' || campaign.type === 'pré-consulta') mappedAudience = "Pré-Consulta";
+        else if (campaign.type === 'procedural_phase' || campaign.type === 'Fase Processual') mappedAudience = "Fase Processual";
+        else if (campaign.type === 'post_sale' || campaign.type === 'pós-venda') mappedAudience = "Pós-Venda";
+        else mappedAudience = "Prospecção"; // fallback
+
+        setAudience(mappedAudience);
+      }
+
+      const { data: stepsData, error: stepsError } = await supabase
+        .from('campaign_steps')
+        .select('*')
+        .eq('campaign_id', id)
+        .order('step_order', { ascending: true });
+
+      if (stepsError) throw stepsError;
+
+      if (stepsData && stepsData.length > 0) {
+        setSteps(stepsData.map(s => ({
+          id: s.id,
+          delayDays: s.delay_days || 0,
+          delayHours: s.delay_hours || 0,
+          channel: s.channel as any,
+          template: s.template || ""
+        })));
+      } else {
+        setSteps([]);
+      }
+    } catch (e: any) {
+      alert("Erro ao carregar campanha: " + e.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSave = async (activate: boolean) => {
+    if (!tenantId) return;
+    try {
+      setIsSaving(true);
+      
+      let typeData = 'prospect';
+      if (audience === 'Pré-Consulta') typeData = 'pre_consult';
+      else if (audience === 'Fase Processual') typeData = 'procedural_phase';
+      else if (audience === 'Pós-Venda') typeData = 'post_sale';
+
+      let savedCampaignId = campaignId;
+
+      if (!campaignId) {
+        // Create new
+        const { data, error } = await supabase.from('campaigns').insert({
+          tenant_id: tenantId,
+          name: campaignName,
+          type: typeData,
+          status: activate ? 'active' : 'paused'
+        }).select().single();
+
+        if (error) throw error;
+        savedCampaignId = data.id;
+      } else {
+        // Update existing
+        const { error } = await supabase.from('campaigns').update({
+          name: campaignName,
+          type: typeData,
+          status: activate ? 'active' : 'paused'
+        }).eq('id', campaignId);
+        if (error) throw error;
+      }
+
+      // Save steps
+      if (savedCampaignId) {
+        // Delete old steps first to simplify ordering
+        await supabase.from('campaign_steps').delete().eq('campaign_id', savedCampaignId);
+
+        if (steps.length > 0) {
+          const insertSteps = steps.map((s, index) => ({
+            tenant_id: tenantId,
+            campaign_id: savedCampaignId,
+            step_order: index + 1,
+            delay_days: s.delayDays,
+            delay_hours: s.delayHours,
+            channel: s.channel,
+            template: s.template
+          }));
+
+          const { error: stepsError } = await supabase.from('campaign_steps').insert(insertSteps);
+          if (stepsError) throw stepsError;
+        }
+      }
+
+      alert(`Campanha ${activate ? 'arquivada e ativada' : 'salva como rascunho'} com sucesso!`);
+      router.push('/dashboard/followup');
+    } catch (e: any) {
+      alert("Erro ao salvar campanha: " + e.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const addStep = () => {
     setSteps([...steps, { 
@@ -36,6 +168,14 @@ export default function CampaignBuilder() {
     setSteps(steps.filter(s => s.id !== id));
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex justify-center items-center h-64">
+        <Loader2 className="animate-spin text-primary" size={32} />
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
       {/* Header */}
@@ -45,16 +185,24 @@ export default function CampaignBuilder() {
             <ArrowLeft size={20} />
           </Link>
           <div>
-            <h1 className="text-xl font-bold text-secondary">Construtor de Follow-up</h1>
+            <h1 className="text-xl font-bold text-secondary">{campaignId ? "Editar Régua" : "Construtor de Follow-up"}</h1>
             <p className="text-sm text-secondary/50">Configure os disparos automatizados desta régua.</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="px-4 py-2 border border-primary/20 text-secondary/70 font-medium rounded-xl hover:bg-surface transition-all text-sm">
+          <button 
+            disabled={isSaving}
+            onClick={() => handleSave(false)}
+            className="px-4 py-2 border border-primary/20 text-secondary/70 font-medium rounded-xl hover:bg-surface transition-all text-sm disabled:opacity-50"
+          >
             Salvar Rascunho
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-primary text-background font-medium rounded-xl hover:bg-primary-light transition-all shadow-card text-sm">
-            <Save size={16} />
+          <button 
+            disabled={isSaving}
+            onClick={() => handleSave(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-background font-medium rounded-xl hover:bg-primary-light transition-all shadow-card text-sm disabled:opacity-50"
+          >
+            {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             Ativar Régua
           </button>
         </div>
@@ -131,7 +279,7 @@ export default function CampaignBuilder() {
                           newSteps[index].delayDays = parseInt(e.target.value) || 0;
                           setSteps(newSteps);
                         }}
-                        className="w-12 px-1 py-0.5 bg-surface rounded text-xs text-center border border-primary/10 focus:outline-none" 
+                        className="w-12 px-1 py-0.5 bg-surface rounded text-xs text-center border border-primary/10 focus:outline-none focus:ring-1 focus:ring-primary/20" 
                       />
                       <span className="text-xs text-secondary/60">dias</span>
                     </div>
@@ -198,4 +346,16 @@ export default function CampaignBuilder() {
       </div>
     </div>
   );
+}
+
+export default function CampaignBuilder() {
+  return (
+    <Suspense fallback={
+      <div className="flex-1 flex justify-center items-center h-screen">
+        <Loader2 className="animate-spin text-primary" size={32} />
+      </div>
+    }>
+      <CampaignBuilderContent />
+    </Suspense>
+  )
 }
