@@ -29,8 +29,8 @@ const intelligenceLinks = [
   { href: "/dashboard/ai", icon: <BrainCircuit size={18} />, text: "Skills & Macros" },
 ];
 
-const managementLinks = [
-  { href: "/dashboard/settings", icon: <Settings size={18} />, text: "Configurações", exact: true },
+const managementLinks: Array<{ href: string; icon: React.ReactNode; text: string; exact?: boolean }> = [
+  { href: "/dashboard/settings/channels", icon: <Settings size={18} />, text: "Canais & Integrações" },
   { href: "/dashboard/settings/audit", icon: <ShieldCheck size={18} />, text: "Auditoria (LGPD)" },
 ];
 
