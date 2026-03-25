@@ -3,9 +3,14 @@
 import React, { useState } from "react";
 import { 
   ArrowLeft, Eye, AlertTriangle, Clock, Mail, DollarSign, FileText, 
-  CheckCircle2, XCircle, Play, RefreshCw, Shield, Zap, MessageCircle
+  CheckCircle2, XCircle, Play, RefreshCw, Shield, Zap, MessageCircle, Loader2
 } from "lucide-react";
 import Link from "next/link";
+import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
+import { useTenantId } from "@/hooks/useTenantId";
+import { createClient } from "@/utils/supabase/client";
+import { formatRelative } from "date-fns";
+import { ptBR } from "date-fns/locale/pt-BR";
 
 type AgentTask = {
   id: string;
@@ -17,7 +22,7 @@ type AgentTask = {
   created_at: string;
 };
 
-const priorityConfig = {
+const priorityConfig: Record<string, any> = {
   critical: { color: 'text-red-400', bg: 'bg-red-500/[0.08]', border: 'border-red-500/[0.15]', dot: 'bg-red-500', glow: 'shadow-[0_0_10px_rgba(239,68,68,0.3)]', label: 'CRÍTICO' },
   high:     { color: 'text-yellow-400', bg: 'bg-yellow-500/[0.06]', border: 'border-yellow-500/[0.1]', dot: 'bg-yellow-500', glow: 'shadow-[0_0_8px_rgba(234,179,8,0.2)]', label: 'ALTO' },
   medium:   { color: 'text-blue-400', bg: 'bg-blue-500/[0.06]', border: 'border-blue-500/[0.08]', dot: 'bg-blue-500', glow: '', label: 'MÉDIO' },
@@ -42,58 +47,54 @@ const typeLabels: Record<string, string> = {
   financial_alert: 'Financeiro',
 };
 
-// Demo tasks
-const demoTasks: AgentTask[] = [
-  {
-    id: '1', type: 'deadline_warning', priority: 'critical',
-    title: 'Prazo fatal em 24h: Contestação – Processo 1234567-89.2025.5.02.0001',
-    summary: 'O prazo para Contestação Trabalhista do caso "Alves vs. TechNova Corp" vence amanhã, 23/03/2026. A peça ainda não foi protocolada. Ação imediata necessária.',
-    status: 'pending', created_at: '08:05'
-  },
-  {
-    id: '2', type: 'inbox_triage', priority: 'high',
-    title: 'Conversa sem resposta há 45 min (WhatsApp)',
-    summary: 'O lead "Família Oliveira" enviou mensagem sobre ITCMD às 08:45 e não recebeu resposta humana. A IA está ativa mas o topic requer intervenção.',
-    status: 'pending', created_at: '09:30'
-  },
-  {
-    id: '3', type: 'financial_alert', priority: 'high',
-    title: 'Fatura vencida: R$ 4.500,00 — Maria Conceição',
-    summary: 'A fatura de honorários advocatícios referente ao Inventário Extrajudicial venceu há 5 dias. Considere enviar cobrança automática pelo WhatsApp.',
-    status: 'pending', created_at: '07:00'
-  },
-  {
-    id: '4', type: 'email_categorization', priority: 'medium',
-    title: 'E-mail categorizado: Notificação Extrajudicial recebida',
-    summary: 'Recebido e-mail do escritório adversário com notificação extrajudicial referente ao Contrato de Locação do cliente Roberto Alves. Necessita de análise.',
-    status: 'pending', created_at: '06:30'
-  },
-  {
-    id: '5', type: 'dossier_prep', priority: 'medium',
-    title: 'Dossiê preparado: Audiência de Instrução amanhã',
-    summary: 'O Vigia compilou automaticamente: resumo do caso, documentos relevantes, jurisprudência similar e checklist de perguntas para a audiência.',
-    status: 'completed', created_at: 'Ontem'
-  },
-  {
-    id: '6', type: 'process_alert', priority: 'low',
-    title: 'Movimentação detectada: Despacho de mero expediente',
-    summary: 'Detectada movimentação no processo 9876543-21.2025.8.26.0100 — despacho de mero expediente. Nenhuma ação necessária.',
-    status: 'dismissed', created_at: 'Ontem'
-  },
-];
-
 export default function WatcherDashboard() {
-  const [tasks, setTasks] = useState(demoTasks);
+  const { tenantId } = useTenantId();
   const [filterPriority, setFilterPriority] = useState<string>('all');
   const [isScanning, setIsScanning] = useState(false);
+  const supabase = createClient();
 
-  const handleResolve = (id: string, action: 'completed' | 'dismissed') => {
-    setTasks(prev => prev.map(t => t.id === id ? { ...t, status: action } : t));
+  const { data: rawTasks, isLoading, refetch } = useSupabaseQuery<AgentTask[]>(
+    async (supabase) => {
+      if (!tenantId) return { data: null, error: null };
+      return supabase
+        .from('agent_tasks')
+        .select('*')
+        .eq('tenant_id', tenantId)
+        .order('created_at', { ascending: false });
+    },
+    [tenantId]
+  );
+
+  const tasks = React.useMemo(() => {
+    if (!rawTasks) return [];
+    return rawTasks.map((t: any) => ({
+      ...t,
+      priority: t.priority || 'medium',
+      type: t.type || 'inbox_triage',
+      status: t.status || 'pending',
+      created_at: t.created_at ? formatRelative(new Date(t.created_at), new Date(), { locale: ptBR }) : 'desconhecido'
+    }));
+  }, [rawTasks]);
+
+  const handleResolve = async (id: string, action: 'completed' | 'dismissed') => {
+    if (!tenantId) return;
+    try {
+      await supabase
+        .from('agent_tasks')
+        .update({ status: action, updated_at: new Date().toISOString() })
+        .eq('id', id)
+        .eq('tenant_id', tenantId);
+      refetch();
+    } catch (e) {
+      console.error("Erro ao resolver tarefa", e);
+    }
   };
 
   const handleScan = () => {
     setIsScanning(true);
-    setTimeout(() => setIsScanning(false), 2000);
+    refetch().finally(() => {
+      setTimeout(() => setIsScanning(false), 800);
+    });
   };
 
   const filtered = filterPriority === 'all' ? tasks : tasks.filter(t => t.priority === filterPriority);
@@ -117,11 +118,11 @@ export default function WatcherDashboard() {
         </div>
         <button 
           onClick={handleScan}
-          disabled={isScanning}
+          disabled={isScanning || isLoading}
           className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-xl text-sm font-medium hover:bg-primary/15 transition-colors"
         >
-          <RefreshCw size={14} className={isScanning ? 'animate-spin' : ''} />
-          {isScanning ? 'Varrendo...' : 'Forçar Varredura'}
+          <RefreshCw size={14} className={isScanning || isLoading ? 'animate-spin' : ''} />
+          {isScanning || isLoading ? 'Varrendo...' : 'Forçar Varredura'}
         </button>
       </div>
 
@@ -143,7 +144,7 @@ export default function WatcherDashboard() {
         </div>
         <div className="p-5 glass-panel rounded-3xl shadow-card border border-surface-container-highest/30">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5"><Clock size={12} className="text-secondary/60" /> Último Scan</p>
-          <p className="text-lg font-bold text-secondary/50">Há 3 min</p>
+          <p className="text-lg font-bold text-secondary/50">Agora</p>
         </div>
       </div>
 
@@ -164,54 +165,72 @@ export default function WatcherDashboard() {
 
       {/* Task Feed */}
       <div className="space-y-3">
-        {filtered.map(task => {
-          const pc = priorityConfig[task.priority];
-          const isDone = task.status === 'completed' || task.status === 'dismissed';
-          
-          return (
-            <div 
-              key={task.id} 
-              className={`p-5 glass-panel rounded-2xl transition-all duration-500 shadow-sm hover:shadow-card hover:border-outline-variant/30 ${isDone ? 'opacity-50 grayscale-[50%]' : ''} ${pc.bg} ${!isDone ? pc.glow : ''}`}
-            >
-              <div className="flex items-start gap-4">
-                {/* Type Icon */}
-                <div className="p-3 bg-surface-container-highest/50 rounded-xl flex-shrink-0 mt-1 shadow-inner border border-transparent">
-                  {typeIcons[task.type]}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`w-1.5 h-1.5 rounded-full ${pc.dot} flex-shrink-0`}></span>
-                    <span className={`text-[9px] font-bold uppercase tracking-wider ${pc.color}`}>{pc.label}</span>
-                    <span className="text-[9px] text-secondary/30 bg-surface px-1.5 py-0.5 rounded">{typeLabels[task.type]}</span>
-                    <span className="text-[9px] text-secondary/20 ml-auto">{task.created_at}</span>
-                  </div>
-                  <p className={`text-sm font-medium ${isDone ? 'text-secondary/40 line-through' : 'text-secondary/90'}`}>{task.title}</p>
-                  <p className="text-xs text-secondary/45 mt-1 leading-relaxed">{task.summary}</p>
-                </div>
-
-                {/* Actions */}
-                {!isDone && (
-                  <div className="flex flex-col gap-1.5 flex-shrink-0">
-                    <button onClick={() => handleResolve(task.id, 'completed')} className="flex items-center gap-1 px-2.5 py-1.5 bg-green-500/10 text-green-400 rounded-lg text-[10px] font-medium hover:bg-green-500/20 transition-colors">
-                      <Play size={10} /> Executar
-                    </button>
-                    <button onClick={() => handleResolve(task.id, 'dismissed')} className="flex items-center gap-1 px-2.5 py-1.5 bg-secondary/[0.05] text-secondary/40 rounded-lg text-[10px] font-medium hover:bg-secondary/[0.1] transition-colors">
-                      <XCircle size={10} /> Dispensar
-                    </button>
-                  </div>
-                )}
-                {task.status === 'completed' && (
-                  <span className="flex items-center gap-1 text-[10px] text-green-400/60 font-medium"><CheckCircle2 size={12} /> Feito</span>
-                )}
-                {task.status === 'dismissed' && (
-                  <span className="flex items-center gap-1 text-[10px] text-secondary/30 font-medium"><XCircle size={12} /> Dispensado</span>
-                )}
-              </div>
+        {isLoading ? (
+          <div className="p-12 flex justify-center items-center">
+            <Loader2 className="animate-spin text-primary" size={32} />
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="p-12 text-center bg-surface-container rounded-2xl">
+            <div className="w-16 h-16 bg-surface-container-highest/50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Eye className="text-secondary/40" size={32} />
             </div>
-          );
-        })}
+            <h3 className="text-lg font-bold text-secondary">Nenhum evento detectado</h3>
+            <p className="text-sm text-secondary/50 mt-2 max-w-sm mx-auto">
+              O Vigia não encontrou nenhum alerta ou tarefa proativa no momento para os filtros selecionados.
+            </p>
+          </div>
+        ) : (
+          filtered.map(task => {
+            const pc = priorityConfig[task.priority] || priorityConfig['medium'];
+            const isDone = task.status === 'completed' || task.status === 'dismissed';
+            
+            return (
+              <div 
+                key={task.id} 
+                className={`p-5 glass-panel rounded-2xl transition-all duration-500 shadow-sm hover:shadow-card hover:border-outline-variant/30 ${isDone ? 'opacity-50 grayscale-[50%]' : ''} ${pc.bg} ${!isDone ? pc.glow : ''}`}
+              >
+                <div className="flex items-start gap-4">
+                  {/* Type Icon */}
+                  <div className="p-3 bg-surface-container-highest/50 rounded-xl flex-shrink-0 mt-1 shadow-inner border border-transparent">
+                    {typeIcons[task.type] || <RefreshCw size={16} className="text-secondary/50" />}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`w-1.5 h-1.5 rounded-full ${pc.dot} flex-shrink-0`}></span>
+                      <span className={`text-[9px] font-bold uppercase tracking-wider ${pc.color}`}>{pc.label}</span>
+                      <span className="text-[9px] text-secondary/30 bg-surface px-1.5 py-0.5 rounded">{typeLabels[task.type] || task.type}</span>
+                      <span className="text-[9px] text-secondary/20 ml-auto">{task.created_at}</span>
+                    </div>
+                    <p className={`text-sm font-medium ${isDone ? 'text-secondary/40 line-through' : 'text-secondary/90'}`}>{task.title}</p>
+                    <p className="text-xs text-secondary/45 mt-1 leading-relaxed">{task.summary}</p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-col gap-1.5 flex-shrink-0">
+                    {!isDone && (
+                      <>
+                        <button onClick={() => handleResolve(task.id, 'completed')} className="flex items-center gap-1 px-2.5 py-1.5 bg-green-500/10 text-green-400 rounded-lg text-[10px] font-medium hover:bg-green-500/20 transition-colors">
+                          <Play size={10} /> Executar
+                        </button>
+                        <button onClick={() => handleResolve(task.id, 'dismissed')} className="flex items-center gap-1 px-2.5 py-1.5 bg-secondary/[0.05] text-secondary/40 rounded-lg text-[10px] font-medium hover:bg-secondary/[0.1] transition-colors">
+                          <XCircle size={10} /> Dispensar
+                        </button>
+                      </>
+                    )}
+                    {task.status === 'completed' && (
+                      <span className="flex items-center gap-1 text-[10px] text-green-400/60 font-medium"><CheckCircle2 size={12} /> Feito</span>
+                    )}
+                    {task.status === 'dismissed' && (
+                      <span className="flex items-center gap-1 text-[10px] text-secondary/30 font-medium"><XCircle size={12} /> Dispensado</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
