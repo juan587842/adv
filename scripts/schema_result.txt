@@ -1,0 +1,11 @@
+agent_tasks: id, tenant_id, type, priority, title, summary, payload, related_case_id, related_contact_id, status, resolved_by, resolved_at, created_at, updated_at
+
+cases: id, tenant_id, contact_id, assigned_to, title, description, case_number, court, area, status, urgency, value_estimate, tags, metadata, deleted_at, created_at, updated_at, datajud_last_sync_at
+
+contacts: id, tenant_id, type, full_name, email, phone, cpf_cnpj, address, lead_score, tags, notes, deleted_at, created_at, updated_at
+
+calendar_events: id, tenant_id, title, description, start_at, end_at, created_by, created_at, updated_at, case_id, metadata
+
+invoices: id, tenant_id, description, status, amount, created_by, created_at, updated_at, case_id, contact_id, due_date, metadata, deleted_at
+
+campaigns: id, tenant_id, name, description, created_by, created_at, updated_at, is_active

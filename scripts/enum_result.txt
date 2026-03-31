@@ -1,0 +1,7 @@
+=== agent_tasks type enum ===
+  Existing task type: process_alert
+  Existing task status: pending
+  Existing task priority: high
+
+=== invoices status enum ===
+  VALID: rascunho

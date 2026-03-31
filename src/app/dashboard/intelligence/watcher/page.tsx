@@ -69,8 +69,10 @@ export default function WatcherDashboard() {
     if (!rawTasks) return [];
     return rawTasks.map((t: any) => ({
       ...t,
+      task_type: t.type || 'follow_up',
+      description: t.summary || '',
+      case_id: t.related_case_id,
       priority: t.priority || 'medium',
-      type: t.type || 'inbox_triage',
       status: t.status || 'pending',
       created_at: t.created_at ? formatRelative(new Date(t.created_at), new Date(), { locale: ptBR }) : 'desconhecido'
     }));

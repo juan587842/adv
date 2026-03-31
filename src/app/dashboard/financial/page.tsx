@@ -17,8 +17,8 @@ export default function FinancialPage() {
       return supabase
         .from('invoices')
         .select(`
-          id, description, amount, status, type, due_date, created_at,
-          cases:case_id(title, number)
+          id, description, amount, status, due_date, created_at, metadata,
+          cases:case_id(title)
         `)
         .eq('tenant_id', tenantId)
         .order('created_at', { ascending: false });
@@ -40,13 +40,18 @@ export default function FinancialPage() {
 
     const mapped = rawInvoices.map(inv => {
       const amountNum = Number(inv.amount || 0);
-      const isExpense = inv.type === 'guia' || inv.type === 'custas' || inv.type === 'expense';
-      const isAlvara = inv.type === 'alvara';
+      const descLower = (inv.description || '').toLowerCase();
       
+      // Categorize by description keywords since there's no type column
+      const isExpense = descLower.includes('custa') || descLower.includes('guia') || descLower.includes('despesa');
+      const isAlvara = descLower.includes('alvará') || descLower.includes('alvara');
       const typeStr = isExpense ? 'expense' : 'income';
       
-      const isPaid = inv.status?.toLowerCase() === 'paid' || inv.status?.toLowerCase() === 'pago' || inv.status?.toLowerCase() === 'recebido';
-      const statusLabel = isPaid ? (isExpense ? 'Pago' : 'Recebido') : 'Pendente';
+      // Status from enum: rascunho, paga, cancelada, vencida
+      const isPaid = inv.status === 'paga';
+      const statusLabel = isPaid ? (isExpense ? 'Pago' : 'Recebido') : 
+                          inv.status === 'vencida' ? 'Vencido' :
+                          inv.status === 'cancelada' ? 'Cancelado' : 'Pendente';
 
       if (isPaid) {
         if (isExpense) expense += amountNum;
@@ -61,9 +66,8 @@ export default function FinancialPage() {
         else if (inv.created_at) dateStr = format(parseISO(inv.created_at), "dd MMM", { locale: ptBR });
       } catch(e) {}
 
-      let category = "Transação";
-      if (inv.type === 'honorarios' || inv.type === 'income') category = 'Honorários';
-      else if (inv.type === 'guia' || inv.type === 'custas') category = 'Custas';
+      let category = "Honorários";
+      if (isExpense) category = 'Custas';
       else if (isAlvara) category = 'Alvará';
 
       return {
@@ -71,7 +75,7 @@ export default function FinancialPage() {
         type: typeStr,
         category,
         title: inv.description || "Lançamento sem descrição",
-        case: inv.cases?.number || inv.cases?.title || "Sem dossiê vinculado",
+        case: inv.cases?.title || "Sem dossiê vinculado",
         amountNum,
         amount: new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amountNum),
         date: dateStr,

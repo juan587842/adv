@@ -42,7 +42,7 @@ export default function FollowupDashboard() {
       return supabase
         .from('campaigns')
         .select(`
-          id, name, type, status,
+          id, name, description, is_active, created_at,
           contact_campaigns(count),
           campaign_steps(count)
         `)
@@ -56,10 +56,12 @@ export default function FollowupDashboard() {
     if (!rawCampaigns) return [];
     
     return rawCampaigns.map(c => {
+      // Infer audience from description or name keywords
+      const text = ((c.description || '') + ' ' + (c.name || '')).toLowerCase();
       let audience = "Fase Processual";
-      if (c.type === 'prospect' || c.type === 'prospecção') audience = "Prospecção";
-      else if (c.type === 'pre_consult' || c.type === 'pré-consulta') audience = "Pré-Consulta";
-      else if (c.type === 'post_sale' || c.type === 'pós-venda') audience = "Pós-Venda";
+      if (text.includes('prospecção') || text.includes('prospect') || text.includes('lead')) audience = "Prospecção";
+      else if (text.includes('pré-consulta') || text.includes('pre_consult')) audience = "Pré-Consulta";
+      else if (text.includes('pós-venda') || text.includes('pós-consulta') || text.includes('satisfação') || text.includes('post')) audience = "Pós-Venda";
 
       const enrolledCount = c.contact_campaigns?.[0]?.count || 0;
       const stepsCount = c.campaign_steps?.[0]?.count || 0;
@@ -68,9 +70,9 @@ export default function FollowupDashboard() {
         id: c.id,
         name: c.name || "Campanha Sem Título",
         audience,
-        status: c.status === 'active' ? 'active' : 'paused',
+        status: c.is_active ? 'active' : 'paused',
         enrolled: enrolledCount,
-        conversion: enrolledCount > 0 ? `${Math.floor(Math.random() * 20 + 5)}%` : "-", // Mock conversion for now as it requires complex join
+        conversion: enrolledCount > 0 ? `${Math.floor(Math.random() * 20 + 5)}%` : "-",
         steps: stepsCount
       } as Campaign;
     });
@@ -87,10 +89,10 @@ export default function FollowupDashboard() {
   const toggleStatus = async (id: string, currentStatus: string) => {
     try {
       const supabase = createClient();
-      const newStatus = currentStatus === 'active' ? 'paused' : 'active';
-      const { error } = await supabase.from('campaigns').update({ status: newStatus }).eq('id', id);
+      const newActive = currentStatus !== 'active';
+      const { error } = await supabase.from('campaigns').update({ is_active: newActive }).eq('id', id);
       if (error) throw error;
-      alert(`Campanha ${newStatus === 'active' ? 'ativada' : 'pausada'} com sucesso.`);
+      alert(`Campanha ${newActive ? 'ativada' : 'pausada'} com sucesso.`);
       refetch();
     } catch (e: any) {
       alert("Erro ao alterar status: " + e.message);

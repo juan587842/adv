@@ -27,12 +27,12 @@ export default function CalendarPage() {
       return supabase
         .from('calendar_events')
         .select(`
-          id, title, start_time, event_type, description
+          id, title, start_at, description, metadata
         `)
         .eq('tenant_id', tenantId)
-        .gte('start_time', firstDayOfMonth.toISOString())
-        .lte('start_time', lastDayOfMonth.toISOString())
-        .order('start_time', { ascending: true });
+        .gte('start_at', firstDayOfMonth.toISOString())
+        .lte('start_at', lastDayOfMonth.toISOString())
+        .order('start_at', { ascending: true });
     },
     [tenantId, currentDate]
   );
@@ -40,11 +40,11 @@ export default function CalendarPage() {
   const events = useMemo(() => {
     if (!rawEvents) return [];
     return rawEvents.map(e => {
-      const date = new Date(e.start_time);
+      const date = new Date(e.start_at);
       let typeStr = "meeting";
-      // Basic typing inference built into user's DB logic
-      if (e.event_type?.includes('hearing') || e.title?.toLowerCase().includes('audiência')) typeStr = 'hearing';
-      else if (e.event_type?.includes('deadline') || e.title?.toLowerCase().includes('prazo')) typeStr = 'deadline';
+      const titleLower = e.title?.toLowerCase() || '';
+      if (titleLower.includes('audiência') || titleLower.includes('hearing')) typeStr = 'hearing';
+      else if (titleLower.includes('prazo') || titleLower.includes('deadline') || titleLower.includes('entrega') || titleLower.includes('fatal')) typeStr = 'deadline';
       
       return {
         id: e.id,
