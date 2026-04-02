@@ -15,12 +15,12 @@ export function UrgentDeadlinesZone() {
       return supabase
         .from('calendar_events')
         .select(`
-          id, title, start_time,
+          id, title, start_at,
           cases:case_id(case_number)
         `)
         .eq('tenant_id', tenantId)
-        .gte('start_time', new Date().toISOString())
-        .order('start_time', { ascending: true })
+        .gte('start_at', new Date().toISOString())
+        .order('start_at', { ascending: true })
         .limit(3);
     },
     [tenantId]
@@ -29,7 +29,7 @@ export function UrgentDeadlinesZone() {
   const deadlines = useMemo(() => {
     if (!events) return [];
     return events.map(e => {
-      const daysLeft = e.start_time ? differenceInDays(new Date(e.start_time), new Date()) : 0;
+      const daysLeft = e.start_at ? differenceInDays(new Date(e.start_at), new Date()) : 0;
       let type = "Planejado";
       let color = "primary";
       

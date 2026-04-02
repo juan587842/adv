@@ -25,6 +25,7 @@ const typeIcons: Record<string, React.ReactNode> = {
   client_profile: <User size={14} className="text-blue-400" />,
   preference: <Heart size={14} className="text-pink-400" />,
   interaction_summary: <MessageCircle size={14} className="text-green-400" />,
+  conversation: <MessageCircle size={14} className="text-green-400" />,
   legal_context: <Scale size={14} className="text-yellow-400" />,
   relationship: <User size={14} className="text-purple-400" />,
   behavioral_pattern: <Brain size={14} className="text-cyan-400" />,
@@ -35,6 +36,7 @@ const typeLabels: Record<string, string> = {
   client_profile: 'Perfil',
   preference: 'Preferência',
   interaction_summary: 'Interação',
+  conversation: 'Conversa',
   legal_context: 'Contexto Jurídico',
   relationship: 'Relacionamento',
   behavioral_pattern: 'Padrão',
@@ -48,14 +50,15 @@ export default function MemoryExplorerPage() {
   const [filterContact, setFilterContact] = useState("all");
   const [showAddForm, setShowAddForm] = useState(false);
 
+  // Query the REAL table: agent_memory (not contact_memories which doesn't exist)
   const { data: rawMemories, isLoading } = useSupabaseQuery<any[]>(
     async (supabase) => {
       if (!tenantId) return { data: null, error: null };
       return supabase
-        .from('contact_memories')
+        .from('agent_memory')
         .select(`
-          id, memory_type, memory_key, content, importance, source, updated_at,
-          contacts(name)
+          id, memory_type, memory_key, content, importance, updated_at,
+          contacts:contact_id(full_name)
         `)
         .eq('tenant_id', tenantId)
         .order('updated_at', { ascending: false });
@@ -67,13 +70,13 @@ export default function MemoryExplorerPage() {
     if (!rawMemories) return [];
     return rawMemories.map((m: any) => ({
       id: m.id,
-      contact_name: m.contacts?.name || 'Contato Desconhecido',
+      contact_name: m.contacts?.full_name || 'Contato Desconhecido',
       memory_type: m.memory_type || 'custom',
       memory_key: m.memory_key || '-',
       content: m.content || '',
       importance: m.importance || 50,
       updated_at: m.updated_at ? formatRelative(new Date(m.updated_at), new Date(), { locale: ptBR }) : '-',
-      source: m.source || 'auto',
+      source: m.memory_type === 'conversation' ? 'auto' as const : 'manual' as const,
     } as Memory));
   }, [rawMemories]);
 

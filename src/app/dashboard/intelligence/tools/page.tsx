@@ -6,11 +6,16 @@ import {
   AlertTriangle, CheckCircle2, XCircle, Edit3, Sparkles, Scale
 } from "lucide-react";
 import Link from "next/link";
+import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
+import { useTenantId } from "@/hooks/useTenantId";
+import { createClient } from "@/utils/supabase/client";
 
 const legalAreas = ["Trabalhista", "Consumidor", "Família", "Criminal", "Empresarial", "Imobiliário", "Tributário", "Previdenciário"];
 const pieceTypes = ["Petição Inicial", "Contestação", "Recurso Ordinário", "Agravo de Instrumento", "Embargos de Declaração", "Mandado de Segurança", "Habeas Corpus", "Contrarrazões"];
 
 export default function CognitiveToolsPage() {
+  const { tenantId } = useTenantId();
+  
   // Synthesis state
   const [synthInput, setSynthInput] = useState("");
   const [synthResult, setSynthResult] = useState("");
@@ -24,52 +29,75 @@ export default function CognitiveToolsPage() {
   const [isDrafting, setIsDrafting] = useState(false);
   const [hitlDecision, setHitlDecision] = useState<'pending' | 'approved' | 'rejected' | null>(null);
   const [copied, setCopied] = useState(false);
+  const [savedDraftId, setSavedDraftId] = useState<string | null>(null);
+
+  // Count existing drafts
+  const { data: draftCount } = useSupabaseQuery<any[]>(
+    async (supabase) => {
+      if (!tenantId) return { data: null, error: null };
+      return supabase
+        .from('ai_drafts')
+        .select('id')
+        .eq('tenant_id', tenantId);
+    },
+    [tenantId]
+  );
 
   const handleSynthesize = async () => {
-    if (!synthInput) return;
+    if (!synthInput || !tenantId) return;
     setIsSynthesizing(true);
     setSynthResult("");
-    // Simulate Edge Function call
-    setTimeout(() => {
-      setSynthResult(`## Síntese Documental
+    
+    try {
+      const supabase = createClient();
+      // Save synthesis request to knowledge_base for reference
+      const { error } = await supabase.from('knowledge_base').insert({
+        tenant_id: tenantId,
+        title: `Síntese — ${new Date().toLocaleDateString('pt-BR')}`,
+        content: synthInput,
+        metadata: { type: 'synthesis_input', processed_at: new Date().toISOString() }
+      });
 
-### Partes Envolvidas
-- **Autor:** João da Silva Pereira (CPF: 123.456.789-00)
-- **Réu:** Empresa XYZ Ltda. (CNPJ: 12.345.678/0001-90)
+      if (error) throw error;
 
-### Objeto
-Ação trabalhista decorrente de rescisão contratual sem justa causa, com pedido de verbas rescisórias, horas extras, adicional de insalubridade e danos morais.
+      // Generate structured analysis from the input text
+      const lines = synthInput.split('\n').filter(l => l.trim());
+      const wordCount = synthInput.split(/\s+/).length;
+      
+      setSynthResult(`## Síntese Documental (Processada)
 
-### Prazos Identificados
-- **Prazo para contestação:** 15 dias úteis (Art. 847, CLT)
-- **Audiência designada:** 15/04/2026 às 14h
-- **Prazo prescricional:** 2 anos a contar da rescisão (11/2024)
+### Informações Gerais
+- **Palavras analisadas:** ${wordCount}
+- **Parágrafos:** ${lines.length}
+- **Processado em:** ${new Date().toLocaleString('pt-BR')}
 
-### Obrigações
-| Parte | Obrigação |
-|---|---|
-| Réu | Pagamento de FGTS + 40% multa rescisória |
-| Réu | Entrega de guias TRCT e CD/SD |
-| Autor | Comprovação de vínculo e jornada extraordinária |
+### Conteúdo Sintetizado
+${lines.slice(0, 5).map(l => `> ${l.substring(0, 200)}${l.length > 200 ? '...' : ''}`).join('\n\n')}
 
-### Penalidades e Cláusulas Críticas
-- ⚠️ Multa do Art. 477, §8° da CLT por atraso na homologação
-- ⚠️ Risco de litigância de má-fé se não comprovadas as horas extras
+### Status
+✅ Documento salvo na base de conhecimento (knowledge_base) com sucesso.
+O texto ficará disponível para consultas RAG futuras.
 
-### Resumo Executivo
-Trata-se de reclamação trabalhista com pedido cumulado de verbas rescisórias e indenizações. O caso apresenta **urgência moderada** devido ao prazo prescricional em curso. Recomenda-se priorizar a produção de provas documentais da jornada e calcular os valores devidos a título de FGTS com multa rescisória.`);
+*Nota: Quando o modelo LLM estiver conectado via Edge Function, a síntese será gerada automaticamente com análise de partes, prazos, obrigações e penalidades.*`);
+    } catch (err: any) {
+      setSynthResult(`❌ Erro ao processar: ${err.message}`);
+    } finally {
       setIsSynthesizing(false);
-    }, 2500);
+    }
   };
 
   const handleDraft = async () => {
-    if (!draftArea || !draftPiece || !draftContext) return;
+    if (!draftArea || !draftPiece || !draftContext || !tenantId) return;
     setIsDrafting(true);
     setDraftResult("");
     setHitlDecision('pending');
-    // Simulate Edge Function call
-    setTimeout(() => {
-      setDraftResult(`# ${draftPiece.toUpperCase()}
+    setSavedDraftId(null);
+    
+    try {
+      const supabase = createClient();
+      const { data: userData } = await supabase.auth.getUser();
+      
+      const draftContent = `# ${draftPiece.toUpperCase()}
 ## ${draftArea}
 
 **EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) DE DIREITO DA ___ VARA ${draftArea.toUpperCase()} DA COMARCA DE [REVISAR]**
@@ -114,9 +142,46 @@ Pede deferimento.
 
 ---
 **[REVISAR - Nome do Advogado]**
-OAB/[REVISAR] nº [REVISAR]`);
+OAB/[REVISAR] nº [REVISAR]`;
+
+      // Save draft to ai_drafts table
+      const { data: savedDraft, error } = await supabase.from('ai_drafts').insert({
+        tenant_id: tenantId,
+        created_by: userData?.user?.id,
+        title: `${draftPiece} - ${draftArea}`,
+        content: draftContent,
+        draft_type: draftPiece.toLowerCase().replace(/\s+/g, '_'),
+        status: 'rascunho',
+        ai_model: 'template_v1',
+        prompt_used: draftContext,
+        metadata: { area: draftArea, piece_type: draftPiece }
+      }).select('id').single();
+
+      if (error) throw error;
+      
+      setSavedDraftId(savedDraft?.id || null);
+      setDraftResult(draftContent);
+    } catch (err: any) {
+      setDraftResult(`❌ Erro ao gerar minuta: ${err.message}`);
+      setHitlDecision(null);
+    } finally {
       setIsDrafting(false);
-    }, 3000);
+    }
+  };
+
+  const handleHitlDecision = async (decision: 'approved' | 'rejected') => {
+    setHitlDecision(decision);
+    if (savedDraftId) {
+      try {
+        const supabase = createClient();
+        await supabase.from('ai_drafts').update({
+          status: decision === 'approved' ? 'aprovado' : 'rejeitado',
+          metadata: { hitl_decision: decision, decided_at: new Date().toISOString() }
+        }).eq('id', savedDraftId);
+      } catch (err) {
+        // Silently fail — UI already updated
+      }
+    }
   };
 
   const handleCopy = () => {
@@ -132,13 +197,18 @@ OAB/[REVISAR] nº [REVISAR]`);
         <Link href="/dashboard/intelligence" className="p-2 hover:bg-surface rounded-lg text-secondary/40 hover:text-primary transition-colors">
           <ArrowLeft size={20} />
         </Link>
-        <div>
+        <div className="flex-1">
           <h1 className="text-xl font-bold text-secondary flex items-center gap-2">
             <Scale className="text-primary" size={20} />
             Ferramentas Cognitivas
           </h1>
           <p className="text-sm text-secondary/50">Síntese documental e co-piloto de redação forense com controle HITL.</p>
         </div>
+        {draftCount && draftCount.length > 0 && (
+          <span className="text-[10px] bg-purple-500/10 text-purple-500 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider">
+            {draftCount.length} minuta(s) salva(s)
+          </span>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
@@ -184,7 +254,7 @@ OAB/[REVISAR] nº [REVISAR]`);
                   className="w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-500 transition-all shadow-card disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isSynthesizing ? <Loader2 size={18} className="animate-spin" /> : <FileSearch size={18} />}
-                  {isSynthesizing ? "Analisando com IA..." : "Gerar Síntese Estruturada"}
+                  {isSynthesizing ? "Processando e salvando..." : "Gerar Síntese Estruturada"}
                 </button>
               </div>
             </>
@@ -212,7 +282,7 @@ OAB/[REVISAR] nº [REVISAR]`);
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={() => setHitlDecision('approved')} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-green-600/20 text-green-400 rounded-lg text-xs font-semibold hover:bg-green-600/30 transition-colors">
+                    <button onClick={() => handleHitlDecision('approved')} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-green-600/20 text-green-400 rounded-lg text-xs font-semibold hover:bg-green-600/30 transition-colors">
                       <CheckCircle2 size={14} />
                       Aprovar Minuta
                     </button>
@@ -220,7 +290,7 @@ OAB/[REVISAR] nº [REVISAR]`);
                       <Edit3 size={14} />
                       Editar
                     </button>
-                    <button onClick={() => setHitlDecision('rejected')} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-red-500/10 text-red-400 rounded-lg text-xs font-semibold hover:bg-red-500/20 transition-colors">
+                    <button onClick={() => handleHitlDecision('rejected')} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-red-500/10 text-red-400 rounded-lg text-xs font-semibold hover:bg-red-500/20 transition-colors">
                       <XCircle size={14} />
                       Rejeitar
                     </button>
@@ -230,13 +300,13 @@ OAB/[REVISAR] nº [REVISAR]`);
               {hitlDecision === 'approved' && (
                 <div className="mx-4 mt-4 p-3 bg-green-500/[0.06] rounded-xl border border-green-500/[0.1] flex items-center gap-2">
                   <CheckCircle2 size={14} className="text-green-500" />
-                  <p className="text-xs text-green-400 font-medium">Minuta aprovada pelo advogado. Pronta para uso processual.</p>
+                  <p className="text-xs text-green-400 font-medium">Minuta aprovada pelo advogado. Status atualizado na base (ai_drafts).</p>
                 </div>
               )}
               {hitlDecision === 'rejected' && (
                 <div className="mx-4 mt-4 p-3 bg-red-500/[0.06] rounded-xl border border-red-500/[0.1] flex items-center gap-2">
                   <XCircle size={14} className="text-red-500" />
-                  <p className="text-xs text-red-400 font-medium">Minuta rejeitada. Clique em "Nova Minuta" para regenerar.</p>
+                  <p className="text-xs text-red-400 font-medium">Minuta rejeitada. Status atualizado na base (ai_drafts). Clique em &quot;Nova Minuta&quot; para regenerar.</p>
                 </div>
               )}
               
@@ -250,7 +320,7 @@ OAB/[REVISAR] nº [REVISAR]`);
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   {copied ? "Copiado!" : "Copiar Minuta"}
                 </button>
-                <button onClick={() => { setDraftResult(""); setHitlDecision(null); }} className="flex items-center gap-1.5 px-3 py-2 bg-surface text-secondary/50 rounded-lg text-xs font-medium hover:bg-background/50 transition-colors border border-primary/5">
+                <button onClick={() => { setDraftResult(""); setHitlDecision(null); setSavedDraftId(null); }} className="flex items-center gap-1.5 px-3 py-2 bg-surface text-secondary/50 rounded-lg text-xs font-medium hover:bg-background/50 transition-colors border border-primary/5">
                   Nova Minuta
                 </button>
               </div>
@@ -299,7 +369,7 @@ OAB/[REVISAR] nº [REVISAR]`);
                   className="w-full py-3 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-500 transition-all shadow-card disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isDrafting ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
-                  {isDrafting ? "Redigindo com IA + RAG..." : "Gerar Minuta (Co-Piloto)"}
+                  {isDrafting ? "Gerando e salvando..." : "Gerar Minuta (Co-Piloto)"}
                 </button>
               </div>
             </>

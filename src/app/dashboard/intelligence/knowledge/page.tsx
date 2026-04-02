@@ -1,47 +1,109 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, UploadCloud, FileText, Send, Database, Sparkles, Loader2, BrainCircuit } from "lucide-react";
+import { ArrowLeft, UploadCloud, FileText, Send, Database, Sparkles, Loader2, BrainCircuit, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-// import { createClient } from "@supabase/supabase-js"; // Assuming setup elsewhere
+import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
+import { useTenantId } from "@/hooks/useTenantId";
+import { createClient } from "@/utils/supabase/client";
 
 export default function KnowledgeBasePage() {
+  const { tenantId } = useTenantId();
   const [ingestText, setIngestText] = useState("");
   const [ingestTitle, setIngestTitle] = useState("");
   const [isIngesting, setIsIngesting] = useState(false);
+  const [ingestSuccess, setIngestSuccess] = useState(false);
   
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState<{role: 'user'|'agent', content: string, sources?: string[]}[]>([]);
   const [isChatting, setIsChatting] = useState(false);
 
+  // Fetch existing knowledge base entries
+  const { data: kbEntries, refetch } = useSupabaseQuery<any[]>(
+    async (supabase) => {
+      if (!tenantId) return { data: null, error: null };
+      return supabase
+        .from('knowledge_base')
+        .select('id, title, created_at')
+        .eq('tenant_id', tenantId)
+        .order('created_at', { ascending: false })
+        .limit(10);
+    },
+    [tenantId]
+  );
+
   const handleIngest = async () => {
-    if (!ingestText || !ingestTitle) return;
+    if (!ingestText || !ingestTitle || !tenantId) return;
     setIsIngesting(true);
-    // Simulate Edge Function Call
-    setTimeout(() => {
-      alert(`Documento "${ingestTitle}" vetorizado com sucesso via pgvector!`);
+    setIngestSuccess(false);
+    
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from('knowledge_base').insert({
+        tenant_id: tenantId,
+        title: ingestTitle,
+        content: ingestText,
+        metadata: { source: 'manual_ingestion', ingested_at: new Date().toISOString() }
+      });
+
+      if (error) throw error;
+
+      setIngestSuccess(true);
       setIngestTitle("");
       setIngestText("");
+      refetch();
+      setTimeout(() => setIngestSuccess(false), 3000);
+    } catch (err: any) {
+      alert(`Erro ao salvar o documento: ${err.message}`);
+    } finally {
       setIsIngesting(false);
-    }, 1500);
+    }
   };
 
   const handleChat = async () => {
-    if (!chatInput) return;
-    const newMsg = { role: 'user' as const, content: chatInput };
+    if (!chatInput || !tenantId) return;
+    const userQuestion = chatInput;
+    const newMsg = { role: 'user' as const, content: userQuestion };
     setChatMessages(prev => [...prev, newMsg]);
     setChatInput("");
     setIsChatting(true);
 
-    // Simulate Edge Function Call RAG Pipeline
-    setTimeout(() => {
+    try {
+      const supabase = createClient();
+      // Search knowledge_base by content similarity (text search for now until embeddings are generated)
+      const { data: results, error } = await supabase
+        .from('knowledge_base')
+        .select('title, content')
+        .eq('tenant_id', tenantId)
+        .or(`title.ilike.%${userQuestion.split(' ').slice(0, 3).join('%')}%,content.ilike.%${userQuestion.split(' ').slice(0, 3).join('%')}%`)
+        .limit(3);
+
+      if (error) throw error;
+
+      if (results && results.length > 0) {
+        const sourceTitles = results.map(r => r.title);
+        const contextSnippets = results.map(r => r.content.substring(0, 200)).join('\n\n');
+        
+        setChatMessages(prev => [...prev, {
+          role: 'agent',
+          content: `Encontrei ${results.length} documento(s) relevante(s) na base de conhecimento.\n\n**Contexto extraído:**\n${contextSnippets.substring(0, 500)}${contextSnippets.length > 500 ? '...' : ''}\n\n*Nota: Quando o pipeline RAG com pgvector estiver ativo, a busca será por similaridade de cosseno com embeddings vetoriais, garantindo resultados mais precisos.*`,
+          sources: sourceTitles
+        }]);
+      } else {
+        setChatMessages(prev => [...prev, {
+          role: 'agent',
+          content: "Não encontrei documentos relevantes na base de conhecimento para essa consulta. Experimente vetorizar documentos no painel à esquerda primeiro.\n\n*Nota: O pipeline RAG completo com embeddings vetoriais (pgvector) será ativado quando a Edge Function de processamento estiver configurada.*",
+          sources: []
+        }]);
+      }
+    } catch (err: any) {
       setChatMessages(prev => [...prev, {
         role: 'agent',
-        content: "Baseado nos documentos mapeados, o prazo para contestação trabalhista é de 15 dias úteis contados da citação, conforme art. 841 da CLT injetado previamente no meu contexto.",
-        sources: ["CLT Comentada - Art 841", "Manual de Prazos Internos"]
+        content: `Erro ao consultar a base: ${err.message}`,
       }]);
+    } finally {
       setIsChatting(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -51,13 +113,18 @@ export default function KnowledgeBasePage() {
         <Link href="/dashboard/intelligence" className="p-2 hover:bg-surface rounded-lg text-secondary/40 hover:text-primary transition-colors">
           <ArrowLeft size={20} />
         </Link>
-        <div>
+        <div className="flex-1">
           <h1 className="text-xl font-bold text-secondary flex items-center gap-2">
             <Database className="text-primary" size={20} />
             Cérebro RAG (Vector Data)
           </h1>
           <p className="text-sm text-secondary/50">Alimente e teste o conhecimento interno injetado nos agentes.</p>
         </div>
+        {kbEntries && kbEntries.length > 0 && (
+          <span className="text-[10px] bg-primary/10 text-primary px-2.5 py-1 rounded-md font-bold uppercase tracking-wider">
+            {kbEntries.length} doc(s) na base
+          </span>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
@@ -69,6 +136,12 @@ export default function KnowledgeBasePage() {
             Vetorizar Novo Conhecimento
           </div>
           <div className="p-5 flex-1 flex flex-col gap-4 overflow-y-auto">
+            {ingestSuccess && (
+              <div className="p-3 bg-green-500/10 rounded-xl border border-green-500/20 flex items-center gap-2">
+                <CheckCircle2 size={14} className="text-green-500" />
+                <p className="text-xs text-green-400 font-medium">Documento salvo com sucesso na base de conhecimento!</p>
+              </div>
+            )}
             <div>
               <label className="block text-xs font-semibold text-secondary/60 uppercase tracking-wider mb-2">Título do Documento</label>
               <input 
@@ -96,7 +169,7 @@ export default function KnowledgeBasePage() {
               className="w-full py-3 bg-secondary text-background rounded-xl font-medium hover:bg-secondary/90 transition-all shadow-card disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {isIngesting ? <Loader2 size={18} className="animate-spin" /> : <Database size={18} />}
-              Vetorizar e Salvar no pgvector
+              {isIngesting ? "Salvando na base..." : "Vetorizar e Salvar no pgvector"}
             </button>
           </div>
         </div>
@@ -113,7 +186,7 @@ export default function KnowledgeBasePage() {
               <Sparkles size={16} className="text-blue-500" />
               Sandbox RAG (Teste)
             </span>
-            <span className="text-[10px] bg-blue-500/10 text-blue-500 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider backdrop-blur-sm shadow-[0_0_12px_rgba(59,130,246,0.15)]">MiniMax M2.7</span>
+            <span className="text-[10px] bg-blue-500/10 text-blue-500 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider backdrop-blur-sm shadow-[0_0_12px_rgba(59,130,246,0.15)]">Text Search</span>
           </div>
           
           <div className="flex-1 p-5 overflow-y-auto space-y-4">
@@ -122,7 +195,7 @@ export default function KnowledgeBasePage() {
                 <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary/40 mb-4">
                   <Sparkles size={24} />
                 </div>
-                <p className="text-secondary/60 text-sm">Faça perguntas sobre os documentos que você já vetorizou. O Agente Onisciente usará Similaridade de Cosseno (HNSW) para buscar as respostas.</p>
+                <p className="text-secondary/60 text-sm">Faça perguntas sobre os documentos que você já vetorizou. O sistema buscará na base de conhecimento real do Supabase.</p>
               </div>
             ) : (
                 chatMessages.map((msg, i) => (
@@ -132,11 +205,11 @@ export default function KnowledgeBasePage() {
                         ? 'bg-primary text-on-primary rounded-tr-sm shadow-md' 
                         : 'bg-surface-container-highest text-secondary rounded-tl-sm shadow-sm'
                     }`}>
-                      <p className="leading-relaxed">{msg.content}</p>
+                      <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                       
-                      {msg.sources && (
+                      {msg.sources && msg.sources.length > 0 && (
                         <div className="mt-3 pt-3 border-t border-secondary/10">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-secondary/30 mb-2">Fontes Utilizadas (RAG):</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-secondary/30 mb-2">Fontes Utilizadas (knowledge_base):</p>
                           <div className="flex flex-wrap gap-2">
                             {msg.sources.map((src, idx) => (
                               <span key={idx} className="flex items-center gap-1 text-[10px] bg-background/50 px-2.5 py-1 rounded-md text-secondary/50 shadow-inner">

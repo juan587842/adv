@@ -13,8 +13,9 @@ export function FinancialOverviewZone() {
       if (!tenantId) return { data: null, error: null };
       return supabase
         .from('invoices')
-        .select('amount, status, type')
-        .eq('tenant_id', tenantId);
+        .select('amount, status, description, due_date')
+        .eq('tenant_id', tenantId)
+        .is('deleted_at', null);
     },
     [tenantId]
   );
@@ -27,13 +28,18 @@ export function FinancialOverviewZone() {
     let guiasVencidas = 0;
 
     invoices.forEach(inv => {
-      if (inv.status === 'pending' || inv.status === 'pendente') {
+      const desc = (inv.description || '').toLowerCase();
+      
+      // Real enum values: rascunho, enviada, paga, vencida, cancelada
+      if (inv.status === 'rascunho' || inv.status === 'enviada') {
         totalPending += Number(inv.amount || 0);
-        if (inv.type === 'alvara') alvaras++;
-        if (inv.type === 'guia') guiasVencidas++;
-      } else if (inv.status === 'overdue' || inv.status === 'vencido') {
+        // Detect alvarás/guias from description keywords
+        if (desc.includes('alvará') || desc.includes('alvara')) alvaras++;
+      }
+      
+      if (inv.status === 'vencida') {
         totalPending += Number(inv.amount || 0);
-        if (inv.type === 'guia') guiasVencidas++;
+        if (desc.includes('guia') || desc.includes('custas')) guiasVencidas++;
       }
     });
 
