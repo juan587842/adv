@@ -73,6 +73,7 @@ docs/
 
 ## Git & GitHub
 
+- **SEMPRE que fizer qualquer modificação no código (adicionar/editar arquivos), você DEVE obrigatoriamente fazer o `git add .`, `git commit -m "..."` e `git push` automaticamente.**
 - Use conventional commits: `feat:`, `fix:`, `docs:`, etc.
 - Reference story ID in commits: `feat: implement IDE detection [Story 2.1]`
 - Ensure GitHub CLI is configured: `gh auth status`

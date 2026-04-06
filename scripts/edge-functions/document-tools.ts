@@ -25,7 +25,7 @@ Deno.serve(async (req: Request) => {
     const mode = body.mode;
     
     // Obtém URL do Ollama na VPS que foi setada nos secrets
-    const openaiUrl = Deno.env.get("OPENAI_BASE_URL");
+    const openaiUrl = Deno.env.get("OPENAI_BASE_URL") || "https://projetos-ollama.fbnowr.easypanel.host:11434/v1";
     const openaiKey = Deno.env.get("OPENAI_API_KEY") || "ollama";
 
     if (!openaiUrl) {
