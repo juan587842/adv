@@ -39,11 +39,14 @@ export default function KnowledgeBasePage() {
     
     try {
       const supabase = createClient();
-      const { error } = await supabase.from('knowledge_base').insert({
-        tenant_id: tenantId,
-        title: ingestTitle,
-        content: ingestText,
-        metadata: { source: 'manual_ingestion', ingested_at: new Date().toISOString() }
+      const { error } = await supabase.functions.invoke('rag-pipeline', {
+        body: { 
+          mode: 'ingest', 
+          title: ingestTitle, 
+          text: ingestText, 
+          source: 'manual_ingestion', 
+          tenant_id: tenantId 
+        }
       });
 
       if (error) throw error;
@@ -70,29 +73,22 @@ export default function KnowledgeBasePage() {
 
     try {
       const supabase = createClient();
-      // Search knowledge_base by content similarity (text search for now until embeddings are generated)
-      const { data: results, error } = await supabase
-        .from('knowledge_base')
-        .select('title, content')
-        .eq('tenant_id', tenantId)
-        .or(`title.ilike.%${userQuestion.split(' ').slice(0, 3).join('%')}%,content.ilike.%${userQuestion.split(' ').slice(0, 3).join('%')}%`)
-        .limit(3);
+      const { data: result, error } = await supabase.functions.invoke('rag-pipeline', {
+        body: { mode: 'chat', query: userQuestion, tenant_id: tenantId }
+      });
 
       if (error) throw error;
 
-      if (results && results.length > 0) {
-        const sourceTitles = results.map(r => r.title);
-        const contextSnippets = results.map(r => r.content.substring(0, 200)).join('\n\n');
-        
+      if (result && result.answer) {
         setChatMessages(prev => [...prev, {
           role: 'agent',
-          content: `Encontrei ${results.length} documento(s) relevante(s) na base de conhecimento.\n\n**Contexto extraído:**\n${contextSnippets.substring(0, 500)}${contextSnippets.length > 500 ? '...' : ''}\n\n*Nota: Quando o pipeline RAG com pgvector estiver ativo, a busca será por similaridade de cosseno com embeddings vetoriais, garantindo resultados mais precisos.*`,
-          sources: sourceTitles
+          content: result.answer,
+          sources: result.sources || []
         }]);
       } else {
         setChatMessages(prev => [...prev, {
           role: 'agent',
-          content: "Não encontrei documentos relevantes na base de conhecimento para essa consulta. Experimente vetorizar documentos no painel à esquerda primeiro.\n\n*Nota: O pipeline RAG completo com embeddings vetoriais (pgvector) será ativado quando a Edge Function de processamento estiver configurada.*",
+          content: "A inteligência não pôde gerar uma resposta a partir da base de conhecimento.",
           sources: []
         }]);
       }

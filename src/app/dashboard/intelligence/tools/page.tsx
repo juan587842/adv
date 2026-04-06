@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
 import { createClient } from "@/utils/supabase/client";
+import { formatDateBR } from "@/utils/dateFormat";
+import { maskPII } from "@/utils/lgpdMask";
 
 const legalAreas = ["Trabalhista", "Consumidor", "Família", "Criminal", "Empresarial", "Imobiliário", "Tributário", "Previdenciário"];
 const pieceTypes = ["Petição Inicial", "Contestação", "Recurso Ordinário", "Agravo de Instrumento", "Embargos de Declaração", "Mandado de Segurança", "Habeas Corpus", "Contrarrazões"];
@@ -50,35 +52,23 @@ export default function CognitiveToolsPage() {
     
     try {
       const supabase = createClient();
-      // Save synthesis request to knowledge_base for reference
-      const { error } = await supabase.from('knowledge_base').insert({
-        tenant_id: tenantId,
-        title: `Síntese — ${new Date().toLocaleDateString('pt-BR')}`,
-        content: synthInput,
-        metadata: { type: 'synthesis_input', processed_at: new Date().toISOString() }
+      
+      // Call edge function for synthesis — mask PII before sending (LGPD RNF02)
+      const { data, error: invokeError } = await supabase.functions.invoke('document-tools', {
+        body: { mode: 'synthesize', text: maskPII(synthInput) }
       });
 
-      if (error) throw error;
-
-      // Generate structured analysis from the input text
-      const lines = synthInput.split('\n').filter(l => l.trim());
-      const wordCount = synthInput.split(/\s+/).length;
+      if (invokeError) throw invokeError;
       
-      setSynthResult(`## Síntese Documental (Processada)
+      setSynthResult(data.result || data.text || "Falha ao extrair a síntese gerada.");
 
-### Informações Gerais
-- **Palavras analisadas:** ${wordCount}
-- **Parágrafos:** ${lines.length}
-- **Processado em:** ${new Date().toLocaleString('pt-BR')}
-
-### Conteúdo Sintetizado
-${lines.slice(0, 5).map(l => `> ${l.substring(0, 200)}${l.length > 200 ? '...' : ''}`).join('\n\n')}
-
-### Status
-✅ Documento salvo na base de conhecimento (knowledge_base) com sucesso.
-O texto ficará disponível para consultas RAG futuras.
-
-*Nota: Quando o modelo LLM estiver conectado via Edge Function, a síntese será gerada automaticamente com análise de partes, prazos, obrigações e penalidades.*`);
+      // Save synthesis request to knowledge_base for reference
+      await supabase.from('knowledge_base').insert({
+        tenant_id: tenantId,
+        title: `Síntese — ${formatDateBR(new Date())}`,
+        content: `**Input Original:**\n${synthInput}\n\n**Síntese Gerada:**\n${data.result || data.text}`,
+        metadata: { type: 'synthesis_input', processed_at: new Date().toISOString() }
+      });
     } catch (err: any) {
       setSynthResult(`❌ Erro ao processar: ${err.message}`);
     } finally {
@@ -97,52 +87,14 @@ O texto ficará disponível para consultas RAG futuras.
       const supabase = createClient();
       const { data: userData } = await supabase.auth.getUser();
       
-      const draftContent = `# ${draftPiece.toUpperCase()}
-## ${draftArea}
+      // Call edge function for drafting — mask PII before sending (LGPD RNF02)
+      const { data, error: invokeError } = await supabase.functions.invoke('document-tools', {
+        body: { mode: 'draft', piece_type: draftPiece, legal_area: draftArea, case_context: maskPII(draftContext) }
+      });
 
-**EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) DE DIREITO DA ___ VARA ${draftArea.toUpperCase()} DA COMARCA DE [REVISAR]**
-
----
-
-**[REVISAR - NOME DO AUTOR]**, brasileiro(a), [REVISAR - estado civil], [REVISAR - profissão], inscrito(a) no CPF sob o nº [REVISAR], residente e domiciliado(a) em [REVISAR], vem, respeitosamente, à presença de Vossa Excelência, por intermédio de seu(sua) advogado(a) infra-assinado(a), com fundamento nos artigos que se seguem, propor a presente
-
-## ${draftPiece.toUpperCase()}
-
-em face de **[REVISAR - NOME DO RÉU]**, pessoa jurídica de direito privado, inscrita no CNPJ sob o nº [REVISAR], com sede em [REVISAR], pelos fatos e fundamentos que passa a expor:
-
----
-
-## I — DOS FATOS
-
-${draftContext}
-
-[REVISAR - Complementar com detalhes cronológicos e provas documentais]
-
-## II — DO DIREITO
-
-A pretensão autoral encontra amparo legal nos seguintes dispositivos:
-
-${draftArea === 'Trabalhista' ? '- **Art. 7°, incisos I a XXXIV da CF/88** — Direitos fundamentais dos trabalhadores\n- **Arts. 457 a 467 da CLT** — Da remuneração\n- **Art. 477, §8° da CLT** — Multa por atraso na homologação\n- **Súmula 331 do TST** — Responsabilidade subsidiária' : draftArea === 'Consumidor' ? '- **Art. 6° do CDC** — Direitos Básicos do Consumidor\n- **Art. 14 do CDC** — Responsabilidade pelo fato do serviço\n- **Art. 18 do CDC** — Responsabilidade por vício do produto\n- **Art. 42 do CDC** — Cobrança de dívidas' : '- [REVISAR - Inserir fundamentação legal específica]\n- [REVISAR - Jurisprudência aplicável]'}
-
-## III — DOS PEDIDOS
-
-Ante o exposto, requer a Vossa Excelência:
-
-a) A citação do(a) réu(ré) para, querendo, contestar a presente ação;
-b) [REVISAR - Pedidos específicos];
-c) A condenação do(a) réu(ré) ao pagamento de custas processuais e honorários advocatícios;
-d) A concessão dos benefícios da Justiça Gratuita, nos termos do Art. 98 do CPC.
-
-**Dá-se à causa o valor de R$ [REVISAR].**
-
-Nestes termos,
-Pede deferimento.
-
-[REVISAR - Cidade], ${new Date().toLocaleDateString('pt-BR')}
-
----
-**[REVISAR - Nome do Advogado]**
-OAB/[REVISAR] nº [REVISAR]`;
+      if (invokeError) throw invokeError;
+      
+      const draftContent = data.result || data.text || "Falha ao gerar o conteúdo da minuta.";
 
       // Save draft to ai_drafts table
       const { data: savedDraft, error } = await supabase.from('ai_drafts').insert({
