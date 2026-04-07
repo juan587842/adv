@@ -35,7 +35,7 @@ Deno.serve(async (req: Request) => {
 
     // Evolution API v2 webhook payload
     const event = body.event;
-    const instance = body.instance;
+    const instance = body.instance || Deno.env.get("EVOLUTION_INSTANCE") || "Prospecção";
 
     // Only process incoming text messages
     if (event !== "messages.upsert") {
