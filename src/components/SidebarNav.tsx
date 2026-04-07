@@ -19,14 +19,14 @@ const mainLinks = [
   { href: "/dashboard", icon: <LayoutDashboard size={18} />, text: "Visão Geral", exact: true },
   { href: "/dashboard/cases", icon: <Briefcase size={18} />, text: "Dossiês" },
   { href: "/dashboard/contacts", icon: <Users size={18} />, text: "Clientes & Leads" },
-  { href: "/dashboard/inbox", icon: <Inbox size={18} />, text: "Inbox" },
+  { href: "/dashboard/inbox", icon: <Inbox size={18} />, text: "Caixa de Entrada" },
   { href: "/dashboard/calendar", icon: <CalendarDays size={18} />, text: "Prazos" },
   { href: "/dashboard/financial", icon: <DollarSign size={18} />, text: "Financeiro" },
-  { href: "/dashboard/publications", icon: <BookOpen size={18} />, text: "Clipping" },
+  { href: "/dashboard/publications", icon: <BookOpen size={18} />, text: "Publicações (Clipping)" },
 ];
 
 const intelligenceLinks = [
-  { href: "/dashboard/ai", icon: <BrainCircuit size={18} />, text: "Skills & Macros" },
+  { href: "/dashboard/ai", icon: <BrainCircuit size={18} />, text: "Agentes & Habilidades" },
 ];
 
 const managementLinks: Array<{ href: string; icon: React.ReactNode; text: string; exact?: boolean }> = [
