@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useState, useMemo } from "react";
 import { useTenantId } from "@/hooks/useTenantId";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
+import { NewContactModal } from "@/components/modals/NewContactModal";
 
 export default function ContactsPage() {
   const [activeTab, setActiveTab] = useState("Todos");
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const tabs = ["Todos", "Clientes", "Leads", "Ex-clientes"];
   const { tenantId } = useTenantId();
 
@@ -82,11 +84,22 @@ export default function ContactsPage() {
           <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-outline/20 hover:border-primary/40 hover:bg-surface-container transition-all text-sm font-medium">
             <Filter size={20} /> Filtros Avançados
           </button>
-          <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm">
+          <button onClick={() => setIsAddModalOpen(true)} className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm">
             <Plus size={20} /> Novo Contato
           </button>
         </div>
       </div>
+
+      {/* Modals */}
+      {isAddModalOpen && (
+        <NewContactModal 
+          onClose={() => setIsAddModalOpen(false)} 
+          onSuccess={() => {
+            // Add a slight delay to allow Supabase to indexing
+            setTimeout(() => window.location.reload(), 500);
+          }} 
+        />
+      )}
 
       {/* Filters & Chips Bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8 bg-surface-container-low p-3 rounded-2xl">

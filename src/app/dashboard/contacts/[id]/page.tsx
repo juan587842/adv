@@ -3,13 +3,16 @@
 import { ArrowLeft, Edit, Mail, Phone, FileText, Briefcase, Activity, Plus, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
+import { LinkCaseModal } from "@/components/modals/LinkCaseModal";
 
 export default function ContactDetailsPage() {
   const params = useParams();
   const contactId = params.id as string;
   const { tenantId } = useTenantId();
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
 
   // Fetch the actual contact data
   const { data: contact, isLoading: isLoadingContact } = useSupabaseQuery<any>(
@@ -152,7 +155,7 @@ export default function ContactDetailsPage() {
               <h2 className="font-bold text-primary flex items-center gap-2">
                 <Briefcase size={18} /> Dossiês Vinculados ({linkedCases?.length || 0})
               </h2>
-              <button className="text-primary/70 hover:text-primary"><Plus size={18}/></button>
+              <button onClick={() => setIsLinkModalOpen(true)} className="text-primary/70 hover:text-primary"><Plus size={18}/></button>
             </div>
             
             <div className="space-y-3">
@@ -194,6 +197,14 @@ export default function ContactDetailsPage() {
           </div>
         </div>
       </div>
+
+      {isLinkModalOpen && (
+        <LinkCaseModal 
+          contactId={contactId}
+          onClose={() => setIsLinkModalOpen(false)}
+          onSuccess={() => setTimeout(() => window.location.reload(), 500)}
+        />
+      )}
     </div>
   );
 }

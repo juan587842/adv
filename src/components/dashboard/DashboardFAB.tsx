@@ -16,7 +16,7 @@ export function DashboardFAB() {
         <Plus size={32} />
       </button>
 
-      {isModalOpen && <NewCaseModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <NewCaseModal onClose={() => setIsModalOpen(false)} onSuccess={() => window.location.reload()} />}
     </>
   );
 }
