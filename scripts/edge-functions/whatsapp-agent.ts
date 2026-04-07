@@ -39,7 +39,7 @@ Deno.serve(async (req: Request) => {
     const cleanMessage = maskPII(messageText);
 
     // 2. Setup Ollama via VPS API
-    const openaiUrl = Deno.env.get("OPENAI_BASE_URL") || "https://projetos-ollama.fbnowr.easypanel.host:11434/v1";
+    const openaiUrl = Deno.env.get("OPENAI_BASE_URL") || "https://projetos-ollama.fbnowr.easypanel.host/v1";
     const openaiKey = Deno.env.get("OPENAI_API_KEY") || "ollama";
 
     if (!openaiUrl) {
