@@ -22,6 +22,7 @@ export default function AuditLogsPage() {
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedJson, setSelectedJson] = useState<Record<string, any> | null>(null);
+  const [auditSearch, setAuditSearch] = useState('');
   const supabase = createClient();
 
   useEffect(() => {
@@ -116,11 +117,17 @@ export default function AuditLogsPage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary/40" size={16} />
             <input 
               type="text"
+              value={auditSearch}
+              onChange={(e) => setAuditSearch(e.target.value)}
                placeholder="Buscar log por usuário ou recurso..." 
                className="w-full pl-9 pr-4 py-2 bg-background border border-primary/20 rounded-lg text-sm focus:outline-none focus:border-primary/50 text-secondary"
             />
           </div>
-          <button className="p-2 border border-primary/20 rounded-lg text-secondary/60 hover:text-primary hover:bg-primary/5 transition-colors">
+          <button 
+            onClick={() => setAuditSearch('')}
+            className={`p-2 border border-primary/20 rounded-lg transition-colors ${auditSearch ? 'text-primary bg-primary/5' : 'text-secondary/60 hover:text-primary hover:bg-primary/5'}`}
+            title={auditSearch ? 'Limpar filtro' : 'Filtrar'}
+          >
             <Filter size={16} />
           </button>
         </div>
@@ -151,7 +158,13 @@ export default function AuditLogsPage() {
                   </td>
                 </tr>
               ) : (
-                logs.map((log) => (
+                logs.filter(log => {
+                  if (!auditSearch) return true;
+                  const q = auditSearch.toLowerCase();
+                  return (log.user_email || '').toLowerCase().includes(q) || 
+                         (log.action_type || '').toLowerCase().includes(q) || 
+                         (log.resource_id || '').toLowerCase().includes(q);
+                }).map((log) => (
                   <tr key={log.id} className="hover:bg-primary/[0.02] transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-xs text-secondary/70 font-mono">
                       {format(new Date(log.created_at), "dd/MM/yyyy HH:mm:ss", { locale: ptBR })}

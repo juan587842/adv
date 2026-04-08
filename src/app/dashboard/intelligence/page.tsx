@@ -110,10 +110,13 @@ export default function IntelligenceDashboard() {
               <p className="text-xs text-secondary/40">Background worker para leitura de Diários Oficiais.</p>
             </div>
             
-            <button className="w-full py-2.5 mt-2 text-xs font-semibold text-secondary/60 hover:text-primary bg-background/50 rounded-xl border border-primary/[0.02] hover:bg-surface transition-all flex items-center justify-center gap-2">
+            <Link 
+              href="/dashboard/settings/channels"
+              className="w-full py-2.5 mt-2 text-xs font-semibold text-secondary/60 hover:text-primary bg-background/50 rounded-xl border border-primary/[0.02] hover:bg-surface transition-all flex items-center justify-center gap-2"
+            >
               <Settings size={14} />
               Configurar Agentes
-            </button>
+            </Link>
           </div>
         </div>
 

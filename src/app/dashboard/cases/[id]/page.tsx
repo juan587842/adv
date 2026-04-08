@@ -47,6 +47,10 @@ export default function CaseDetailsPage() {
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('movimentacoes');
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [newTag, setNewTag] = useState<string | null>(null);
 
   const supabase = createClient();
 
@@ -202,21 +206,25 @@ export default function CaseDetailsPage() {
 
         {/* Tabs Navigation */}
         <nav className="flex gap-8 border-b border-surface-container-highest/30 px-2 overflow-x-auto scrollbar-hide">
-          <button className="pb-4 text-sm font-semibold text-primary border-b-2 border-primary flex items-center gap-2 transition-all whitespace-nowrap">
-            <Activity size={18} /> Movimentações
-          </button>
-          <button className="pb-4 text-sm font-medium text-outline hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap">
-            <FileText size={18} /> Documentos
-          </button>
-          <button className="pb-4 text-sm font-medium text-outline hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap">
-            <StickyNote size={18} /> Notas
-          </button>
-          <button className="pb-4 text-sm font-medium text-outline hover:text-on-surface flex items-center gap-2 transition-all whitespace-nowrap">
-            <Wallet size={18} /> Financeiro
-          </button>
-          <button className="pb-4 text-sm font-medium text-primary-fixed hover:text-primary flex items-center gap-2 transition-all whitespace-nowrap">
-            <Bot size={18} /> IA Assistente
-          </button>
+          {[
+            { key: 'movimentacoes', label: 'Movimentações', icon: <Activity size={18} /> },
+            { key: 'documentos', label: 'Documentos', icon: <FileText size={18} /> },
+            { key: 'notas', label: 'Notas', icon: <StickyNote size={18} /> },
+            { key: 'financeiro', label: 'Financeiro', icon: <Wallet size={18} /> },
+            { key: 'ia', label: 'IA Assistente', icon: <Bot size={18} /> },
+          ].map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`pb-4 text-sm font-medium flex items-center gap-2 transition-all whitespace-nowrap border-b-2 ${
+                activeTab === tab.key
+                  ? 'text-primary font-semibold border-primary'
+                  : 'text-outline hover:text-on-surface border-transparent'
+              }`}
+            >
+              {tab.icon} {tab.label}
+            </button>
+          ))}
         </nav>
 
         {/* Main Grid Layout */}
@@ -224,6 +232,9 @@ export default function CaseDetailsPage() {
           
           {/* Left Column: Timeline Content */}
           <div className="col-span-12 lg:col-span-8 space-y-6">
+
+            {activeTab === 'movimentacoes' && (
+              <>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
                 <h3 className="text-xl font-bold text-on-surface">Histórico do Dossier</h3>
@@ -241,11 +252,21 @@ export default function CaseDetailsPage() {
                   </span>
                 )}
               </div>
-              <div className="flex gap-2">
-                <button className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest text-outline transition-colors">
-                  <Filter size={18} />
-                </button>
-                <button className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest text-outline transition-colors">
+              <div className="flex gap-2 items-center">
+                {showSearch && (
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Buscar movimentação..."
+                    className="px-3 py-1.5 bg-surface-container-low border border-outline-variant/20 rounded-lg text-sm text-on-surface placeholder:text-outline/40 outline-none focus:border-primary/50 w-48 animate-in slide-in-from-right-2 duration-200"
+                    autoFocus
+                  />
+                )}
+                <button
+                  onClick={() => { setShowSearch(!showSearch); if (showSearch) setSearchTerm(''); }}
+                  className={`p-2 rounded-lg transition-colors ${showSearch ? 'bg-primary/10 text-primary' : 'bg-surface-container-low hover:bg-surface-container-highest text-outline'}`}
+                >
                   <Search size={18} />
                 </button>
               </div>
@@ -269,7 +290,7 @@ export default function CaseDetailsPage() {
                 </div>
               )}
 
-              {movements.map((mov, i) => {
+              {movements.filter(m => !searchTerm || m.title.toLowerCase().includes(searchTerm.toLowerCase()) || m.description.toLowerCase().includes(searchTerm.toLowerCase())).map((mov, i) => {
                 const isUrgent = mov.metadata?.urgency === 'high';
                 const isManual = mov.source === 'manual';
 
@@ -304,7 +325,13 @@ export default function CaseDetailsPage() {
                           )}
                         </div>
                         {isUrgent && (
-                           <button className="text-primary text-xs font-bold hover:underline">Resolver Agora</button>
+                           <button
+                             onClick={async () => {
+                               const { error } = await supabase.from('case_movements').update({ metadata: { ...mov.metadata, urgency: 'resolved' } }).eq('id', mov.id);
+                               if (!error) window.location.reload();
+                             }}
+                             className="text-primary text-xs font-bold hover:underline"
+                           >Resolver Agora</button>
                         )}
                       </div>
                     </div>
@@ -312,6 +339,53 @@ export default function CaseDetailsPage() {
                 );
               })}
             </div>
+              </>
+            )}
+
+            {activeTab === 'documentos' && (
+              <div className="bg-surface-container/40 rounded-2xl p-8 text-center">
+                <Upload size={32} className="mx-auto text-outline/40 mb-3" />
+                <h3 className="text-lg font-bold text-on-surface mb-1">Documentos do Dossiê</h3>
+                <p className="text-sm text-outline/60 max-w-sm mx-auto">Nenhum documento anexado. Arraste arquivos aqui ou use o botão para fazer upload de petições, procurações e contratos.</p>
+                <button className="mt-4 px-4 py-2 bg-primary/10 text-primary rounded-xl text-sm font-semibold hover:bg-primary/20 transition-colors flex items-center gap-2 mx-auto">
+                  <Upload size={16} /> Upload de Documento
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'notas' && (
+              <div className="bg-surface-container/40 rounded-2xl p-8 text-center">
+                <StickyNote size={32} className="mx-auto text-outline/40 mb-3" />
+                <h3 className="text-lg font-bold text-on-surface mb-1">Notas da Equipe</h3>
+                <p className="text-sm text-outline/60 max-w-sm mx-auto">Adicione notas internas sobre o andamento do caso, reuniões com o cliente ou estratégias processuais.</p>
+                <button className="mt-4 px-4 py-2 bg-primary/10 text-primary rounded-xl text-sm font-semibold hover:bg-primary/20 transition-colors flex items-center gap-2 mx-auto">
+                  <StickyNote size={16} /> Nova Nota
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'financeiro' && (
+              <div className="bg-surface-container/40 rounded-2xl p-8 text-center">
+                <Wallet size={32} className="mx-auto text-outline/40 mb-3" />
+                <h3 className="text-lg font-bold text-on-surface mb-1">Financeiro do Caso</h3>
+                <p className="text-sm text-outline/60 max-w-sm mx-auto">Gerencie honorários, custas judiciais e alvarás vinculados a este dossiê.</p>
+                <Link href="/dashboard/financial" className="mt-4 px-4 py-2 bg-primary/10 text-primary rounded-xl text-sm font-semibold hover:bg-primary/20 transition-colors inline-flex items-center gap-2">
+                  <Wallet size={16} /> Ver Financeiro Geral
+                </Link>
+              </div>
+            )}
+
+            {activeTab === 'ia' && (
+              <div className="bg-surface-container/40 rounded-2xl p-8 text-center">
+                <Bot size={32} className="mx-auto text-primary/40 mb-3" />
+                <h3 className="text-lg font-bold text-on-surface mb-1">IA Assistente</h3>
+                <p className="text-sm text-outline/60 max-w-sm mx-auto">Use a inteligência artificial para gerar análises de risco, resumos do caso e sugestões de estratégia processual.</p>
+                <Link href="/dashboard/intelligence/watcher" className="mt-4 px-4 py-2 bg-primary/10 text-primary rounded-xl text-sm font-semibold hover:bg-primary/20 transition-colors inline-flex items-center gap-2">
+                  <Bot size={16} /> Abrir Central de Inteligência
+                </Link>
+              </div>
+            )}
+
           </div>
 
           {/* Right Column: Contextual Widgets */}
@@ -354,13 +428,13 @@ export default function CaseDetailsPage() {
                 </div>
               </div>
               <div className="mt-4 pt-4 border-t border-surface-container-highest/20 flex justify-between">
-                <button className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+                <button onClick={() => { if (caseData.client_id) router.push(`/dashboard/contacts/${caseData.client_id}`); else alert('Nenhum cliente vinculado.'); }} className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors" title="Ligar">
                   <Phone size={18} className="text-outline" />
                 </button>
-                <button className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+                <button onClick={() => { if (caseData.client_id) router.push(`/dashboard/contacts/${caseData.client_id}`); else alert('Nenhum cliente vinculado.'); }} className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors" title="E-mail">
                   <Mail size={18} className="text-outline" />
                 </button>
-                <button className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+                <button onClick={() => router.push('/dashboard/inbox')} className="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container-highest transition-colors" title="Mensagem">
                   <MessageCircle size={18} className="text-outline" />
                 </button>
               </div>
@@ -372,9 +446,23 @@ export default function CaseDetailsPage() {
               <div className="flex flex-wrap gap-2">
                 <span className="px-2 py-1 bg-surface-container-highest text-on-surface text-[0.6rem] font-medium rounded-lg">#trabalhista</span>
                 <span className="px-2 py-1 bg-surface-container-highest text-on-surface text-[0.6rem] font-medium rounded-lg">#{caseData.court?.toLowerCase().replace(/\s+/g,'-') || 'jurisdicao'}</span>
-                <button className="px-2 py-1 border border-dashed border-outline-variant rounded-lg text-[0.6rem] text-outline hover:text-primary">
-                  + Adicionar
-                </button>
+                {newTag !== null ? (
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="tag..."
+                    className="px-2 py-1 border border-primary/30 rounded-lg text-[0.6rem] text-on-surface bg-surface-container-low outline-none w-20"
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === 'Escape') setNewTag(null); }}
+                    onBlur={() => setNewTag(null)}
+                  />
+                ) : (
+                  <button
+                    onClick={() => setNewTag('')}
+                    className="px-2 py-1 border border-dashed border-outline-variant rounded-lg text-[0.6rem] text-outline hover:text-primary"
+                  >
+                    + Adicionar
+                  </button>
+                )}
               </div>
             </div>
 
@@ -384,10 +472,13 @@ export default function CaseDetailsPage() {
 
       {/* Contextual FAB (Intelligence) */}
       <div className="fixed bottom-8 right-8 flex flex-col items-end gap-3 z-50">
-        <div className="bg-primary text-on-primary p-4 rounded-2xl shadow-2xl shadow-primary/20 flex items-center gap-3 cursor-pointer hover:scale-105 active:scale-95 transition-all">
+        <Link
+          href="/dashboard/intelligence/watcher"
+          className="bg-primary text-on-primary p-4 rounded-2xl shadow-2xl shadow-primary/20 flex items-center gap-3 cursor-pointer hover:scale-105 active:scale-95 transition-all"
+        >
           <Bot size={24} />
           <span className="font-bold text-sm">Análise de IA do Caso</span>
-        </div>
+        </Link>
       </div>
       {showEditModal && caseData && (
         <EditCaseModal

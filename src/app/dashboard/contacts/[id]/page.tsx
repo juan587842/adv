@@ -115,9 +115,9 @@ export default function ContactDetailsPage() {
             >
               <Edit size={16} /> Editar
             </button>
-            <button className="px-4 py-2 bg-primary text-background rounded-md text-sm font-bold hover:bg-primary-light transition-colors">
+            <Link href="/dashboard/inbox" className="px-4 py-2 bg-primary text-background rounded-md text-sm font-bold hover:bg-primary-light transition-colors">
               Mensagem
-            </button>
+            </Link>
           </div>
         </div>
 
