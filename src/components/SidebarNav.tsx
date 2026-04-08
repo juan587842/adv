@@ -13,6 +13,8 @@ import {
   DollarSign,
   BookOpen,
   ShieldCheck,
+  Sparkles,
+  Cpu,
 } from "lucide-react";
 
 const mainLinks = [
@@ -26,7 +28,9 @@ const mainLinks = [
 ];
 
 const intelligenceLinks = [
-  { href: "/dashboard/ai", icon: <BrainCircuit size={18} />, text: "Agentes & Habilidades" },
+  { href: "/dashboard/intelligence", icon: <BrainCircuit size={18} />, text: "Central de IA", exact: true },
+  { href: "/dashboard/intelligence/tools", icon: <Sparkles size={18} />, text: "Ferramentas Cognitivas" },
+  { href: "/dashboard/ai", icon: <Cpu size={18} />, text: "Skills & Macros" },
 ];
 
 const managementLinks: Array<{ href: string; icon: React.ReactNode; text: string; exact?: boolean }> = [
