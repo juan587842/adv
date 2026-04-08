@@ -149,7 +149,15 @@ export default function CaseDetailsPage() {
             <button className="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2">
               <Edit size={14} /> Editar
             </button>
-            <button className="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+            <button 
+              onClick={async () => {
+                if (!confirm("Tem certeza que deseja arquivar este dossiê?")) return;
+                const { error } = await supabase.from("cases").update({ status: "arquivado" }).eq("id", caseId);
+                if (error) { alert("Erro ao arquivar: " + error.message); return; }
+                router.push("/dashboard/cases");
+              }}
+              className="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/30 transition-colors flex items-center gap-2"
+            >
               <Archive size={14} /> Arquivar
             </button>
           </div>

@@ -4,12 +4,14 @@ import { DollarSign, ArrowUpRight, ArrowDownRight, Briefcase, Plus, Filter, Down
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
 import { useMemo, useState } from "react";
+import { NewInvoiceModal } from "@/components/modals/NewInvoiceModal";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 export default function FinancialPage() {
   const { tenantId } = useTenantId();
   const [filter, setFilter] = useState("Todas");
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   const { data: rawInvoices, isLoading } = useSupabaseQuery<any[]>(
     async (supabase) => {
@@ -113,7 +115,10 @@ export default function FinancialPage() {
           <button className="px-4 py-2 bg-background/50 text-secondary/60 rounded-lg text-sm font-medium hover:bg-background/80 transition-colors flex items-center gap-2">
             <Download size={14} /> Relatório
           </button>
-          <button className="px-4 py-2 bg-primary text-background rounded-lg text-sm font-semibold hover:bg-primary-light transition-colors flex items-center gap-2">
+          <button 
+            onClick={() => setShowInvoiceModal(true)}
+            className="px-4 py-2 bg-primary text-background rounded-lg text-sm font-semibold hover:bg-primary-light transition-colors flex items-center gap-2"
+          >
             <Plus size={16} /> Nova Transação
           </button>
         </div>
@@ -242,6 +247,12 @@ export default function FinancialPage() {
           </div>
         )}
       </div>
+      {showInvoiceModal && (
+        <NewInvoiceModal 
+          onClose={() => setShowInvoiceModal(false)} 
+          onSuccess={() => window.location.reload()} 
+        />
+      )}
     </div>
   );
 }

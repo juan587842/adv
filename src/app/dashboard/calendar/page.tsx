@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight, Plus, Calendar as CalendarIcon, AlertCircle, Loader2 } from "lucide-react";
 import CPCCalculator from "@/components/calendar/CPCCalculator";
+import { NewEventModal } from "@/components/modals/NewEventModal";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
 import { useMemo, useState } from "react";
@@ -11,6 +12,7 @@ import { ptBR } from "date-fns/locale";
 export default function CalendarPage() {
   const { tenantId } = useTenantId();
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [showEventModal, setShowEventModal] = useState(false);
 
   const firstDayOfMonth = startOfMonth(currentDate);
   const lastDayOfMonth = endOfMonth(currentDate);
@@ -79,7 +81,10 @@ export default function CalendarPage() {
           >
             Hoje
           </button>
-          <button className="px-4 py-2 bg-primary text-background rounded-lg text-sm font-semibold hover:bg-primary-light transition-colors flex items-center gap-2">
+          <button 
+            onClick={() => setShowEventModal(true)}
+            className="px-4 py-2 bg-primary text-background rounded-lg text-sm font-semibold hover:bg-primary-light transition-colors flex items-center gap-2"
+          >
             <Plus size={16} /> Novo Evento
           </button>
         </div>
@@ -190,6 +195,12 @@ export default function CalendarPage() {
             </div>
           </div>
         </div>
+      )}
+      {showEventModal && (
+        <NewEventModal 
+          onClose={() => setShowEventModal(false)} 
+          onSuccess={() => window.location.reload()} 
+        />
       )}
     </div>
   );
