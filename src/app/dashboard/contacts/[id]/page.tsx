@@ -7,12 +7,14 @@ import { useState } from "react";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
 import { LinkCaseModal } from "@/components/modals/LinkCaseModal";
+import { EditContactModal } from "@/components/modals/EditContactModal";
 
 export default function ContactDetailsPage() {
   const params = useParams();
   const contactId = params.id as string;
   const { tenantId } = useTenantId();
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Fetch the actual contact data
   const { data: contact, isLoading: isLoadingContact } = useSupabaseQuery<any>(
@@ -107,7 +109,10 @@ export default function ContactDetailsPage() {
           </div>
           
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-background border border-primary/20 rounded-md text-sm font-medium hover:border-primary/50 transition-colors">
+            <button 
+              onClick={() => setIsEditModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-background border border-primary/20 rounded-md text-sm font-medium hover:border-primary/50 transition-colors"
+            >
               <Edit size={16} /> Editar
             </button>
             <button className="px-4 py-2 bg-primary text-background rounded-md text-sm font-bold hover:bg-primary-light transition-colors">
@@ -203,6 +208,14 @@ export default function ContactDetailsPage() {
           contactId={contactId}
           onClose={() => setIsLinkModalOpen(false)}
           onSuccess={() => setTimeout(() => window.location.reload(), 500)}
+        />
+      )}
+
+      {isEditModalOpen && contact && (
+        <EditContactModal
+          contact={contact}
+          onClose={() => setIsEditModalOpen(false)}
+          onSuccess={() => window.location.reload()}
         />
       )}
     </div>

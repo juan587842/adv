@@ -12,6 +12,7 @@ import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { EditCaseModal } from "@/components/modals/EditCaseModal";
 
 type CaseInfo = {
   id: string;
@@ -45,6 +46,7 @@ export default function CaseDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const supabase = createClient();
 
@@ -146,7 +148,10 @@ export default function CaseDetailsPage() {
         </div>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-            <button className="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+            <button 
+              onClick={() => setShowEditModal(true)}
+              className="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-xs font-semibold text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-2"
+            >
               <Edit size={14} /> Editar
             </button>
             <button 
@@ -384,6 +389,13 @@ export default function CaseDetailsPage() {
           <span className="font-bold text-sm">Análise de IA do Caso</span>
         </div>
       </div>
+      {showEditModal && caseData && (
+        <EditCaseModal
+          caseData={caseData}
+          onClose={() => setShowEditModal(false)}
+          onSuccess={() => window.location.reload()}
+        />
+      )}
     </div>
   );
 }

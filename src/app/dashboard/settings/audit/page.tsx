@@ -5,6 +5,7 @@ import { ShieldCheck, Activity, Search, Filter, ShieldAlert, Download, Eye, File
 import { createClient } from "@/utils/supabase/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { JsonViewerModal } from "@/components/modals/JsonViewerModal";
 
 type AuditLog = {
   id: string;
@@ -20,6 +21,7 @@ type AuditLog = {
 export default function AuditLogsPage() {
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedJson, setSelectedJson] = useState<Record<string, any> | null>(null);
   const supabase = createClient();
 
   useEffect(() => {
@@ -180,7 +182,10 @@ export default function AuditLogsPage() {
                     </td>
                     <td className="px-6 py-4 text-right">
                        {Object.keys(log.metadata || {}).length > 0 ? (
-                         <button className="text-[10px] uppercase font-bold text-primary/60 hover:text-primary bg-primary/5 px-2 py-1 rounded">
+                         <button 
+                           onClick={() => setSelectedJson(log.metadata)}
+                           className="text-[10px] uppercase font-bold text-primary/60 hover:text-primary bg-primary/5 px-2 py-1 rounded"
+                         >
                            Ver JSON
                          </button>
                        ) : (
@@ -194,6 +199,13 @@ export default function AuditLogsPage() {
           </table>
         </div>
       </div>
+
+      {selectedJson && (
+        <JsonViewerModal
+          data={selectedJson}
+          onClose={() => setSelectedJson(null)}
+        />
+      )}
     </div>
   );
 }
