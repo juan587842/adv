@@ -15,7 +15,7 @@ export default function DashboardLayout({
     <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar with enhanced contrast */}
       <aside 
-        className={`relative flex-shrink-0 flex flex-col bg-black/40 backdrop-blur-2xl border-r border-primary/10 shadow-[4px_0_24px_-10px_rgba(0,0,0,0.5)] transition-all duration-300 z-20 ${
+        className={`relative flex-shrink-0 flex flex-col bg-[#0c111c] border-r border-primary/[0.08] shadow-[4px_0_24px_-8px_rgba(0,0,0,0.5)] transition-all duration-300 z-20 ${
           isCollapsed ? 'w[72px] sm:w-[72px]' : 'w-64 sm:w-[280px]'
         }`}
       >
