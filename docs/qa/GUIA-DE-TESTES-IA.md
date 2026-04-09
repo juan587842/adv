@@ -1,10 +1,10 @@
 # 🧪 Guia Completo de Testes — Juris AI CRM
 
 **Autor:** Quinn (QA Agent Guardian)
-**Última atualização:** 06 de Abril de 2026
+**Última atualização:** 09 de Abril de 2026
 **Ambiente:** Produção — `adv.juanpaulo.com.br`
 **Backend IA:** Ollama (MiniMax M2.7) na VPS Easypanel
-**Status do Backend:** ✅ Validado via API em 06/04/2026
+**Status do Backend:** ✅ Validado via API em 09/04/2026
 
 ---
 
@@ -32,7 +32,7 @@ Antes de iniciar os testes, confirme que:
 1. Acesse o menu **Inteligência** no painel lateral esquerdo
 2. Clique em **Ferramentas Cognitivas** (ícone ⚙️ com estrela)
 3. A tela terá duas divisões principais; foque na seção da direita: **"Co-Piloto de Redação"**
-4. Preencha os campos:
+4. Preencha os campos principais e processuais:
    - **Área do Direito:** `Consumidor`
    - **Tipo de Peça:** `Petição Inicial`
    - **Contexto do Caso:** 
@@ -42,15 +42,23 @@ Antes de iniciar os testes, confirme que:
      dentro do prazo legal de 30 dias. O cliente tem notas fiscais e fotos
      do produto danificado.
      ```
+   - **Autor (Requerente):** `João da Silva`
+   - **Réu (Requerido):** `Magazine Luiza S/A`
+   - **Juiz(a), Vara, Comarca, Processo:** (Preencha dados fictícios de comarca/vara para testar o endereçamento)
+   - **Advogado(a) Subscritor:** `Dra. Mariana Souza`
+   - **Nº da OAB:** `SP123456`
 5. Clique em **"Gerar Minuta"**
 6. Aguarde entre **30 segundos e 2 minutos** (o modelo está na VPS)
 
 ### ✅ Resultado Esperado:
-- Um bloco de texto em Markdown deve aparecer na tela com a petição
+- Um bloco de texto em Markdown renderizado ("estilo Word") deve aparecer na tela com a petição
 - O texto deve conter seções como: DOS FATOS, DO DIREITO, DOS PEDIDOS
-- Deve conter placeholders `[COMO ESTE]` para dados que o advogado preencherá
-- **Nenhum CPF, telefone ou e-mail real** deve aparecer no texto gerado (LGPD)
-- Botões de **Aprovar** / **Rejeitar** (HITL) devem aparecer abaixo da minuta
+- **O Endereçamento** deve conter os dados do Juízo/Vara que você preencheu
+- **A Qualificação** deve conter o nome de Autor e Réu sem perguntar novamente
+- **A Assinatura final** da peça deve conter "Dra. Mariana Souza" e a OAB "SP123456"
+- Deve conter placeholders `[COMO ESTE]` APENAS para os dados não preenchidos no form
+- **Nenhum CPF, telefone ou e-mail real** no Contexto deve aparecer na peça (LGPD)
+- Botões de **Aprovar** / **Rejeitar** (HITL) e cópia devem aparecer abaixo da minuta
 
 ### 🔴 Se falhar:
 | Sintoma | Causa Provável | Solução |
@@ -306,7 +314,7 @@ Após executar os testes, marque o status de cada um:
 
 | Função | Status | Descrição |
 |---|---|---|
-| `document-tools` v3 | ✅ ACTIVE | Síntese e geração de minutas |
+| `document-tools` v5 | ✅ ACTIVE | Síntese e geração de minutas com suporte a dados processuais/advogado |
 | `rag-pipeline` v3 | ✅ ACTIVE | Base de conhecimento + chat RAG |
 | `whatsapp-agent` v3 | ✅ ACTIVE | Agente de IA para WhatsApp |
 | `evolution-webhook` v2 | ✅ ACTIVE | Recebe mensagens do WhatsApp |
@@ -318,4 +326,4 @@ Após executar os testes, marque o status de cada um:
 
 ---
 
-> **🛡️ Quinn (QA):** Este guia foi gerado com base nos testes reais de API realizados em 06/04/2026, onde a Edge Function `document-tools` retornou com sucesso uma petição gerada pelo modelo MiniMax M2.7 via Ollama na VPS Easypanel.
+> **🛡️ Quinn (QA):** Este guia foi gerado com base nos testes reais de API realizados em 09/04/2026, onde a Edge Function `document-tools` (v5) retornou com sucesso uma petição rica em Markdown gerada pelo modelo MiniMax M2.7 via Ollama na VPS Easypanel.
