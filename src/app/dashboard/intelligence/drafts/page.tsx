@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Calendar, PenTool, CheckCircle, XCircle, Search, Clock, FileKey, User, FileOutput, ShieldAlert, ArrowLeft, Copy } from "lucide-react";
+import { FileText, Calendar, PenTool, CheckCircle, XCircle, Search, Clock, FileKey, User, FileOutput, ShieldAlert, ArrowLeft, Copy, Trash2, Edit3, Save, X, Loader2 } from "lucide-react";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
+import { createClient } from "@/utils/supabase/client";
 import { formatDateBR } from "@/utils/dateFormat";
 import ReactMarkdown from "react-markdown";
 
@@ -22,6 +23,14 @@ export default function DraftsPage() {
   const { tenantId } = useTenantId();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDraft, setSelectedDraft] = useState<Draft | null>(null);
+  const [refreshCounter, setRefreshCounter] = useState(0);
+
+  // Edit states
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedContent, setEditedContent] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { data: drafts, isLoading } = useSupabaseQuery<Draft[]>(
     async (supabase) => {
@@ -32,8 +41,56 @@ export default function DraftsPage() {
         .eq('tenant_id', tenantId)
         .order('created_at', { ascending: false });
     },
-    [tenantId]
+    [tenantId, refreshCounter]
   );
+
+  const handleSelectDraft = (draft: Draft) => {
+    setSelectedDraft(draft);
+    setIsEditing(false);
+    setEditedTitle(draft.title || "");
+    setEditedContent(draft.content || "");
+  };
+
+  const handleDelete = async () => {
+    if (!selectedDraft || !tenantId) return;
+    if (!window.confirm("Certeza que deseja excluir esta minuta permanentemente?")) return;
+    
+    setIsDeleting(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from('ai_drafts').delete().eq('id', selectedDraft.id).eq('tenant_id', tenantId);
+      if (error) throw error;
+      setSelectedDraft(null);
+      setRefreshCounter(prev => prev + 1);
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao excluir minuta. Tente novamente.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!selectedDraft || !tenantId) return;
+    setIsSaving(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from('ai_drafts').update({
+        title: editedTitle,
+        content: editedContent
+      }).eq('id', selectedDraft.id).eq('tenant_id', tenantId);
+      if (error) throw error;
+      
+      setSelectedDraft({ ...selectedDraft, title: editedTitle, content: editedContent });
+      setIsEditing(false);
+      setRefreshCounter(prev => prev + 1);
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao salvar alterações. Tente novamente.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const filteredDrafts = drafts?.filter(draft => 
     draft.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -91,7 +148,7 @@ export default function DraftsPage() {
             filteredDrafts.map((draft) => (
               <button
                 key={draft.id}
-                onClick={() => setSelectedDraft(draft)}
+                onClick={() => handleSelectDraft(draft)}
                 className={`w-full text-left p-3 rounded-lg border transition-all duration-200 ${
                   selectedDraft?.id === draft.id 
                     ? 'bg-primary/[0.03] border-primary/20 shadow-sm' 
@@ -177,22 +234,78 @@ export default function DraftsPage() {
               </div>
 
               <div className="flex items-center gap-2 self-start flex-shrink-0">
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(selectedDraft.content);
-                  }}
-                  className="px-3 py-1.5 text-xs font-medium bg-background border border-primary/20 text-secondary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-2"
-                >
-                  <Copy size={14} /> Copiar Texto
-                </button>
+                {!isEditing ? (
+                  <>
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="px-3 py-1.5 text-xs font-medium bg-background border border-primary/20 text-secondary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <Edit3 size={14} /> Editar
+                    </button>
+                    <button
+                      onClick={handleDelete}
+                      disabled={isDeleting}
+                      className="p-1.5 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                      title="Excluir minuta"
+                    >
+                      {isDeleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(selectedDraft.content);
+                      }}
+                      className="px-3 py-1.5 text-xs font-medium bg-background border border-primary/20 text-secondary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <Copy size={14} /> Copiar
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setIsEditing(false)}
+                      className="px-3 py-1.5 text-xs font-medium text-secondary/60 hover:text-secondary hover:bg-background rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <X size={14} /> Cancelar
+                    </button>
+                    <button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="px-3 py-1.5 text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      {isSaving ? <Loader2 size={14} className="animate-spin text-primary-foreground" /> : <Save size={14} />} Salvar
+                    </button>
+                  </>
+                )}
               </div>
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-card/30 flex justify-center">
               <div className="w-full max-w-4xl">
-                <div className="bg-background rounded-xl p-6 md:p-10 shadow-sm border border-primary/10 prose prose-sm md:prose-base prose-invert prose-p:text-secondary/80 prose-headings:text-secondary/90 prose-strong:text-purple-400 prose-a:text-primary max-w-none">
-                  <ReactMarkdown>{selectedDraft.content}</ReactMarkdown>
-                </div>
+                {!isEditing ? (
+                  <div className="bg-background rounded-xl p-6 md:p-10 shadow-sm border border-primary/10 prose prose-sm md:prose-base prose-invert prose-p:text-secondary/80 prose-headings:text-secondary/90 prose-strong:text-purple-400 prose-a:text-primary max-w-none">
+                    <ReactMarkdown>{selectedDraft.content}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-medium text-secondary/60 mb-1">Título da Minuta</label>
+                      <input 
+                        type="text" 
+                        value={editedTitle} 
+                        onChange={e => setEditedTitle(e.target.value)}
+                        className="w-full px-3 py-2 bg-background rounded-lg text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary border border-primary/10"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-secondary/60 mb-1">Conteúdo (Markdown suportado)</label>
+                      <textarea 
+                        value={editedContent} 
+                        onChange={e => setEditedContent(e.target.value)}
+                        className="w-full min-h-[500px] px-4 py-3 bg-background rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-primary border border-primary/10 font-mono resize-y custom-scrollbar"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </>
