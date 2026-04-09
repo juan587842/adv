@@ -31,6 +31,7 @@ export default function DraftsPage() {
   const [editedContent, setEditedContent] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { data: drafts, isLoading } = useSupabaseQuery<Draft[]>(
     async (supabase) => {
@@ -51,9 +52,8 @@ export default function DraftsPage() {
     setEditedContent(draft.content || "");
   };
 
-  const handleDelete = async () => {
+  const handleDeleteConfirm = async () => {
     if (!selectedDraft || !tenantId) return;
-    if (!window.confirm("Certeza que deseja excluir esta minuta permanentemente?")) return;
     
     setIsDeleting(true);
     try {
@@ -61,6 +61,7 @@ export default function DraftsPage() {
       const { error } = await supabase.from('ai_drafts').delete().eq('id', selectedDraft.id).eq('tenant_id', tenantId);
       if (error) throw error;
       setSelectedDraft(null);
+      setShowDeleteModal(false);
       setRefreshCounter(prev => prev + 1);
     } catch (err) {
       console.error(err);
@@ -243,8 +244,7 @@ export default function DraftsPage() {
                       <Edit3 size={14} /> Editar
                     </button>
                     <button
-                      onClick={handleDelete}
-                      disabled={isDeleting}
+                      onClick={() => setShowDeleteModal(true)}
                       className="p-1.5 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                       title="Excluir minuta"
                     >
@@ -311,6 +311,40 @@ export default function DraftsPage() {
           </>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-card w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-in zoom-in-95 duration-200 border border-primary/10">
+            <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center mb-4">
+                <Trash2 size={24} />
+              </div>
+              <h3 className="text-xl font-semibold text-secondary mb-2">Excluir Minuta?</h3>
+              <p className="text-secondary/60 text-sm">
+                Tem certeza que deseja excluir permanentemente a minuta <strong>"{selectedDraft?.title || 'Sem Título'}"</strong>? Esta ação não poderá ser desfeita.
+              </p>
+            </div>
+            <div className="bg-card/50 p-4 border-t border-primary/5 flex items-center justify-end gap-3">
+              <button 
+                onClick={() => setShowDeleteModal(false)}
+                disabled={isDeleting}
+                className="px-4 py-2 text-sm font-medium text-secondary/70 hover:text-secondary bg-transparent hover:bg-white/5 rounded-lg transition-colors"
+              >
+                Cancelar
+              </button>
+              <button 
+                onClick={handleDeleteConfirm}
+                disabled={isDeleting}
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2"
+              >
+                {isDeleting ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                {isDeleting ? "Excluindo..." : "Sim, excluir"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
