@@ -20,7 +20,7 @@ import {
 
 const mainLinks = [
   { href: "/dashboard", icon: <LayoutDashboard size={18} />, text: "Visão Geral", exact: true },
-  { href: "/dashboard/cases", icon: <Briefcase size={18} />, text: "Dossiês" },
+  { href: "/dashboard/cases", icon: <Briefcase size={18} />, text: "Processos" },
   { href: "/dashboard/contacts", icon: <Users size={18} />, text: "Clientes & Leads" },
   { href: "/dashboard/inbox", icon: <Inbox size={18} />, text: "Caixa de Entrada" },
   { href: "/dashboard/calendar", icon: <CalendarDays size={18} />, text: "Prazos" },
