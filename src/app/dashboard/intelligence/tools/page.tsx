@@ -12,6 +12,7 @@ import { useTenantId } from "@/hooks/useTenantId";
 import { createClient } from "@/utils/supabase/client";
 import { formatDateBR } from "@/utils/dateFormat";
 import { maskPII } from "@/utils/lgpdMask";
+import { CustomSelect } from "@/components/CustomSelect";
 
 const legalAreas = ["Trabalhista", "Consumidor", "Família", "Criminal", "Empresarial", "Imobiliário", "Tributário", "Previdenciário"];
 const pieceTypes = ["Petição Inicial", "Contestação", "Recurso Ordinário", "Agravo de Instrumento", "Embargos de Declaração", "Mandado de Segurança", "Habeas Corpus", "Contrarrazões"];
@@ -317,25 +318,21 @@ export default function CognitiveToolsPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-secondary/60 uppercase tracking-wider mb-2">Área do Direito</label>
-                    <select 
-                      value={draftArea} 
-                      onChange={e => setDraftArea(e.target.value)}
-                      className="w-full px-3 py-2.5 bg-background/50 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-purple-500/30 border border-primary/[0.05] appearance-none"
-                    >
-                      <option value="">Selecione...</option>
-                      {legalAreas.map(a => <option key={a} value={a}>{a}</option>)}
-                    </select>
+                    <CustomSelect 
+                      options={legalAreas.map(a => ({ value: a, label: a }))}
+                      value={draftArea}
+                      onChange={setDraftArea}
+                      placeholder="Selecione..."
+                    />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-secondary/60 uppercase tracking-wider mb-2">Tipo de Peça</label>
-                    <select 
+                    <CustomSelect 
+                      options={pieceTypes.map(p => ({ value: p, label: p }))}
                       value={draftPiece}
-                      onChange={e => setDraftPiece(e.target.value)}
-                      className="w-full px-3 py-2.5 bg-background/50 rounded-xl text-sm text-secondary focus:outline-none focus:ring-1 focus:ring-purple-500/30 border border-primary/[0.05] appearance-none"
-                    >
-                      <option value="">Selecione...</option>
-                      {pieceTypes.map(p => <option key={p} value={p}>{p}</option>)}
-                    </select>
+                      onChange={setDraftPiece}
+                      placeholder="Selecione..."
+                    />
                   </div>
                 </div>
 
