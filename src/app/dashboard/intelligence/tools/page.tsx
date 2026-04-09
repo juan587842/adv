@@ -182,7 +182,7 @@ export default function CognitiveToolsPage() {
         <div className="flex-1">
           <h1 className="text-xl font-bold text-secondary flex items-center gap-2">
             <Scale className="text-primary" size={20} />
-            Ferramentas Cognitivas
+            Ferramentas de IA
           </h1>
           <p className="text-sm text-secondary/50">Síntese documental e co-piloto de redação forense com controle HITL.</p>
         </div>

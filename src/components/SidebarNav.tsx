@@ -30,7 +30,7 @@ const mainLinks = [
 
 const intelligenceLinks = [
   { href: "/dashboard/intelligence", icon: <BrainCircuit size={18} />, text: "Central de IA", exact: true },
-  { href: "/dashboard/intelligence/tools", icon: <Sparkles size={18} />, text: "Ferramentas Cognitivas" },
+  { href: "/dashboard/intelligence/tools", icon: <Sparkles size={18} />, text: "Ferramentas" },
   { href: "/dashboard/intelligence/drafts", icon: <FileText size={18} />, text: "Minutas Salvas" },
   { href: "/dashboard/ai", icon: <Cpu size={18} />, text: "Skills & Macros" },
 ];

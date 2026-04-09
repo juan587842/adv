@@ -125,7 +125,7 @@ export default function DraftsPage() {
             <h2>Minutas Salvas</h2>
           </div>
           <p className="text-xs text-secondary/60 mb-4">
-            Histórico de peças geradas pelas Ferramentas Cognitivas.
+            Histórico de peças geradas pelas Ferramentas de IA.
           </p>
 
           <div className="relative">
