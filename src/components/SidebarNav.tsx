@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Sparkles,
   Cpu,
+  FileText,
 } from "lucide-react";
 
 const mainLinks = [
@@ -30,6 +31,7 @@ const mainLinks = [
 const intelligenceLinks = [
   { href: "/dashboard/intelligence", icon: <BrainCircuit size={18} />, text: "Central de IA", exact: true },
   { href: "/dashboard/intelligence/tools", icon: <Sparkles size={18} />, text: "Ferramentas Cognitivas" },
+  { href: "/dashboard/intelligence/drafts", icon: <FileText size={18} />, text: "Minutas Salvas" },
   { href: "/dashboard/ai", icon: <Cpu size={18} />, text: "Skills & Macros" },
 ];
 
@@ -56,7 +58,7 @@ export default function SidebarNav() {
         Inteligência
       </div>
       {intelligenceLinks.map((link) => (
-        <SidebarItem key={link.href} {...link} active={isActive(link.href)} />
+        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} />
       ))}
 
       <div className="mt-6 mb-2 px-3 text-[10px] font-semibold text-primary/40 uppercase tracking-widest">
