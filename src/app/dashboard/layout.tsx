@@ -1,4 +1,7 @@
-import { Gavel } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Gavel, ChevronLeft, ChevronRight } from "lucide-react";
 import SidebarNav from "@/components/SidebarNav";
 
 export default function DashboardLayout({
@@ -6,31 +9,55 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Sidebar */}
-      <aside className="w-64 flex-shrink-0 bg-surface flex flex-col">
-        <div className="h-16 flex items-center px-6 border-b border-primary/[0.06]">
-          <Gavel className="w-5 h-5 text-primary mr-3" />
-          <span className="text-lg font-bold text-primary tracking-wide">Juris AI</span>
+      {/* Sidebar with enhanced contrast */}
+      <aside 
+        className={`relative flex-shrink-0 flex flex-col bg-black/40 backdrop-blur-2xl border-r border-primary/10 shadow-[4px_0_24px_-10px_rgba(0,0,0,0.5)] transition-all duration-300 z-20 ${
+          isCollapsed ? 'w[72px] sm:w-[72px]' : 'w-64 sm:w-[280px]'
+        }`}
+      >
+        <div className="h-14 flex items-center justify-between px-5 py-2 border-b border-primary/10">
+          <div className={`flex items-center overflow-hidden transition-opacity duration-200 ${isCollapsed ? 'opacity-0 w-0' : 'opacity-100 w-auto'}`}>
+            <Gavel className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+            <span className="text-lg font-bold text-primary tracking-wide whitespace-nowrap">Juris AI</span>
+          </div>
+          {isCollapsed && (
+            <div className="w-full flex justify-center py-2 absolute left-0 right-0">
+               <Gavel className="w-6 h-6 text-primary" />
+            </div>
+          )}
         </div>
         
-        <SidebarNav />
+        <SidebarNav isCollapsed={isCollapsed} />
         
-        <div className="p-4 border-t border-primary/[0.06] flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-primary text-xs font-bold">
+        <div className={`p-4 border-t border-primary/10 flex items-center transition-all ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-primary text-xs font-bold shadow-sm">
             JP
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-secondary/90">Dr. Juan Paulo</span>
-            <span className="text-[10px] text-primary/50">Administrator</span>
-          </div>
+          {!isCollapsed && (
+            <div className="flex flex-col overflow-hidden whitespace-nowrap">
+              <span className="text-sm font-medium text-secondary/90 truncate">Dr. Juan Paulo</span>
+              <span className="text-[10px] text-primary/50">Administrator</span>
+            </div>
+          )}
         </div>
+
+        {/* Collapse Toggle Button */}
+        <button
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="absolute -right-3.5 top-20 w-7 h-7 rounded-full bg-surface border border-primary/20 text-secondary hover:text-primary hover:border-primary/40 flex items-center justify-center shadow-lg transition-colors z-50"
+          title={isCollapsed ? "Expandir Menu" : "Recolher Menu"}
+        >
+          {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden">
-        <header className="h-14 flex items-center justify-between px-8 border-b border-primary/[0.06] bg-surface/60 backdrop-blur-md z-10">
+      <main className="flex-1 flex flex-col h-full overflow-hidden relative">
+        <header className="h-14 flex items-center justify-between px-8 border-b border-primary/5 bg-background/80 backdrop-blur-md z-10">
             <div />
             <div className="flex items-center gap-4 text-xs">
                 <div className="bg-primary/[0.06] text-primary/80 px-3 py-1 rounded-full flex items-center gap-2">

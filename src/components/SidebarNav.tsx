@@ -40,7 +40,7 @@ const managementLinks: Array<{ href: string; icon: React.ReactNode; text: string
   { href: "/dashboard/settings/audit", icon: <ShieldCheck size={18} />, text: "Auditoria (LGPD)" },
 ];
 
-export default function SidebarNav() {
+export default function SidebarNav({ isCollapsed = false }: { isCollapsed?: boolean }) {
   const pathname = usePathname();
 
   const isActive = (href: string, exact?: boolean) => {
@@ -49,23 +49,31 @@ export default function SidebarNav() {
   };
 
   return (
-    <nav className="flex-1 overflow-y-auto py-4 space-y-0.5 px-3">
+    <nav className={`flex-1 overflow-y-auto py-4 space-y-0.5 ${isCollapsed ? 'px-2' : 'px-3'}`}>
       {mainLinks.map((link) => (
-        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} />
+        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} isCollapsed={isCollapsed} />
       ))}
 
-      <div className="mt-6 mb-2 px-3 text-[10px] font-semibold text-primary/40 uppercase tracking-widest">
-        Inteligência
-      </div>
+      {!isCollapsed ? (
+        <div className="mt-6 mb-2 px-3 text-[10px] font-semibold text-primary/40 uppercase tracking-widest transition-opacity duration-300">
+          Inteligência
+        </div>
+      ) : (
+        <div className="mt-6 mb-2 border-b border-primary/10 mx-2" />
+      )}
       {intelligenceLinks.map((link) => (
-        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} />
+        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} isCollapsed={isCollapsed} />
       ))}
 
-      <div className="mt-6 mb-2 px-3 text-[10px] font-semibold text-primary/40 uppercase tracking-widest">
-        Gestão
-      </div>
+      {!isCollapsed ? (
+        <div className="mt-6 mb-2 px-3 text-[10px] font-semibold text-primary/40 uppercase tracking-widest transition-opacity duration-300">
+          Gestão
+        </div>
+      ) : (
+        <div className="mt-6 mb-2 border-b border-primary/10 mx-2" />
+      )}
       {managementLinks.map((link) => (
-        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} />
+        <SidebarItem key={link.href} {...link} active={isActive(link.href, link.exact)} isCollapsed={isCollapsed} />
       ))}
     </nav>
   );
@@ -76,26 +84,30 @@ function SidebarItem({
   icon,
   text,
   active = false,
+  isCollapsed = false,
 }: {
   href: string;
   icon: React.ReactNode;
   text: string;
   active?: boolean;
   exact?: boolean;
+  isCollapsed?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm
+      title={isCollapsed ? text : undefined}
+      className={`flex items-center gap-3 py-2 rounded-lg transition-all duration-200 text-sm overflow-hidden
+        ${isCollapsed ? 'justify-center px-0 mx-auto w-10' : 'px-3'}
         ${active
           ? "bg-primary/[0.08] text-primary font-medium"
           : "text-secondary/60 hover:text-secondary/90 hover:bg-white/[0.02]"
         }`}
     >
-      <div className={`${active ? "text-primary" : "text-secondary/40"}`}>
+      <div className={`flex-shrink-0 ${active ? "text-primary" : "text-secondary/40"}`}>
         {icon}
       </div>
-      <span>{text}</span>
+      {!isCollapsed && <span className="truncate whitespace-nowrap">{text}</span>}
     </Link>
   );
 }
