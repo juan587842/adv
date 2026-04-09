@@ -6,6 +6,7 @@ import {
   AlertTriangle, CheckCircle2, XCircle, Edit3, Sparkles, Scale
 } from "lucide-react";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
 import { createClient } from "@/utils/supabase/client";
@@ -175,8 +176,8 @@ export default function CognitiveToolsPage() {
           
           {synthResult ? (
             <div className="flex-1 p-5 overflow-y-auto">
-              <div className="prose prose-sm prose-invert max-w-none text-secondary/80 text-sm leading-relaxed whitespace-pre-wrap">
-                {synthResult}
+              <div className="prose prose-sm prose-invert max-w-none text-secondary/80 text-sm leading-relaxed [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-secondary [&_h1]:mb-3 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-secondary/90 [&_h2]:mb-2 [&_h2]:mt-4 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-secondary/80 [&_h3]:mb-1.5 [&_p]:mb-2.5 [&_p]:text-secondary/70 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_li]:mb-1 [&_li]:text-secondary/70 [&_strong]:text-secondary/90 [&_strong]:font-semibold [&_blockquote]:border-l-2 [&_blockquote]:border-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-secondary/50">
+                <ReactMarkdown>{synthResult}</ReactMarkdown>
               </div>
               <div className="flex gap-2 mt-4 pt-4 border-t border-primary/5">
                 <button onClick={handleCopy} className="flex items-center gap-1.5 px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-medium hover:bg-primary/15 transition-colors">
@@ -263,8 +264,8 @@ export default function CognitiveToolsPage() {
               )}
               
               <div className="flex-1 p-5 overflow-y-auto">
-                <div className="prose prose-sm prose-invert max-w-none text-secondary/80 text-sm leading-relaxed whitespace-pre-wrap">
-                  {draftResult}
+                <div className="prose prose-sm prose-invert max-w-none text-secondary/80 text-sm leading-relaxed [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-secondary [&_h1]:mb-3 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-secondary/90 [&_h2]:mb-2 [&_h2]:mt-4 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-secondary/80 [&_h3]:mb-1.5 [&_p]:mb-2.5 [&_p]:text-secondary/70 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_li]:mb-1 [&_li]:text-secondary/70 [&_strong]:text-secondary/90 [&_strong]:font-semibold [&_blockquote]:border-l-2 [&_blockquote]:border-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-secondary/50">
+                  <ReactMarkdown>{draftResult}</ReactMarkdown>
                 </div>
               </div>
               <div className="flex gap-2 p-4 border-t border-primary/5 bg-background/20">

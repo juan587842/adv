@@ -16,8 +16,7 @@ export function RecentActivityZone() {
       return supabase
         .from('audit_logs')
         .select(`
-          id, action, created_at, entity_type,
-          users:user_id(full_name)
+          id, action, created_at, entity_type, user_id
         `)
         .eq('tenant_id', tenantId)
         .order('created_at', { ascending: false })
@@ -30,7 +29,7 @@ export function RecentActivityZone() {
     if (!rawLogs) return [];
     
     return rawLogs.map((log, index) => {
-      let actor = log.users?.full_name || "Sistema";
+      let actor = log.user_id ? "Usuário" : "Sistema";
       let isPrimary = actor !== "Sistema";
       
       let textClass = "";

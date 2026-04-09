@@ -31,7 +31,7 @@ Antes de iniciar os testes, confirme que:
 
 1. Acesse o menu **Inteligência** no painel lateral esquerdo
 2. Clique em **Ferramentas Cognitivas** (ícone ⚙️ com estrela)
-3. Role até a seção **"Produção Técnica de Minutas"**
+3. A tela terá duas divisões principais; foque na seção da direita: **"Co-Piloto de Redação"**
 4. Preencha os campos:
    - **Área do Direito:** `Consumidor`
    - **Tipo de Peça:** `Petição Inicial`
@@ -70,7 +70,7 @@ Antes de iniciar os testes, confirme que:
 ### Passo-a-passo:
 
 1. Na mesma página de **Ferramentas Cognitivas**
-2. Encontre a seção **"Análise e Síntese"**
+2. Encontre a seção da esquerda: **"Síntese Documental"**
 3. Cole o seguinte texto de exemplo no campo:
    ```
    Em 15/01/2026, o autor ajuizou ação trabalhista contra a empresa XYZ Ltda,
