@@ -41,6 +41,8 @@ export default function CognitiveToolsPage() {
   const [courtVara, setCourtVara] = useState("");
   const [courtComarca, setCourtComarca] = useState("");
   const [processNumber, setProcessNumber] = useState("");
+  const [lawyerName, setLawyerName] = useState("");
+  const [lawyerOab, setLawyerOab] = useState("");
 
   // Count existing drafts
   const { data: draftCount } = useSupabaseQuery<any[]>(
@@ -112,6 +114,10 @@ export default function CognitiveToolsPage() {
             vara: courtVara || undefined,
             comarca: courtComarca || undefined,
             process_number: processNumber || undefined,
+          },
+          lawyer: {
+            name: lawyerName || undefined,
+            oab: lawyerOab || undefined,
           }
         }
       });
@@ -378,6 +384,22 @@ export default function CognitiveToolsPage() {
                       <input 
                         type="text" value={processNumber} onChange={e => setProcessNumber(e.target.value)}
                         placeholder="0000000-00.0000.0.00.0000"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Advogado(a) Subscritor</label>
+                      <input 
+                        type="text" value={lawyerName} onChange={e => setLawyerName(e.target.value)}
+                        placeholder="Nome do advogado"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Nº da OAB</label>
+                      <input 
+                        type="text" value={lawyerOab} onChange={e => setLawyerOab(e.target.value)}
+                        placeholder="UF000000"
                         className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
                       />
                     </div>
