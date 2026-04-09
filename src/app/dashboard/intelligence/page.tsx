@@ -2,8 +2,36 @@
 
 import { BrainCircuit, Database, FileText, Zap, Settings, Activity, ShieldCheck, Cpu } from "lucide-react";
 import Link from "next/link";
+import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
+import { useTenantId } from "@/hooks/useTenantId";
 
 export default function IntelligenceDashboard() {
+  const { tenantId } = useTenantId();
+  const { data: stats } = useSupabaseQuery(
+    async (supabase) => {
+      if (!tenantId) return { data: { kbCount: 0, automationsCount: 0, hitlRate: 0 }, error: null };
+      
+      const p1 = supabase.from('knowledge_base').select('id', { count: 'exact', head: true }).eq('tenant_id', tenantId);
+      const p2 = supabase.from('ai_drafts').select('id', { count: 'exact', head: true }).eq('tenant_id', tenantId);
+      const p3 = supabase.from('ai_drafts').select('id', { count: 'exact', head: true }).eq('tenant_id', tenantId).eq('status', 'rejeitado');
+      
+      const [r1, r2, r3] = await Promise.all([p1, p2, p3]);
+      
+      const totalAutomations = r2.count || 0;
+      const hitlRate = totalAutomations > 0 && r3.count ? Math.round((r3.count / totalAutomations) * 100) : 0;
+
+      return { 
+        data: { 
+          kbCount: r1.count || 0, 
+          automationsCount: totalAutomations, 
+          hitlRate 
+        }, 
+        error: null 
+      };
+    },
+    [tenantId]
+  );
+
   return (
     <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
       {/* Header */}
@@ -29,21 +57,21 @@ export default function IntelligenceDashboard() {
         <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Database size={12} /> Base de Conhecimento</p>
           <div className="flex items-end gap-2">
-            <span className="text-2xl font-bold text-secondary/90">142</span>
+            <span className="text-2xl font-bold text-secondary/90">{stats?.kbCount !== undefined ? stats.kbCount : '...'}</span>
             <span className="text-xs text-secondary/40 font-medium mb-1">Documentos RAG</span>
           </div>
         </div>
         <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><Zap size={12} /> Automações Executadas</p>
           <div className="flex items-end gap-2">
-            <span className="text-2xl font-bold text-secondary/90">2.4k</span>
+            <span className="text-2xl font-bold text-secondary/90">{stats?.automationsCount !== undefined ? stats.automationsCount : '...'}</span>
             <span className="text-xs text-green-500 font-medium mb-1">Este mês</span>
           </div>
         </div>
         <div className="p-4 rounded-2xl bg-surface/60 backdrop-blur-md shadow-card border border-primary/[0.03]">
           <p className="text-[10px] text-secondary/40 font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><ShieldCheck size={12} /> HITL Intervenções</p>
           <div className="flex items-end gap-2">
-            <span className="text-2xl font-bold text-secondary/90">18%</span>
+            <span className="text-2xl font-bold text-secondary/90">{stats?.hitlRate !== undefined ? `${stats.hitlRate}%` : '...'}</span>
             <span className="text-xs text-yellow-500 font-medium mb-1">Transbordos</span>
           </div>
         </div>
@@ -71,7 +99,7 @@ export default function IntelligenceDashboard() {
                   <FileText size={16} className="text-secondary/40" />
                   <div>
                     <p className="text-sm font-medium text-secondary/80">Jurisprudência Interna</p>
-                    <p className="text-[10px] text-secondary/40">45 Petições validadas • pgvector HNSW</p>
+                    <p className="text-[10px] text-secondary/40">{stats?.kbCount || 0} Documentos ativos • pgvector HNSW</p>
                   </div>
                </div>
                <span className="text-xs font-semibold text-green-500 bg-green-500/10 px-2 py-1 rounded">Ativo</span>
