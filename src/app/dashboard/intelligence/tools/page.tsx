@@ -34,6 +34,14 @@ export default function CognitiveToolsPage() {
   const [copied, setCopied] = useState(false);
   const [savedDraftId, setSavedDraftId] = useState<string | null>(null);
 
+  // Case party / court fields
+  const [partyAutor, setPartyAutor] = useState("");
+  const [partyReu, setPartyReu] = useState("");
+  const [judgeName, setJudgeName] = useState("");
+  const [courtVara, setCourtVara] = useState("");
+  const [courtComarca, setCourtComarca] = useState("");
+  const [processNumber, setProcessNumber] = useState("");
+
   // Count existing drafts
   const { data: draftCount } = useSupabaseQuery<any[]>(
     async (supabase) => {
@@ -90,7 +98,22 @@ export default function CognitiveToolsPage() {
       
       // Call edge function for drafting — mask PII before sending (LGPD RNF02)
       const { data, error: invokeError } = await supabase.functions.invoke('document-tools', {
-        body: { mode: 'draft', piece_type: draftPiece, legal_area: draftArea, case_context: maskPII(draftContext) }
+        body: { 
+          mode: 'draft', 
+          piece_type: draftPiece, 
+          legal_area: draftArea, 
+          case_context: maskPII(draftContext),
+          parties: {
+            autor: partyAutor || undefined,
+            reu: partyReu || undefined,
+          },
+          court: {
+            judge: judgeName || undefined,
+            vara: courtVara || undefined,
+            comarca: courtComarca || undefined,
+            process_number: processNumber || undefined,
+          }
+        }
       });
 
       if (invokeError) throw invokeError;
@@ -305,13 +328,69 @@ export default function CognitiveToolsPage() {
                     </select>
                   </div>
                 </div>
+
+                {/* Dados Processuais */}
+                <div className="pt-2 border-t border-primary/5">
+                  <p className="text-[10px] font-bold text-secondary/40 uppercase tracking-widest mb-3">Dados Processuais (opcional)</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Autor (Requerente)</label>
+                      <input 
+                        type="text" value={partyAutor} onChange={e => setPartyAutor(e.target.value)}
+                        placeholder="Nome completo do autor"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Réu (Requerido)</label>
+                      <input 
+                        type="text" value={partyReu} onChange={e => setPartyReu(e.target.value)}
+                        placeholder="Nome completo do réu"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Juiz(a)</label>
+                      <input 
+                        type="text" value={judgeName} onChange={e => setJudgeName(e.target.value)}
+                        placeholder="Dr(a). Nome do juiz"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Vara</label>
+                      <input 
+                        type="text" value={courtVara} onChange={e => setCourtVara(e.target.value)}
+                        placeholder="Ex: 3ª Vara Cível"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Comarca</label>
+                      <input 
+                        type="text" value={courtComarca} onChange={e => setCourtComarca(e.target.value)}
+                        placeholder="Ex: São Paulo/SP"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-secondary/50 mb-1">Nº do Processo</label>
+                      <input 
+                        type="text" value={processNumber} onChange={e => setProcessNumber(e.target.value)}
+                        placeholder="0000000-00.0000.0.00.0000"
+                        className="w-full px-3 py-2 bg-background/50 rounded-lg text-sm text-secondary/90 placeholder:text-secondary/25 focus:outline-none focus:ring-1 focus:ring-purple-500/20 border border-primary/[0.05]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex-1">
                   <label className="block text-xs font-semibold text-secondary/60 uppercase tracking-wider mb-2">Contexto Factual do Caso</label>
                   <textarea 
                     value={draftContext}
                     onChange={(e) => setDraftContext(e.target.value)}
                     placeholder="Descreva os fatos do caso em linguagem natural. A IA usará o RAG da base de conhecimento e gerará a minuta fundamentada..."
-                    className="w-full min-h-[200px] p-4 bg-background/50 rounded-xl text-sm text-secondary/90 placeholder:text-secondary/25 resize-none focus:outline-none focus:ring-1 focus:ring-purple-500/30 border border-primary/[0.05]"
+                    className="w-full min-h-[140px] p-4 bg-background/50 rounded-xl text-sm text-secondary/90 placeholder:text-secondary/25 resize-none focus:outline-none focus:ring-1 focus:ring-purple-500/30 border border-primary/[0.05]"
                   />
                 </div>
               </div>
