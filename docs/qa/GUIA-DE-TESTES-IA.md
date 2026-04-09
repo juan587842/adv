@@ -44,7 +44,8 @@ Antes de iniciar os testes, confirme que:
      ```
    - **Autor (Requerente):** `João da Silva`
    - **Réu (Requerido):** `Magazine Luiza S/A`
-   - **Juiz(a), Vara, Comarca, Processo:** (Preencha dados fictícios de comarca/vara para testar o endereçamento)
+   - **Juízo Direcionado (Vara/Comarca):** `1ª Vara Cível da Comarca de São Paulo/SP`
+   - **Número do Processo:** `1234567-89.2026.8.26.0100`
    - **Advogado(a) Subscritor:** `Dra. Mariana Souza`
    - **Nº da OAB:** `SP123456`
 5. Clique em **"Gerar Minuta"**
