@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Calendar, PenTool, CheckCircle, XCircle, Search, Clock, FileKey, User, FileOutput, ShieldAlert, ArrowLeft, Copy, Trash2, Edit3, Save, X, Loader2 } from "lucide-react";
+import { FileText, Calendar, PenTool, CheckCircle, XCircle, Search, Clock, FileKey, User, FileOutput, ShieldAlert, ArrowLeft, Copy, Trash2, Edit3, Save, X, Loader2, Download } from "lucide-react";
 import { useSupabaseQuery } from "@/hooks/useSupabaseQuery";
 import { useTenantId } from "@/hooks/useTenantId";
 import { createClient } from "@/utils/supabase/client";
@@ -252,6 +252,14 @@ export default function DraftsPage() {
                     </button>
                     <button
                       onClick={() => {
+                        window.print();
+                      }}
+                      className="px-3 py-1.5 text-xs font-medium bg-background border border-primary/20 text-secondary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-2"
+                    >
+                      <Download size={14} /> Baixar PDF
+                    </button>
+                    <button
+                      onClick={() => {
                         navigator.clipboard.writeText(selectedDraft.content);
                       }}
                       className="px-3 py-1.5 text-xs font-medium bg-background border border-primary/20 text-secondary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-2"
@@ -282,7 +290,7 @@ export default function DraftsPage() {
             <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-card/30 flex justify-center">
               <div className="w-full max-w-4xl">
                 {!isEditing ? (
-                  <div className="bg-background rounded-xl p-6 md:p-10 shadow-sm border border-primary/10 prose prose-sm md:prose-base prose-invert prose-p:text-secondary/80 prose-headings:text-secondary/90 prose-strong:text-purple-400 prose-a:text-primary max-w-none">
+                  <div className="bg-background rounded-xl p-6 md:p-10 shadow-sm border border-primary/10 prose prose-sm md:prose-base prose-invert prose-p:text-secondary/80 prose-headings:text-secondary/90 prose-strong:text-purple-400 prose-a:text-primary max-w-none print-area">
                     <ReactMarkdown>{selectedDraft.content}</ReactMarkdown>
                   </div>
                 ) : (

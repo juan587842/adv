@@ -64,3 +64,47 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@media print {
+  /* Configuração da página A4 e margens */
+  @page {
+    margin: 20mm;
+    size: A4 portrait;
+  }
+
+  /* Forçar fundo branco e retirar a inversão do prose */
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .print-area {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+  }
+
+  /* Sobrescrevendo o prose-invert do tailwind para preto-no-branco */
+  .prose {
+    --tw-prose-body: #000;
+    --tw-prose-headings: #000;
+    --tw-prose-lead: #000;
+    --tw-prose-links: #000;
+    --tw-prose-bold: #000;
+    --tw-prose-counters: #000;
+    --tw-prose-bullets: #000;
+    --tw-prose-hr: #000;
+    --tw-prose-quotes: #000;
+    --tw-prose-quote-borders: #000;
+    --tw-prose-captions: #000;
+    --tw-prose-code: #000;
+    --tw-prose-pre-code: #000;
+    --tw-prose-pre-bg: #fff;
+    --tw-prose-th-borders: #000;
+    --tw-prose-td-borders: #000;
+  }
+}

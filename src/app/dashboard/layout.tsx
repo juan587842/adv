@@ -15,7 +15,7 @@ export default function DashboardLayout({
     <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar with enhanced contrast */}
       <aside 
-        className={`relative flex-shrink-0 flex flex-col bg-[#0c111c] border-r border-primary/[0.08] shadow-[4px_0_24px_-8px_rgba(0,0,0,0.5)] transition-all duration-300 z-20 ${
+        className={`relative flex-shrink-0 flex flex-col bg-[#0c111c] border-r border-primary/[0.08] shadow-[4px_0_24px_-8px_rgba(0,0,0,0.5)] transition-all duration-300 z-20 print:hidden ${
           isCollapsed ? 'w[72px] sm:w-[72px]' : 'w-64 sm:w-[280px]'
         }`}
       >
@@ -56,8 +56,8 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden relative">
-        <header className="h-14 flex items-center justify-between px-8 border-b border-primary/5 bg-background/80 backdrop-blur-md z-10">
+      <main className="flex-1 flex flex-col h-full overflow-hidden relative print:overflow-visible">
+        <header className="h-14 flex items-center justify-between px-8 border-b border-primary/5 bg-background/80 backdrop-blur-md z-10 print:hidden">
             <div />
             <div className="flex items-center gap-4 text-xs">
                 <div className="bg-primary/[0.06] text-primary/80 px-3 py-1 rounded-full flex items-center gap-2">

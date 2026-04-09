@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { 
   ArrowLeft, FileSearch, PenTool, Loader2, Copy, Check, 
-  AlertTriangle, CheckCircle2, XCircle, Edit3, Sparkles, Scale
+  AlertTriangle, CheckCircle2, XCircle, Edit3, Sparkles, Scale, Download
 } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -293,7 +293,7 @@ export default function CognitiveToolsPage() {
               )}
               
               <div className="flex-1 p-5 overflow-y-auto">
-                <div className="prose prose-sm prose-invert max-w-none text-secondary/80 text-sm leading-relaxed [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-secondary [&_h1]:mb-3 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-secondary/90 [&_h2]:mb-2 [&_h2]:mt-4 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-secondary/80 [&_h3]:mb-1.5 [&_p]:mb-2.5 [&_p]:text-secondary/70 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_li]:mb-1 [&_li]:text-secondary/70 [&_strong]:text-secondary/90 [&_strong]:font-semibold [&_blockquote]:border-l-2 [&_blockquote]:border-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-secondary/50">
+                <div className="prose prose-sm prose-invert max-w-none text-secondary/80 text-sm leading-relaxed [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-secondary [&_h1]:mb-3 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-secondary/90 [&_h2]:mb-2 [&_h2]:mt-4 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-secondary/80 [&_h3]:mb-1.5 [&_p]:mb-2.5 [&_p]:text-secondary/70 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_li]:mb-1 [&_li]:text-secondary/70 [&_strong]:text-secondary/90 [&_strong]:font-semibold [&_blockquote]:border-l-2 [&_blockquote]:border-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-secondary/50 print-area">
                   <ReactMarkdown>{draftResult}</ReactMarkdown>
                 </div>
               </div>
@@ -301,6 +301,10 @@ export default function CognitiveToolsPage() {
                 <button onClick={handleCopy} className="flex items-center gap-1.5 px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-medium hover:bg-primary/15 transition-colors">
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   {copied ? "Copiado!" : "Copiar Minuta"}
+                </button>
+                <button onClick={() => window.print()} className="flex items-center gap-1.5 px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-medium hover:bg-primary/15 transition-colors">
+                  <Download size={13} />
+                  Baixar PDF
                 </button>
                 <button onClick={() => { setDraftResult(""); setHitlDecision(null); setSavedDraftId(null); }} className="flex items-center gap-1.5 px-3 py-2 bg-surface text-secondary/50 rounded-lg text-xs font-medium hover:bg-background/50 transition-colors border border-primary/5">
                   Nova Minuta
