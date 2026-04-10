@@ -82,7 +82,12 @@ export default function CognitiveToolsPage() {
         metadata: { type: 'synthesis_input', processed_at: new Date().toISOString() }
       });
     } catch (err: any) {
-      setSynthResult(`❌ Erro ao processar: ${err.message}`);
+      console.error(err);
+      let errorMsg = err.message;
+      if (errorMsg?.includes('546') || (err?.context?.status === 546) || errorMsg?.includes('non-2xx')) {
+        errorMsg = "O serviço de IA demorou mais de 150 segundos para responder e atingiu o tempo limite. Isso pode ocorrer com documentos muito longos. Tente enviar partes menores do documento ou tente novamente.";
+      }
+      setSynthResult(`❌ Erro ao processar: ${errorMsg}`);
     } finally {
       setIsSynthesizing(false);
     }
@@ -145,7 +150,12 @@ export default function CognitiveToolsPage() {
       setSavedDraftId(savedDraft?.id || null);
       setDraftResult(draftContent);
     } catch (err: any) {
-      setDraftResult(`❌ Erro ao gerar minuta: ${err.message}`);
+      console.error(err);
+      let errorMsg = err.message;
+      if (errorMsg?.includes('546') || (err?.context?.status === 546) || errorMsg?.includes('non-2xx')) {
+        errorMsg = "O serviço de IA demorou mais de 150 segundos para responder e atingiu o tempo limite. Isso pode ocorrer com peças muito complexas ou se a nuvem estiver sobrecarregada. Tente com um contexto mais resumido ou tente novamente.";
+      }
+      setDraftResult(`❌ Erro ao gerar minuta: ${errorMsg}`);
       setHitlDecision(null);
     } finally {
       setIsDrafting(false);
