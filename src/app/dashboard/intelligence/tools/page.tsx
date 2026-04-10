@@ -184,9 +184,9 @@ export default function CognitiveToolsPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8 max-w-7xl mx-auto h-[calc(100vh-theme(spacing.16))] flex flex-col">
+    <div className="p-6 lg:p-8 max-w-7xl mx-auto h-[calc(100vh-theme(spacing.16))] flex flex-col print:block print:h-auto print:w-full print:max-w-none print:p-0">
       {/* Header */}
-      <div className="flex items-center gap-4 pb-6">
+      <div className="flex items-center gap-4 pb-6 print:hidden">
         <Link href="/dashboard/intelligence" className="p-2 hover:bg-surface rounded-lg text-secondary/40 hover:text-primary transition-colors">
           <ArrowLeft size={20} />
         </Link>
@@ -204,10 +204,10 @@ export default function CognitiveToolsPage() {
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 print:block print:w-full">
         
         {/* LEFT: Document Synthesis */}
-        <div className="flex flex-col bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden">
+        <div className="flex flex-col bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden print:hidden">
           <div className="p-5 border-b border-primary/5 bg-background/20 font-medium text-sm text-secondary/80 flex items-center gap-2">
             <FileSearch size={16} className="text-blue-500" />
             Síntese Documental
@@ -255,18 +255,18 @@ export default function CognitiveToolsPage() {
         </div>
 
         {/* RIGHT: Drafting Assistant */}
-        <div className="flex flex-col bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden">
-          <div className="p-5 border-b border-primary/5 bg-background/20 font-medium text-sm text-secondary/80 flex items-center gap-2">
+        <div className="flex flex-col bg-surface/60 backdrop-blur-md rounded-2xl shadow-card border border-primary/[0.03] overflow-hidden print:bg-transparent print:backdrop-blur-none print:shadow-none print:border-none">
+          <div className="p-5 border-b border-primary/5 bg-background/20 font-medium text-sm text-secondary/80 flex items-center gap-2 print:hidden">
             <PenTool size={16} className="text-purple-500" />
             Co-Piloto de Redação
             <span className="ml-auto text-[10px] bg-purple-500/10 text-purple-500 px-2 py-0.5 rounded font-bold uppercase">Drafting</span>
           </div>
 
           {draftResult ? (
-            <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 flex flex-col overflow-hidden print:overflow-visible print:h-auto print:block print:w-full">
               {/* HITL Decision Banner */}
               {hitlDecision === 'pending' && (
-                <div className="m-4 p-4 bg-yellow-500/[0.06] rounded-xl border border-yellow-500/[0.1]">
+                <div className="m-4 p-4 bg-yellow-500/[0.06] rounded-xl border border-yellow-500/[0.1] print:hidden">
                   <div className="flex items-start gap-2.5 mb-3">
                     <AlertTriangle size={16} className="text-yellow-500 flex-shrink-0 mt-0.5" />
                     <div>
@@ -291,20 +291,20 @@ export default function CognitiveToolsPage() {
                 </div>
               )}
               {hitlDecision === 'approved' && (
-                <div className="mx-4 mt-4 p-3 bg-green-500/[0.06] rounded-xl border border-green-500/[0.1] flex items-center gap-2">
+                <div className="mx-4 mt-4 p-3 bg-green-500/[0.06] rounded-xl border border-green-500/[0.1] flex items-center gap-2 print:hidden">
                   <CheckCircle2 size={14} className="text-green-500" />
                   <p className="text-xs text-green-400 font-medium">Minuta aprovada pelo advogado. Status atualizado na base (ai_drafts).</p>
                 </div>
               )}
               {hitlDecision === 'rejected' && (
-                <div className="mx-4 mt-4 p-3 bg-red-500/[0.06] rounded-xl border border-red-500/[0.1] flex items-center gap-2">
+                <div className="mx-4 mt-4 p-3 bg-red-500/[0.06] rounded-xl border border-red-500/[0.1] flex items-center gap-2 print:hidden">
                   <XCircle size={14} className="text-red-500" />
                   <p className="text-xs text-red-400 font-medium">Minuta rejeitada. Status atualizado na base (ai_drafts). Clique em &quot;Nova Minuta&quot; para regenerar.</p>
                 </div>
               )}
               
               {/* Word-style document viewer */}
-              <div className="flex-1 overflow-y-auto bg-[#e8eaed]">
+              <div className="flex-1 overflow-y-auto bg-[#e8eaed] print:overflow-visible print:bg-white print:w-full print:p-0">
                 {/* Simulated Toolbar Ribbon */}
                 <div className="sticky top-0 z-10 bg-[#f3f3f3] border-b border-[#d1d1d1] px-4 py-1.5 flex items-center gap-1 no-print">
                   <div className="flex items-center gap-0.5 border-r border-[#d1d1d1] pr-2 mr-2">
@@ -345,8 +345,8 @@ export default function CognitiveToolsPage() {
                 </div>
 
                 {/* A4 Paper */}
-                <div className="py-6 px-4 flex justify-center">
-                  <div className="w-[210mm] min-h-[297mm] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.12),_0_4px_12px_rgba(0,0,0,0.08)] print-area relative">
+                <div className="py-6 px-4 flex justify-center print:p-0 print:block">
+                  <div className="w-[210mm] min-h-[297mm] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.12),_0_4px_12px_rgba(0,0,0,0.08)] print:shadow-none print-area relative">
                     {/* Page header line */}
                     <div className="px-[30mm] pt-[15mm] pb-2 border-b border-gray-200 mb-0 print-header">
                       <div className="flex items-center justify-between">
@@ -380,7 +380,7 @@ export default function CognitiveToolsPage() {
               </div>
 
               {/* Action buttons bar */}
-              <div className="flex items-center gap-2 p-4 border-t border-primary/5 bg-background/30 backdrop-blur-sm">
+              <div className="flex items-center gap-2 p-4 border-t border-primary/5 bg-background/30 backdrop-blur-sm print:hidden">
                 <button onClick={handleCopy} className="flex items-center gap-1.5 px-4 py-2.5 bg-primary/10 text-primary rounded-lg text-xs font-semibold hover:bg-primary/20 transition-all hover:shadow-sm">
                   {copied ? <Check size={14} /> : <Copy size={14} />}
                   {copied ? "Copiado!" : "Copiar Texto"}

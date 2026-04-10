@@ -12,7 +12,7 @@ export default function DashboardLayout({
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden bg-background print:block print:h-auto print:overflow-visible print:bg-white">
       {/* Sidebar with enhanced contrast */}
       <aside 
         className={`relative flex-shrink-0 flex flex-col bg-[#0c111c] border-r border-primary/[0.08] shadow-[4px_0_24px_-8px_rgba(0,0,0,0.5)] transition-all duration-300 z-20 print:hidden ${
@@ -56,7 +56,7 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden relative print:overflow-visible">
+      <main className="flex-1 flex flex-col h-full overflow-hidden relative print:overflow-visible print:block print:h-auto print:flex-none">
         <header className="h-14 flex items-center justify-between px-8 border-b border-primary/5 bg-background/80 backdrop-blur-md z-10 print:hidden">
             <div />
             <div className="flex items-center gap-4 text-xs">
@@ -66,7 +66,7 @@ export default function DashboardLayout({
                 </div>
             </div>
         </header>
-        <div className="flex-1 overflow-y-auto p-6 lg:p-8">
+        <div className="flex-1 overflow-y-auto p-6 lg:p-8 print:p-0 print:overflow-visible print:block print:h-auto">
           {children}
         </div>
       </main>
