@@ -24,7 +24,6 @@ Deno.serve(async (req: Request) => {
     const body = await req.json();
     const mode = body.mode;
     
-    // Obtém URL do Ollama na VPS que foi setada nos secrets
     const openaiUrl = Deno.env.get("OPENAI_BASE_URL") || "https://projetos-ollama.fbnowr.easypanel.host/v1";
     const openaiKey = Deno.env.get("OPENAI_API_KEY") || "ollama";
 
@@ -60,14 +59,36 @@ Deno.serve(async (req: Request) => {
       const pieceType = body.piece_type || "Petição";
       const legalArea = body.legal_area || "Geral";
       const draftContext = body.case_context || "";
+      const parties = body.parties || {};
+      const court = body.court || {};
+      const lawyer = body.lawyer || {};
       
       const cleanContext = maskPII(draftContext);
 
-      const prompt = `Atue como um advogado especialista em direito ${legalArea}.
-Escreva uma primeira versão de ${pieceType} usando como base o seguinte contexto:
-${cleanContext}
+      let partyBlock = "";
+      if (parties.autor || parties.reu) {
+        partyBlock += "\nPARTES:";
+        if (parties.autor) partyBlock += ` Autor: ${parties.autor}.`;
+        if (parties.reu) partyBlock += ` Réu: ${parties.reu}.`;
+      }
 
-Use formatação Markdown. Crie as seções habituais da peça, deixando espaços [COMO ESTE] para os dados e qualificações precisas que o advogado preencherá.`;
+      let courtBlock = "";
+      if (court.judge || court.vara || court.comarca || court.process_number) {
+        courtBlock += "\nJUÍZO:";
+        if (court.vara) courtBlock += ` ${court.vara}`;
+        if (court.comarca) courtBlock += ` - ${court.comarca}`;
+        if (court.judge) courtBlock += ` - Juiz: ${court.judge}`;
+        if (court.process_number) courtBlock += ` - Proc. ${court.process_number}`;
+      }
+
+      let lawyerBlock = "";
+      if (lawyer.name || lawyer.oab) {
+        lawyerBlock += "\nADVOGADO:";
+        if (lawyer.name) lawyerBlock += ` ${lawyer.name}`;
+        if (lawyer.oab) lawyerBlock += ` - OAB ${lawyer.oab}`;
+      }
+
+      const prompt = `[SYSTEM] Você é um advogado sênior em ${legalArea}. Gere APENAS a peça jurídica em Markdown, sem comentários.\n\n[TAREFA] Redigir: ${pieceType}\n[CONTEXTO] ${cleanContext}${partyBlock}${courtBlock}${lawyerBlock}\n\n[FORMATO MARKDOWN]\n# TÍTULO DA PEÇA (centralizado, maiúsculo)\nEndereçamento ao juízo com **negrito** nos dados.\n## DOS FATOS\nParágrafos justificados com fundamentação.\n## DO DIREITO\nCitações legais com > blockquote. Artigos em **negrito**.\n## DOS PEDIDOS\n1. Lista ordenada de pedidos.\n---\nNestes termos, pede deferimento.\nLocal, data.\nAssinatura.\n\n[REGRAS]\n- Use dados fornecidos; para dados faltantes, use [PLACEHOLDER].\n- Separe seções com --- (hr).\n- Use > para citações jurisprudenciais.\n- Fundamente com artigos reais (CPC, CC, CLT, CDC, CF).\n- Saída: APENAS o documento Markdown puro.`;
 
       const res = await fetch(`${openaiUrl}/chat/completions`, {
         method: "POST",
