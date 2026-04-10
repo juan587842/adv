@@ -78,7 +78,28 @@ body {
     color: black !important;
   }
   
+  /* Esconder todos os elementos por padrão durante a impressão */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Resetar o controle de scroll para páginas longas funcionarem na impressão */
+  html, body, main, div, section {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    position: static !important;
+  }
+
+  /* Exibir apenas a área de impressão */
+  .print-area, .print-area * {
+    visibility: visible;
+  }
+  
   .print-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
