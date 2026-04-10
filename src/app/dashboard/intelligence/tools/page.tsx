@@ -13,6 +13,7 @@ import { createClient } from "@/utils/supabase/client";
 import { formatDateBR } from "@/utils/dateFormat";
 import { maskPII } from "@/utils/lgpdMask";
 import { CustomSelect } from "@/components/CustomSelect";
+import { generateLegalPdf } from "@/utils/pdfGenerator";
 
 const legalAreas = ["Trabalhista", "Consumidor", "Família", "Criminal", "Empresarial", "Imobiliário", "Tributário", "Previdenciário"];
 const pieceTypes = ["Petição Inicial", "Contestação", "Recurso Ordinário", "Agravo de Instrumento", "Embargos de Declaração", "Mandado de Segurança", "Habeas Corpus", "Contrarrazões"];
@@ -385,7 +386,15 @@ export default function CognitiveToolsPage() {
                   {copied ? <Check size={14} /> : <Copy size={14} />}
                   {copied ? "Copiado!" : "Copiar Texto"}
                 </button>
-                <button onClick={() => window.print()} className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-500 transition-all shadow-sm hover:shadow-md">
+                <button 
+                  onClick={() => generateLegalPdf(draftResult, {
+                    pieceType: draftPiece,
+                    legalArea: draftArea,
+                    lawyerName: lawyerName || undefined,
+                    lawyerOab: lawyerOab || undefined,
+                  })}
+                  className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-500 transition-all shadow-sm hover:shadow-md"
+                >
                   <Download size={14} />
                   Exportar PDF
                 </button>
