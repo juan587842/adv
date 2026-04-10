@@ -65,37 +65,77 @@ body {
   scrollbar-width: none;
 }
 
+/* ==============================
+   Legal Document Viewer Styles
+   ============================== */
+
+/* First-line indent reset for headings, lists, blockquotes etc inside legal doc */
+.legal-doc-content h1 + p,
+.legal-doc-content h2 + p,
+.legal-doc-content h3 + p {
+  text-indent: 0;
+}
+
+.legal-doc-content li > p {
+  text-indent: 0;
+  margin-bottom: 0.25em;
+}
+
+.legal-doc-content blockquote p {
+  text-indent: 0;
+}
+
+/* ==============================
+   Print Stylesheet — PDF Export
+   ============================== */
+
 @media print {
-  /* Configuração da página A4 e margens */
   @page {
-    margin: 20mm;
+    margin: 20mm 25mm;
     size: A4 portrait;
   }
 
-  /* Forçar fundo branco e retirar a inversão do prose */
-  body {
-    background-color: white !important;
+  /* Reset everything to white on black text */
+  html, body {
+    background: white !important;
     color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
-  
-  /* Esconder todos os elementos por padrão durante a impressão */
+
+  /* Hide ALL elements by default */
   body * {
     visibility: hidden;
   }
-  
-  /* Resetar o controle de scroll para páginas longas funcionarem na impressão */
-  html, body, main, div, section {
+
+  /* Reset layout restrictions from the SPA shell */
+  html, body, main, div, section, article {
     overflow: visible !important;
     height: auto !important;
     max-height: none !important;
     position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    flex: none !important;
+    display: block !important;
   }
 
-  /* Exibir apenas a área de impressão */
-  .print-area, .print-area * {
+  /* Hide non-print elements */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reveal ONLY the print area and its children */
+  .print-area,
+  .print-area *,
+  .print-header,
+  .print-header *,
+  .print-footer,
+  .print-footer * {
     visibility: visible;
   }
-  
+
   .print-area {
     position: absolute !important;
     left: 0 !important;
@@ -107,9 +147,87 @@ body {
     box-shadow: none !important;
     border: none !important;
     background: white !important;
+    min-height: auto !important;
   }
 
-  /* Sobrescrevendo o prose-invert do tailwind para preto-no-branco */
+  /* Legal doc content — enforce clean print typography */
+  .legal-doc-content {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 12pt !important;
+    line-height: 2 !important;
+    color: #000 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .legal-doc-content h1 {
+    font-size: 14pt !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+
+  .legal-doc-content h2 {
+    font-size: 13pt !important;
+    text-transform: uppercase !important;
+    color: #000 !important;
+    border-bottom: 1px solid #ccc !important;
+    padding-bottom: 2pt !important;
+    page-break-after: avoid;
+    margin-top: 24pt !important;
+  }
+
+  .legal-doc-content h3 {
+    font-size: 12pt !important;
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+
+  .legal-doc-content p {
+    text-align: justify !important;
+    text-indent: 2em !important;
+    color: #000 !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .legal-doc-content blockquote {
+    border-left: 2px solid #666 !important;
+    padding-left: 12pt !important;
+    margin-left: 2em !important;
+    font-style: italic !important;
+    color: #333 !important;
+    background: none !important;
+  }
+
+  .legal-doc-content hr {
+    border: none !important;
+    border-top: 1px solid #999 !important;
+    margin: 20pt 0 !important;
+  }
+
+  .legal-doc-content strong {
+    color: #000 !important;
+  }
+
+  /* Page header/footer printing */
+  .print-header {
+    border-bottom: 1px solid #ddd !important;
+  }
+  
+  .print-footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    border-top: 1px solid #ddd !important;
+    padding: 8pt 25mm !important;
+    background: white !important;
+  }
+
+  /* Override Tailwind prose for clean B&W print */
   .prose {
     --tw-prose-body: #000;
     --tw-prose-headings: #000;
@@ -118,9 +236,9 @@ body {
     --tw-prose-bold: #000;
     --tw-prose-counters: #000;
     --tw-prose-bullets: #000;
-    --tw-prose-hr: #000;
-    --tw-prose-quotes: #000;
-    --tw-prose-quote-borders: #000;
+    --tw-prose-hr: #999;
+    --tw-prose-quotes: #333;
+    --tw-prose-quote-borders: #666;
     --tw-prose-captions: #000;
     --tw-prose-code: #000;
     --tw-prose-pre-code: #000;

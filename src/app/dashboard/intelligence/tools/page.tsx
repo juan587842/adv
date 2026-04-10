@@ -303,23 +303,95 @@ export default function CognitiveToolsPage() {
                 </div>
               )}
               
-              <div className="flex-1 p-5 overflow-y-auto bg-[#1a2236]">
-                <div className="max-w-[210mm] mx-auto bg-white rounded-sm shadow-[0_2px_20px_rgba(0,0,0,0.4)] print-area">
-                  <div className="px-[60px] py-[50px] prose prose-sm max-w-none text-gray-800 text-[13px] leading-[1.8] font-['Times_New_Roman',_serif] [&_h1]:text-[18px] [&_h1]:font-bold [&_h1]:text-gray-900 [&_h1]:mb-4 [&_h1]:text-center [&_h1]:uppercase [&_h1]:tracking-wide [&_h2]:text-[15px] [&_h2]:font-bold [&_h2]:text-gray-800 [&_h2]:mb-2 [&_h2]:mt-5 [&_h2]:uppercase [&_h3]:text-[14px] [&_h3]:font-semibold [&_h3]:text-gray-700 [&_h3]:mb-1.5 [&_p]:mb-3 [&_p]:text-gray-700 [&_p]:text-justify [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-3 [&_ol]:list-[upper-roman] [&_ol]:pl-6 [&_ol]:mb-3 [&_li]:mb-1 [&_li]:text-gray-700 [&_strong]:text-gray-900 [&_strong]:font-bold [&_blockquote]:border-l-[3px] [&_blockquote]:border-gray-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500 [&_hr]:border-gray-300 [&_hr]:my-5">
-                    <ReactMarkdown>{draftResult}</ReactMarkdown>
+              {/* Word-style document viewer */}
+              <div className="flex-1 overflow-y-auto bg-[#e8eaed]">
+                {/* Simulated Toolbar Ribbon */}
+                <div className="sticky top-0 z-10 bg-[#f3f3f3] border-b border-[#d1d1d1] px-4 py-1.5 flex items-center gap-1 no-print">
+                  <div className="flex items-center gap-0.5 border-r border-[#d1d1d1] pr-2 mr-2">
+                    <button className="p-1.5 hover:bg-[#e0e0e0] rounded text-[#444]" title="Negrito"><span className="text-xs font-bold">B</span></button>
+                    <button className="p-1.5 hover:bg-[#e0e0e0] rounded text-[#444]" title="Itálico"><span className="text-xs italic">I</span></button>
+                    <button className="p-1.5 hover:bg-[#e0e0e0] rounded text-[#444]" title="Sublinhado"><span className="text-xs underline">U</span></button>
+                  </div>
+                  <div className="flex items-center gap-0.5 border-r border-[#d1d1d1] pr-2 mr-2">
+                    <span className="text-[10px] text-[#555] bg-white border border-[#c8c8c8] rounded px-2 py-0.5 min-w-[100px]">Times New Roman</span>
+                    <span className="text-[10px] text-[#555] bg-white border border-[#c8c8c8] rounded px-2 py-0.5 min-w-[30px] text-center">12</span>
+                  </div>
+                  <div className="flex items-center gap-0.5">
+                    <button className="p-1.5 hover:bg-[#e0e0e0] rounded text-[#444]" title="Alinhar à esquerda"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="0" y="1" width="12" height="1.5" rx="0.5"/><rect x="0" y="4.5" width="8" height="1.5" rx="0.5"/><rect x="0" y="8" width="12" height="1.5" rx="0.5"/></svg></button>
+                    <button className="p-1.5 bg-[#dbeafe] rounded text-[#2563eb]" title="Justificar"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="0" y="1" width="12" height="1.5" rx="0.5"/><rect x="0" y="4.5" width="12" height="1.5" rx="0.5"/><rect x="0" y="8" width="12" height="1.5" rx="0.5"/></svg></button>
+                  </div>
+                  <div className="ml-auto flex items-center gap-1.5 text-[10px] text-[#777]">
+                    <span className="bg-white border border-[#d1d1d1] rounded px-2 py-0.5">Página 1</span>
+                    <span>•</span>
+                    <span>{draftResult.split(/\s+/).length} palavras</span>
+                  </div>
+                </div>
+
+                {/* Ruler bar */}
+                <div className="sticky top-[36px] z-10 bg-[#f8f8f8] border-b border-[#d8d8d8] h-5 flex items-center justify-center no-print">
+                  <div className="max-w-[210mm] w-full relative">
+                    <div className="flex justify-between px-1">
+                      {Array.from({ length: 22 }, (_, i) => (
+                        <div key={i} className="flex flex-col items-center">
+                          <div className={`h-${i % 2 === 0 ? '2' : '1'} w-px bg-[#999]`}></div>
+                          {i % 2 === 0 && <span className="text-[7px] text-[#999] mt-px">{i / 2}</span>}
+                        </div>
+                      ))}
+                    </div>
+                    {/* Margin indicators */}
+                    <div className="absolute top-0 left-[30mm] h-full w-px bg-blue-400/30"></div>
+                    <div className="absolute top-0 right-[30mm] h-full w-px bg-blue-400/30"></div>
+                  </div>
+                </div>
+
+                {/* A4 Paper */}
+                <div className="py-6 px-4 flex justify-center">
+                  <div className="w-[210mm] min-h-[297mm] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.12),_0_4px_12px_rgba(0,0,0,0.08)] print-area relative">
+                    {/* Page header line */}
+                    <div className="px-[30mm] pt-[15mm] pb-2 border-b border-gray-200 mb-0 print-header">
+                      <div className="flex items-center justify-between">
+                        <div className="text-[9px] text-gray-400 font-['Times_New_Roman',_serif] tracking-wider uppercase">
+                          {draftPiece} — {draftArea}
+                        </div>
+                        <div className="text-[9px] text-gray-400 font-['Times_New_Roman',_serif]">
+                          Juris AI • Gerado em {new Date().toLocaleDateString('pt-BR')}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Document content */}
+                    <div className="legal-doc-content px-[30mm] py-[10mm] prose prose-sm max-w-none text-[#1a1a1a] text-[12pt] leading-[2] font-['Times_New_Roman',_'Times',_serif] [&_h1]:text-[14pt] [&_h1]:font-bold [&_h1]:text-[#111] [&_h1]:mb-6 [&_h1]:mt-4 [&_h1]:text-center [&_h1]:uppercase [&_h1]:tracking-[0.15em] [&_h1]:leading-tight [&_h2]:text-[13pt] [&_h2]:font-bold [&_h2]:text-[#222] [&_h2]:mb-3 [&_h2]:mt-8 [&_h2]:uppercase [&_h2]:tracking-wide [&_h2]:border-b [&_h2]:border-gray-300 [&_h2]:pb-1 [&_h3]:text-[12pt] [&_h3]:font-semibold [&_h3]:text-[#333] [&_h3]:mb-2 [&_h3]:mt-5 [&_p]:mb-4 [&_p]:text-[#1a1a1a] [&_p]:text-justify [&_p]:indent-[2em] [&_ul]:list-disc [&_ul]:pl-8 [&_ul]:mb-4 [&_ul]:mt-2 [&_ol]:list-decimal [&_ol]:pl-8 [&_ol]:mb-4 [&_ol]:mt-2 [&_li]:mb-2 [&_li]:text-[#1a1a1a] [&_li]:leading-[1.8] [&_strong]:text-[#000] [&_strong]:font-bold [&_blockquote]:border-l-[3px] [&_blockquote]:border-[#8b7355] [&_blockquote]:pl-5 [&_blockquote]:pr-4 [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:bg-[#faf8f5] [&_blockquote]:italic [&_blockquote]:text-[11pt] [&_blockquote]:text-[#444] [&_blockquote]:rounded-r [&_hr]:border-0 [&_hr]:h-px [&_hr]:bg-gradient-to-r [&_hr]:from-transparent [&_hr]:via-gray-400 [&_hr]:to-transparent [&_hr]:my-8">
+                      <ReactMarkdown>{draftResult}</ReactMarkdown>
+                    </div>
+
+                    {/* Page footer */}
+                    <div className="absolute bottom-0 left-0 right-0 px-[30mm] pb-[12mm] pt-2 border-t border-gray-200 print-footer">
+                      <div className="flex items-center justify-between">
+                        <div className="text-[8px] text-gray-400 font-['Times_New_Roman',_serif]">
+                          Documento gerado por assistência de IA — sujeito à revisão profissional (OAB Prov. 222/2023)
+                        </div>
+                        <div className="text-[9px] text-gray-500 font-['Times_New_Roman',_serif] font-medium">
+                          — 1 —
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 p-4 border-t border-primary/5 bg-background/20">
-                <button onClick={handleCopy} className="flex items-center gap-1.5 px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-medium hover:bg-primary/15 transition-colors">
-                  {copied ? <Check size={13} /> : <Copy size={13} />}
-                  {copied ? "Copiado!" : "Copiar Minuta"}
+
+              {/* Action buttons bar */}
+              <div className="flex items-center gap-2 p-4 border-t border-primary/5 bg-background/30 backdrop-blur-sm">
+                <button onClick={handleCopy} className="flex items-center gap-1.5 px-4 py-2.5 bg-primary/10 text-primary rounded-lg text-xs font-semibold hover:bg-primary/20 transition-all hover:shadow-sm">
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  {copied ? "Copiado!" : "Copiar Texto"}
                 </button>
-                <button onClick={() => window.print()} className="flex items-center gap-1.5 px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-medium hover:bg-primary/15 transition-colors">
-                  <Download size={13} />
-                  Baixar PDF
+                <button onClick={() => window.print()} className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-500 transition-all shadow-sm hover:shadow-md">
+                  <Download size={14} />
+                  Exportar PDF
                 </button>
-                <button onClick={() => { setDraftResult(""); setHitlDecision(null); setSavedDraftId(null); }} className="flex items-center gap-1.5 px-3 py-2 bg-surface text-secondary/50 rounded-lg text-xs font-medium hover:bg-background/50 transition-colors border border-primary/5">
+                <div className="flex-1" />
+                <button onClick={() => { setDraftResult(""); setHitlDecision(null); setSavedDraftId(null); }} className="flex items-center gap-1.5 px-4 py-2.5 bg-surface text-secondary/50 rounded-lg text-xs font-medium hover:bg-background/50 transition-colors border border-primary/5">
+                  <Sparkles size={14} />
                   Nova Minuta
                 </button>
               </div>
